@@ -1,0 +1,28 @@
+"Nøgletalstabel for energiforbrug og -produktion efter enhed, tid,"
+"kommunegruppe og indikator"
+
+" ";" ";" ";"Husholdningernes energiforbrug ekskl. individuel transport";"Husholdningernes energiforbrug til individuel transport";"Bruttoenergiforbrug af brancher og husholdninger";"Produktion af primær energi"
+"MJ (megajoule) pr. indbygger"
+" ";"2020"
+" ";" ";"Hele landet";31074;12735;190157;70432
+" ";" ";"Hele landet, ekskl. ikke fordelt til kommuner";31074;12735;105414;33986
+" ";" ";"Hovedstadskommuner";24010;8079;71409;9094
+" ";" ";"Storbykommuner";25134;10298;106357;13818
+" ";" ";"Provinsbykommuner";31387;14099;110236;32936
+" ";" ";"Oplandskommuner";36531;16291;109887;37668
+" ";" ";"Landkommuner";39926;16322;142296;79543
+" ";" ";"Ikke fordelt til kommuner";0;0;84743;36446
+
+"Bruttoenergiforbrug af brancher og husholdninger: 'Ikke fordelt til "
+"kommuner' omfatter energiforbrug til jernbaner, skibsfart og "
+"luftfart, diesel tanket af dansk opererede køretøjer i udlandet, og "
+"naturgasforbrug på boreplatforme. Produktion af primær energi: "
+"Omfatter dansk produktion af råolie, naturgas, vedvarende energi "
+"(herunder bionedbrydeligt affald) og ikke-bionedbrydeligt affald. "
+"'Ikke fordelt til kommuner' omfatter indvinding af råolie og naturgas "
+"og produktion af el i havvindmølleparker, der ikke anses for at være "
+"kystnære (mere end 20 km afstand fra kysten). Her kan du læse om "
+"hvilke kommuner som indgår i de fem kommunegrupper: "
+"https://www.dst.dk/da/Statistik/dokumentation/nomenklaturer/kommunegr-"
+"upper "
+
