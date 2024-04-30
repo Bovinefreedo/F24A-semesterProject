@@ -1,0 +1,35 @@
+"Andel af befolkningen med adgang til offentlig transport efter"
+"serviceniveau, kommunegruppe og tid"
+
+" "," ","2019","2023"
+"Meget højt serviceniveau"
+" ","Hovedstadskommuner",20.8,18.7
+" ","Storbykommuner",5.1,8.1
+" ","Provinsbykommuner",2.7,3.2
+" ","Oplandskommuner",2.9,3.0
+" ","Landkommuner",1.3,1.4
+"Højt serviceniveau"
+" ","Hovedstadskommuner",47.4,48.6
+" ","Storbykommuner",47.5,43.3
+" ","Provinsbykommuner",28.9,28.0
+" ","Oplandskommuner",9.6,10.0
+" ","Landkommuner",8.0,8.3
+"Middel serviceniveau"
+" ","Hovedstadskommuner",15.5,15.0
+" ","Storbykommuner",20.8,21.8
+" ","Provinsbykommuner",23.3,23.8
+" ","Oplandskommuner",21.9,22.2
+" ","Landkommuner",21.2,21.1
+"Lavt serviceniveau"
+" ","Hovedstadskommuner",5.3,5.9
+" ","Storbykommuner",10.8,9.6
+" ","Provinsbykommuner",23.2,22.7
+" ","Oplandskommuner",32.6,33.4
+" ","Landkommuner",37.0,36.9
+"Intet serviceniveau"
+" ","Hovedstadskommuner",10.5,11.5
+" ","Storbykommuner",15.2,16.8
+" ","Provinsbykommuner",21.4,22.1
+" ","Oplandskommuner",32.4,31.2
+" ","Landkommuner",32.2,32.2
+
