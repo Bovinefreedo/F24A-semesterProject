@@ -9,11 +9,11 @@ const pool = new Pool({
   },
 });
 
-const insertFood = (request, response) => {
-    const { FoodCategory, FoodItem, per100grams, Cals_per100grams, KJ_per100grams } = request.body;
+const insertDPTWH = (request, response) => {
+    const { entity, year, deathsPrTWH } = request.body;
     pool.query(
       `INSERT INTO deathsPrTWH (entity,year,deathsPrTWH) VALUES ($1, $2, $3)`,
-      [FoodCategory, FoodItem, per100grams, Cals_per100grams, KJ_per100grams],
+      [entity, year, deathsPrTWH],
       (error, results) => {
         if (error) {
           throw error;
@@ -24,8 +24,8 @@ const insertFood = (request, response) => {
   }
   
   
-  //route for /populateFoods
-  const populateFoods = (request, response) => {
+  //route for /populateDPTWH
+  const populateDPTWH = (request, response) => {
     const caldata = "/data/death-rates-from-energy-production-per-twh.csv"; 
     const options = {
         delimiter: ','
@@ -54,4 +54,10 @@ const insertFood = (request, response) => {
         response.status(201).send('all rows added');
     })
   }
+
+  module.exports = { 
+    insertDPTWH,
+    populateDPTWH,
+  };
+  
   
