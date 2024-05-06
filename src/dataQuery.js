@@ -26,13 +26,13 @@ const insertDPTWH = (request, response) => {
   
   //route for /populateDPTWH
   const populateDPTWH = (request, response) => {
-    const caldata = "/data/death-rates-from-energy-production-per-twh.csv"; 
+    const caldata = "./data/death-rates-from-energy-production-per-twh.csv"; 
     const options = {
         delimiter: ','
       };
 
     csvtojson().fromFile(caldata, options).then(source => {
-        //Fetching the data from each row
+        //Fetching the data from each row 
         //and inserting to the table food_tmp
         for (let i = 0; i < source.length; i++) {
           
@@ -40,7 +40,7 @@ const insertDPTWH = (request, response) => {
           let Code = source[i]["Code"];
           let Year = source[i]["Year"];
           let DeathsPrTWH = source[i]["DeathsPrTWH"];
-          let insertStatement = `INSERT INTO deathsPrTWH_temp (entity,year,deathsPrTWH) VALUES ($1, $2, $3)`;
+          let insertStatement = `INSERT INTO deathsPrTWH_tmp (entity,year,deathsPrTWH) VALUES ($1, $2, $3)`;
           let items = [Entity, Year, DeathsPrTWH];
     
             //Inserting data of current row into database

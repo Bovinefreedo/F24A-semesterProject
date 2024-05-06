@@ -5,5 +5,5 @@ Temporary table on Neon.Tech
 CREATE TABLE deathsPrTWH_tmp (
   entity VARCHAR,
   year VARCHAR,
-  deadsPrTWH VARCHAR
+  deathsPrTWH VARCHAR
   );
