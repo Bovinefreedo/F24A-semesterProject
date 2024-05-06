@@ -91,7 +91,7 @@ const insertDPTWH = (request, response) => {
           let coal = source[i]["Coal consumption - TWh"];
           let oil = source[i]["Oil consumption - TWh"];
           let unit = "Twh";
-          let insertStatement = `INSERT INTO consumptionCountry_tmp (Entity,Code,year,otherRenewables,biofuels,solar,wind,hydro,nuclear,gas,coal,oil) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`;
+          let insertStatement = `INSERT INTO consumptionCountry_tmp (entity,year,otherRenewables,biofuels,solar,wind,hydro,nuclear,gas,coal,oil) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
           let items = [Entity, Year, otherRenewables, biofuels, solar,wind, hydro, nuclear, gas, coal, oil, unit];
     
             //Inserting data of current row into database
