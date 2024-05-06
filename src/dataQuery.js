@@ -106,11 +106,56 @@ const insertDPTWH = (request, response) => {
     })
   }
 
+
+  const insertPopGrowth = (request, response) => {
+    const { Country,Year,Population } = request.body;
+    pool.query(
+      `INSERT INTO popGrowth_temp (Country,Year,Population) VALUES ($1, $2, $3)`,
+      [Country,Year,Population],
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
+        response.status(201).send(`Food added`);
+      }
+    );
+  }
+  
+  
+  //route for /populateDPTWH
+  const populatePopGrowth = (request, response) => {
+    const caldata = "./data/population-and-demography.csv"; 
+    const options = {
+        delimiter: ','
+      };
+    csvtojson().fromFile(caldata, options).then(source => {
+        //Fetching the data from each row 
+        //and inserting to the table food_tmp
+        for (let i = 0; i < source.length; i++) {
+          let country = source[i]["Country name"];
+          let year = source[i]["Year"];
+          let population = source[i]["PopulationPopulation"];
+          let insertStatement = `INSERT INTO popGrowth_temp (Country,Year,Population) VALUES ($1, $2, $3)`;
+          let items = [country, year, population];    
+            //Inserting data of current row into database
+            pool.query(insertStatement, items, (err, results, fields) => {
+                if (err) {
+                    console.log("Unable to insert item at row " + i+1);
+                    return console.log(err);
+                }
+            });
+        }
+        response.status(201).send('all rows added');
+    })
+  }
+
   module.exports = { 
     insertDPTWH,
     insertConsumptionCountry,
+    insertPopGrowth,
     populateDPTWH,
-    populateConsumptionCountry
+    populateConsumptionCountry,
+    populatePopGrowth
   };
   
   

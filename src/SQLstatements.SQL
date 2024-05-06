@@ -23,5 +23,6 @@ CREATE TABLE consumptionCountry_tmp (
   nuclear VARCHAR,
   gas VARCHAR,
   coal VARCHAR,
-  oil VARCHAR
+  oil VARCHAR,
+  unit VARCHAR
   )

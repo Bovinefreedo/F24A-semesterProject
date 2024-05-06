@@ -21,6 +21,8 @@ app.post("/inserDPTWH", db.insertDPTWH);
 app.post("/insertConsumptionCountry", db.insertConsumptionCountry);
 app.post("/populateDPTWH", db.populateDPTWH);
 app.post("/populateConsumptionCountry", db.populateConsumptionCountry);
+app.post("/populatePopGrowth",db.populatePopGrowth);
+app.post("/insertPopGrowth", db.insertPopGrowth);
 
 
 app.listen(port, () => {
