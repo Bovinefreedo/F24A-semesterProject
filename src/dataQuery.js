@@ -12,7 +12,7 @@ const pool = new Pool({
 const insertDPTWH = (request, response) => {
     const { entity, year, deathsPrTWH } = request.body;
     pool.query(
-      `INSERT INTO deathsPrTWH (entity,year,deathsPrTWH) VALUES ($1, $2, $3)`,
+      `INSERT INTO deathsPrTWH_temp (entity,year,deathsPrTWH) VALUES ($1, $2, $3)`,
       [entity, year, deathsPrTWH],
       (error, results) => {
         if (error) {
@@ -40,7 +40,7 @@ const insertDPTWH = (request, response) => {
           let Code = source[i]["Code"];
           let Year = source[i]["Year"];
           let DeathsPrTWH = source[i]["DeathsPrTWH"];
-          let insertStatement = `INSERT INTO deathsPrTWH (entity,year,deathsPrTWH) VALUES ($1, $2, $3)`;
+          let insertStatement = `INSERT INTO deathsPrTWH_temp (entity,year,deathsPrTWH) VALUES ($1, $2, $3)`;
           let items = [Entity, Year, DeathsPrTWH];
     
             //Inserting data of current row into database
