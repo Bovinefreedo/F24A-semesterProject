@@ -18,7 +18,10 @@ app.get("/", (request, response) =>{
 });
 
 app.post("/inserDPTWH", db.insertDPTWH);
+app.post("/insertConsumptionCountry", db.insertConsumptionCountry);
 app.post("/populateDPTWH", db.populateDPTWH);
+app.post("/populateConsumptionCountry", db.populateConsumptionCountry);
+
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);
