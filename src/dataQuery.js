@@ -135,7 +135,7 @@ const insertDPTWH = (request, response) => {
           let country = source[i]["Country name"];
           let year = source[i]["Year"];
           let population = source[i]["PopulationPopulation"];
-          let insertStatement = `INSERT INTO popGrowth_temp (Country,Year,Population) VALUES ($1, $2, $3)`;
+          let insertStatement = `INSERT INTO popGrowth_tmp (country,year,population) VALUES ($1, $2, $3)`;
           let items = [country, year, population];    
             //Inserting data of current row into database
             pool.query(insertStatement, items, (err, results, fields) => {
