@@ -150,10 +150,10 @@ const insertDPTWH = (request, response) => {
   }
   
   const insertPopProjection = (request, response) => {
-    const { country, year,est, population } = request.body;
+    const { country, year, est, population } = request.body;
     pool.query(
-      `INSERT INTO popProj_tmp (country,year,estimate,poulation) VALUES ($1, $2, $3,$4)`,
-      [country, year,est, population],
+      `INSERT INTO popProj_tmp (country,year,estimate,poulation) VALUES ($1, $2, $3, $4)`,
+      [country, year, est, population],
       (error, results) => {
         if (error) {
           throw error;
@@ -172,19 +172,21 @@ const insertDPTWH = (request, response) => {
         //Fetching the data from each row 
         //and inserting to the table food_tmp
         for (let i = 0; i < source.length; i++) {
-          let country = source[i]['"Country or Area"'];
-          let year = source[i]['"Year(s)"'];
-          let est = source[i]['"Variant"'];
-          let population = source[i]['"Value"'];
-          let insertStatement = `INSERT INTO popProj_tmp (country,year,estimate,poulation) VALUES ($1, $2, $3,$4)`;
-          let items = [country, year,est, population];    
-            //Inserting data of current row into database
-            pool.query(insertStatement, items, (err, results, fields) => {
+            
+          if(source[i]["Variant"]=="Low"||source[i]["Variant"]=="Medium"||source[i]["Variant"]=="High")
+            {let country = source[i]["Country or Area"];
+            let year = source[i]["Year(s)"];
+            let est = source[i]["Variant"];
+            let population = source[i]["Value"];
+            let insertStatement = `INSERT INTO popProj_tmp (country,year,estimate,poulation) VALUES ($1, $2, $3, $4)`;
+            let items = [country, year, est, population];    
+              //Inserting data of current row into database
+              pool.query(insertStatement, items, (err, results, fields) => {
                 if (err) {
                     console.log("Unable to insert item at row " + i+1);
                     return console.log(err);
                 }
-            });
+            });}
         }
         response.status(201).send('all rows added');
     })
