@@ -5,6 +5,7 @@
 
 # .env file (holds password to database)
 *.env
+*.DS_store
 
 # User-specific files
 *.rsuser
