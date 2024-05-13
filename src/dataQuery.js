@@ -1,3 +1,4 @@
+import { countriesConsumption, countriesConsumption } from "contries";
 const { Pool } = require("pg");
 require("dotenv").config();
 const csvtojson = require("csvtojson");
@@ -192,15 +193,89 @@ const insertDPTWH = (request, response) => {
     })
   }
 
+    const insertCountry = (request, response) => {
+    const { countryName, countryID } = request.body;
+    pool.query(
+      `INSERT INTO country (countryName, countryID) VALUES ($1, $2)`,
+      [countryName, countryID],
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
+        response.status(201).send(`pop added`);
+      }
+    );
+  }
+  
+  const insertPopulation = (request, response) => {
+    const { countryID, year, population } = request.body;
+    pool.query(
+      `INSERT INTO populationCountry(countryID, year, population) VALUES($1, $2, $3);`,
+      [countryID, year, population],
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
+        response.status(201).send(`pop added`);
+      }
+    );
+  }
+
+  const populatePopulation = (request, response) => {
+    const popdata = "./data/population-and-demography.csv"; 
+    const options = {
+        delimiter: ','
+      };
+    csvtojson().fromFile(popdata, options).then(source => {
+        //Fetching the data from each row 
+        //and inserting to the table food_tmp
+        for (let i = 0; i < source.length; i++) {
+          let country = source[i]["Country name"];
+          let year = source[i]["Year"];
+          let population = source[i]["Population"];
+          for(let n=0; n<countriesPopulation.length; n++){
+            if(country==countriesPopulation[n]){
+              let insertCountry = `INSERT INTO country (countryName, countryID) VALUES ($1, $2)`;
+              let countryItems = [country, n];    
+              //Inserting data of current row into database
+              pool.query(insertStatement, items, (err, results, fields) => {
+                if (err) {
+                    console.log("Unable to insert item at row " + i+1);
+                    return console.log(err);
+                  }
+              });
+            }
+          }
+          for(let n=0; n<countriesPopulation.length; n++){
+            if(country==countriesPopulation[n]){
+              let insertCountry = `INSERT INTO populationCountry(countryID, year, population) VALUES($1, $2, $3)`;
+              let countryItems = [n, year, population];    
+              //Inserting data of current row into database
+              pool.query(insertStatement, items, (err, results, fields) => {
+                if (err) {
+                    console.log("Unable to insert item at row " + i+1);
+                    return console.log(err);
+                  }
+              });
+            }
+          }
+        }
+        response.status(201).send('all rows added');
+    })
+  }
+
   module.exports = { 
     insertDPTWH,
     insertConsumptionCountry,
     insertPopGrowth,
     insertPopProjection,
+    insertCountry,
+    insertPopulation,
     populateDPTWH,
     populateConsumptionCountry,
     populatePopGrowth,
-    populatePopProjection
+    populatePopProjection,
+    populatePopulation
     
   };
   
