@@ -25,6 +25,9 @@ app.post("/populateConsumptionCountry", db.populateConsumptionCountry);
 app.post("/populatePopGrowth",db.populatePopGrowth);
 app.post("/populatePopProjection", db.populatePopProjection);
 app.post("/insertPopProjection", db.insertPopProjection);
+app.post("/populatePopulation",db.populatePopulation);
+app.post("/insertCountry",db.insertCountry);
+app.post("/insertPopulation",db.insertPopulation);
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);
