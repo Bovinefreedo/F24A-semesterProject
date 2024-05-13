@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins";
+}
+
+body {
+    border: 1px solid color darkcyan
+}
+
+.container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    margin-left: 175px;
+    margin-right: 175px;
+}
+
+.start {
+    margin-left: 100px;
+    margin-top: 30px;
+    display: flex;
+    box-sizing: content-box;
+    position: absolute;
+}
+
+.one {
+    background-color: rgb(184, 184, 255);
+}
+
+.two {
+    background-color: rgb(215, 215, 255);
+}
+
+.three {
+    background-color: rgb(236, 236, 255);
+}
+
+.four {
+    background-color: rgb(254, 254, 255);
+}
+
+.quiz-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.option {
+    margin-bottom: 10px;
+}
+
+
+        /* Define the CSS styles for the treemap chart */
+        .node {
+            font: 10px sans-serif;
+        }
+        .node rect {
+            stroke: #fff;
+            fill-opacity: 0.5;
+        }
+        .node text {
+            pointer-events: none;
+        }

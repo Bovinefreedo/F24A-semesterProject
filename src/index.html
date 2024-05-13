@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Horizontal Scrolling Website</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="skabelon.css">
 </head>
+
 <body>
+    <header class="start">
+        <h1>Sustainability.</h1>
+    </header>
+    <div class="container">
+        <section class="one">
+            <div id="animated-chart"></div>
+            <div id="tooltip" class="tooltip"></div>
+        </section>
+
+        <section class="two">
+            <div class="quiz-container">
+                <div id="question">What is the capital of France?</div>
+                <div class="option"><input type="radio" name="answer" value="Paris"> Paris</div>
+                <div class="option"><input type="radio" name="answer" value="London"> London</div>
+                <div class="option"><input type="radio" name="answer" value="Berlin"> Berlin</div>
+                <div class="option"><input type="radio" name="answer" value="Rome"> Rome</div>
+                <button onclick="checkAnswer()">Submit Answer</button>
+                <div id="result"></div>
+                <button onclick="nextQuestion()" id="nextBtn" style="display: none;">Next Question</button>
+            </div>
+        </section>
+
+        <section class="three">
+            <h1>Third Page</h1>
+        </section>
+
+        <section class="four">
+            <h1>Web Dev</h1>
+        </section>
+    </div>
+
+    <!-- Include your script for other functionalities -->
+    <script src="Population.js"></script>
     <script src="script.js" type="module"></script>
 </body>
+
 </html>
