@@ -6,8 +6,50 @@
     font-family: "Poppins";
 }
 
-body {
-    border: 1px solid color darkcyan
+/* FUNDAMENTAL */
+
+.header {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 35px 180px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 35px;
+    color: rgb(34, 34, 34);
+    text-decoration: none;
+    font-weight: 1000;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: rgb(34, 34, 34);
+    font-weight: 450;
+    text-decoration: none;
+    margin-left: 35px;
+}
+
+.navbar a::before {
+    content: '';
+    position: absolute ;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: rgb(34, 34, 34);
+    transition: 0.4s;
+}
+
+.navbar a:hover::before {
+    width: 100%;
 }
 
 .container {
@@ -27,8 +69,7 @@ section {
 }
 
 .start {
-    margin-left: 100px;
-    margin-top: 30px;
+    margin-top: 300px;
     display: flex;
     box-sizing: content-box;
     position: absolute;
@@ -50,16 +91,54 @@ section {
     background-color: rgb(254, 254, 255);
 }
 
-.quiz-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
+/* SECTION 1 */
+
+.content {
+    margin-right: auto; /* Set right margin to auto to push it to the left */
+    margin-left: 0; /* Set left margin to 0 to ensure it's aligned to the left */
+    justify-content: center;
+    align-items: center;
+}
+
+.content h1 {
+    font-size: 50px;
+    color: #333;
+    width: 50%;
+    padding-top: 50px;
+    letter-spacing: -2px;
+    font-weight: 30000;
+}
+
+.content p {
+    font-size: 12px;
+    color: #555;
+    width: 30%;
+    margin-top: -25px; /* Adjust the margin-top to reduce the gap space */
+}
+
+.facts-box {
     border-radius: 5px;
+    width: 35%;
+    margin-top: 50px; /* Adjust the margin-top to reduce the gap space */
 }
-.option {
-    margin-bottom: 10px;
+
+.facts-box h3 {
+    font-size: 12px;
+    color: #333;
 }
+
+.facts-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.facts-box li {
+    font-size: 10px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
 
 
         /* Define the CSS styles for the treemap chart */
