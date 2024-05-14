@@ -7,78 +7,35 @@ const x = d3.scaleTime().range([0, width]);
 
 const y = d3.scaleLinear().range([height, 0]);
 
-const svg = d3.select("#animated-chart")
+const svg = d3.select("#without")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-const data = [
-    { date: new Date("1960"), value: 3031474234 },
-    { date: new Date("1961"), value: 3072421801 },
-    { date: new Date("1962"), value: 3126849612},
-    { date: new Date("1963"), value: 3193428894},
-    { date: new Date("1964"), value: 3260441925},
-    { date: new Date("1965"), value: 3328209022},
-    { date: new Date("1966"), value: 3398480280},
-    { date: new Date("1967"), value: 3468370526},
-    { date: new Date("1968"), value: 3540164023},
-    { date: new Date("1969"), value: 3614572835},
-    { date: new Date("1970"), value: 3690209960},
-    { date: new Date("1971"), value: 3767930001},
-    { date: new Date("1972"), value: 3843607574},
-    { date: new Date("1973"), value: 3920017410},
-    { date: new Date("1974"), value: 3995888368},
-    { date: new Date("1975"), value: 4070022249},
-    { date: new Date("1976"), value: 4143091942},
-    { date: new Date("1977"), value: 4215826364},
-    { date: new Date("1978"), value: 4289795862},
-    { date: new Date("1979"), value: 4365742277},
-    { date: new Date("1980"), value: 4442348279},
-    { date: new Date("1981"), value: 4520917350},
-    { date: new Date("1982"), value: 4602701335},
-    { date: new Date("1983"), value: 4684875627},
-    { date: new Date("1984"), value: 4766640881},
-    { date: new Date("1985"), value: 4850076923},
-    { date: new Date("1986"), value: 4936006502},
-    { date: new Date("1987"), value: 5024289346},
-    { date: new Date("1988"), value: 5113387878},
-    { date: new Date("1989"), value: 5202582534},
-    { date: new Date("1990"), value: 5293395467},
-    { date: new Date("1991"), value: 5382536929},
-    { date: new Date("1992"), value: 5470164577},
-    { date: new Date("1993"), value: 5556623321},
-    { date: new Date("1994"), value: 5642046034},
-    { date: new Date("1995"), value: 5726736488},
-    { date: new Date("1996"), value: 5811580202},
-    { date: new Date("1997"), value: 5896055962},
-    { date: new Date("1998"), value: 5979726559},
-    { date: new Date("1999"), value: 6062288850},
-    { date: new Date("2000"), value: 6144321462},
-    { date: new Date("2001"), value: 6226348086},
-    { date: new Date("2002"), value: 6308140970},
-    { date: new Date("2003"), value: 6389462496},
-    { date: new Date("2004"), value: 6470924346},
-    { date: new Date("2005"), value: 6552700448},
-    { date: new Date("2006"), value: 6635110367},
-    { date: new Date("2007"), value: 6717567584},
-    { date: new Date("2008"), value: 6801440971},
-    { date: new Date("2009"), value: 6885663352},
-    { date: new Date("2010"), value: 6969985525},
-    { date: new Date("2011"), value: 7054044372},
-    { date: new Date("2012"), value: 7141386257},
-    { date: new Date("2013"), value: 7229303088},
-    { date: new Date("2014"), value: 7317040295},
-    { date: new Date("2015"), value: 7403850164},
-    { date: new Date("2016"), value: 7490415449},
-    { date: new Date("2017"), value: 7576441961},
-    { date: new Date("2018"), value: 7660371127},
-    { date: new Date("2019"), value: 7741774583},
-    { date: new Date("2020"), value: 7820205606},
-    { date: new Date("2021"), value: 7888305693},
-    { date: new Date("2022"), value: 7950946801 },
-];
+    const data = [
+        { year: 2000, withoutAccess: 1300147672 },
+        { year: 2001, withoutAccess: 1348878978 },
+        { year: 2002, withoutAccess: 1292337225 },
+        { year: 2003, withoutAccess: 1269819711 },
+        { year: 2004, withoutAccess: 1275986787 },
+        { year: 2005, withoutAccess: 1291836592 },
+        { year: 2006, withoutAccess: 1236065595 },
+        { year: 2007, withoutAccess: 1187694198 },
+        { year: 2008, withoutAccess: 1197052189 },
+        { year: 2009, withoutAccess: 1178796833 },
+        { year: 2010, withoutAccess: 1155955407 },
+        { year: 2011, withoutAccess: 1252623019 },
+        { year: 2012, withoutAccess: 1081408204 },
+        { year: 2013, withoutAccess: 1074098683 },
+        { year: 2014, withoutAccess: 1049133644 },
+        { year: 2015, withoutAccess: 986111206.9 },
+        { year: 2016, withoutAccess: 912138375.4 },
+        { year: 2017, withoutAccess: 855920037.1 },
+        { year: 2018, withoutAccess: 803358762.5 },
+        { year: 2019, withoutAccess: 760886587 },
+    ];
 
 x.domain(d3.extent(data, d => d.date));
 y.domain([0, d3.max(data, d => d.value)]);
@@ -86,7 +43,7 @@ y.domain([0, d3.max(data, d => d.value)]);
 // Append x axis and change color to blue
 svg.append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(x).ticks(d3.timeYear.every(2)))
+    .call(d3.axisBottom(x).ticks(d3.timeYear.every(5)))
     .selectAll("path")
     .style("stroke", "blue");
 

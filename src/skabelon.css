@@ -75,6 +75,7 @@ section {
     position: absolute;
 }
 
+/*
 .one {
     background-color: rgb(184, 184, 255);
 }
@@ -90,7 +91,26 @@ section {
 .four {
     background-color: rgb(254, 254, 255);
 }
+*/
 
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    align-items: left;
+    width: 100%;
+    height: 60%;
+    margin-top: 0px; /* Set the top margin to -50px */
+    margin-left: 0;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+th:first-child, td:first-child {
+    width: 35%;
+}
 /* SECTION 1 */
 
 .content {
@@ -101,11 +121,22 @@ section {
 }
 
 .content h1 {
-    font-size: 50px;
+    font-size: 35px;
     color: #333;
-    width: 50%;
+    width: 75%;
     padding-top: 50px;
     letter-spacing: -2px;
+    font-weight: 30000;
+}
+
+.two p {
+    font-size: 10px;
+    color: #555;
+}
+
+.two h5 {
+    font-size: 20px;
+    color: #333;
     font-weight: 30000;
 }
 
@@ -139,16 +170,3 @@ section {
     margin-bottom: 5px;
 }
 
-
-
-        /* Define the CSS styles for the treemap chart */
-        .node {
-            font: 10px sans-serif;
-        }
-        .node rect {
-            stroke: #fff;
-            fill-opacity: 0.5;
-        }
-        .node text {
-            pointer-events: none;
-        }
