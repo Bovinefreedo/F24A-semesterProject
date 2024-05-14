@@ -21,11 +21,11 @@ const insertDPTWH = (request, response) => {
         response.status(201).send(`Food added`);
       }
     );
-  }
+}
   
   
   //route for /populateDPTWH
-  const populateDPTWH = (request, response) => {
+const populateDPTWH = (request, response) => {
     const caldata = "./data/death-rates-from-energy-production-per-twh.csv"; 
     const options = {
         delimiter: ','
@@ -53,7 +53,7 @@ const insertDPTWH = (request, response) => {
     })
   }
 
-  const insertConsumptionCountry = (request, response) => {
+const insertConsumptionCountry = (request, response) => {
     const { Entity, Year, otherRenewables, biofuels, solar,wind, hydro, nuclear, gas, coal, oil, unit } = request.body;
     pool.query(
       `INSERT INTO consumptionCountry_tmp (Entity,Code,year,otherRenewables,biofuels,solar,wind,hydro,nuclear,gas,coal,oil) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
@@ -65,11 +65,11 @@ const insertDPTWH = (request, response) => {
         response.status(201).send(`Food added`);
       }
     );
-  }
+}
   
   
-  //route for /populateDPTWH
-  const populateConsumptionCountry = (request, response) => {
+//route for /populateDPTWH
+const populateConsumptionCountry = (request, response) => {
     const caldata = "./data/energy-consumption-by-source-and-country.csv"; 
     const options = {
         delimiter: ','
@@ -104,10 +104,10 @@ const insertDPTWH = (request, response) => {
         }
         response.status(201).send('all rows added');
     })
-  }
+}
 
 
-  const insertPopGrowth = (request, response) => {
+const insertPopGrowth = (request, response) => {
     const { Country,Year,Population } = request.body;
     pool.query(
       `INSERT INTO popGrowth_temp (Country,Year,Population) VALUES ($1, $2, $3)`,
@@ -119,11 +119,11 @@ const insertDPTWH = (request, response) => {
         response.status(201).send(`Food added`);
       }
     );
-  }
+}
   
   
   //route for /populateDPTWH
-  const populatePopGrowth = (request, response) => {
+const populatePopGrowth = (request, response) => {
     const caldata = "./data/population-and-demography.csv"; 
     const options = {
         delimiter: ','
@@ -147,9 +147,9 @@ const insertDPTWH = (request, response) => {
         }
         response.status(201).send('all rows added');
     })
-  }
+}
   
-  const insertPopProjection = (request, response) => {
+const insertPopProjection = (request, response) => {
     const { country, year, est, population } = request.body;
     pool.query(
       `INSERT INTO popProj_tmp (country,year,estimate,poulation) VALUES ($1, $2, $3, $4)`,
@@ -161,9 +161,9 @@ const insertDPTWH = (request, response) => {
         response.status(201).send(`Food added`);
       }
     );
-  }
+}
 
-  const populatePopProjection = (request, response) => {
+const populatePopProjection = (request, response) => {
     const caldata = "./data/UNdata_Export_20240508_074443411.csv"; 
     const options = {
         delimiter: ','
@@ -190,9 +190,9 @@ const insertDPTWH = (request, response) => {
         }
         response.status(201).send('all rows added');
     })
-  }
+}
 
-  const insertCountry = (request, response) => {
+const insertCountry = (request, response) => {
     const { countryName, countryID } = request.body;
     pool.query(
       `INSERT INTO country (countryName, countryID) VALUES ($1, $2)`,
@@ -206,7 +206,7 @@ const insertDPTWH = (request, response) => {
     );
   }
   
-  const insertPopulationCountry = (request, response) => {
+const insertPopulationCountry = (request, response) => {
     const { countryID, year, population } = request.body;
     pool.query(
       `INSERT INTO populationCountry(countryID, year, population) VALUES($1, $2, $3);`,
@@ -222,20 +222,36 @@ const insertDPTWH = (request, response) => {
 
 const populateCountry = (request, response) => {
     for(let i=0; i<countriesPopulation.length; i++){
-      let country = countriesPopulation[i];
-      let insertCountry = `INSERT INTO country (countryName, countryId) VALUES ($1, $2)`;
-      let countryItems = [country, i];    
+      let energyType = countriesPopulation[i];
+      let insertEnergyType = `INSERT INTO energyType(energyTypeID, energyName, energySuperType) VALUES($1,$2,$3);`;
+      let energyItems = [country, i];    
           //Inserting data of current row into database
-      pool.query(insertCountry, countryItems, (err, results, fields) => {
+      pool.query(insertEnergyType, energyItems, (err, results, fields) => {
           if (err) {
             console.log("Unable to insert item at row " + i+1);
             return console.log(err);
           }
       })
     }
-  };
+};
 
-  const populatePopulation = (request, response) => {
+const populateEnergyType = (request, response) => {
+  for(let i=0; i<energyTypeList.length; i++){
+    let energyType = energyTypeList[i][0];
+    let energySuperType = energyTypeList[i][1];
+    let insertEnergyType = `INSERT INTO energyType(energyTypeID, energyName, energySuperType) VALUES($1,$2,$3);`;
+    let energyItems = [i, energyType, energySuperType];    
+        //Inserting data of current row into database
+    pool.query(insertEnergyType, energyItems, (err, results, fields) => {
+        if (err) {
+          console.log("Unable to insert item at row " + i+1);
+          return console.log(err);
+        }
+    })
+  }
+};
+
+const populatePopulation = (request, response) => {
     const popdata = "./data/population-and-demography.csv"; 
     const options = {
         delimiter: ','
@@ -263,6 +279,76 @@ const populateCountry = (request, response) => {
     })
   }
 
+const insertEnergyType = (request, response) => {
+    const { energyTypeID, energyName, energySuperType } = request.body;
+    pool.query(
+      `INSERT INTO energyType(energyTypeID, energyName, energySuperType) VALUES($1,$2,$3);`,
+      [energyTypeID, energyName, energySuperType],
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
+        response.status(201).send(`pop added`);
+      }
+    );
+}
+
+const insertEnergyUseCountry = (request, response) => {
+  const { countryID, energyTypeID, year, amountInTWH } = request.body;
+  pool.query(
+    `INSERT INTO energyUseCountry(countryID, energyTypeID, year, amountInTWH)($1,$2,$3,$4);`,
+    [countryID, energyTypeID, year, amountInTWH],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(201).send(`Food added`);
+    }
+  );
+}
+
+const populateCountryEnergryUse = (request, response) => {
+  const caldata = "./data/energy-consumption-by-source-and-country.csv"; 
+  const options = {
+      delimiter: ','
+    };
+  csvtojson().fromFile(caldata, options).then(source => {
+      //Fetching the data from each row 
+      //and inserting to the table consumptionCountry_tmp
+      for (let i = 0; i < source.length; i++) {
+        let Entity = source[i]["Entity"];
+        let Code = source[i]["Code"];
+        let Year = source[i]["Year"];
+        let listOfTypeAmount =[];
+        listOfTypeAmount.push(source[i]["Other renewables (including geothermal and biomass) - TWh"]);
+        listOfTypeAmount.push(source[i]["Biofuels consumption - TWh"]);
+        listOfTypeAmount.push(source[i]["Solar consumption - TWh"]);
+        listOfTypeAmount.push(source[i]["Wind consumption - TWh"]);
+        listOfTypeAmount.push(source[i]["Hydro consumption - TWh"]);
+        listOfTypeAmount.push(source[i]["Nuclear consumption - TWh"]);
+        listOfTypeAmount.push(source[i]["Gas consumption - TWh"]);
+        listOfTypeAmount.push(source[i]["Coal consumption - TWh"]);
+        listOfTypeAmount.push(source[i]["Oil consumption - TWh"]);
+        for(let m=0; m<countriesPopulation.length;m++){
+          for(let n=0; n<listOfTypeAmount.length;n++){
+            if(Entity==countriesPopulation[m]){
+              let insertStatement = `INSERT INTO energyUseCountry(countryID, energyTypeID, year, amountInTWH) VALUES ($1,$2,$3,$4)`;
+              let items = [m , n ,Year, listOfTypeAmount[n]];
+              pool.query(insertStatement, items, (err, results, fields) => {
+                if (err) {
+                  console.log("Unable to insert item at row " + i+1);
+                  return console.log(err);
+              }
+          });
+        }
+        }
+      }
+      }
+      response.status(201).send('all rows added');
+  })
+}
+
+
 
 
 module.exports = { 
@@ -272,21 +358,24 @@ module.exports = {
   insertPopProjection,
   insertPopulationCountry,
   insertCountry,
+  insertEnergyType,
+  insertEnergyUseCountry,
   populateDPTWH,
   populateConsumptionCountry,
   populatePopGrowth,
   populatePopProjection,
   populatePopulation,
-  populateCountry
+  populateCountry,
+  populateEnergyType
 };
 
-const energyType =[
+const energyTypeList =[
   ["otherRenewables", "renewable"],
   ["Biofuels", "renewable"],
   ["Solar", "renewable"], 
   ["Wind", "renewable"],
   ["Hydro", "renewable"],
-  ["Nuclear", "nuclear"] 
+  ["Nuclear", "nuclear"], 
   ["Gas", "fossil"],
   ["Coal", "fossil"],
   ["Oil", "fossil"]

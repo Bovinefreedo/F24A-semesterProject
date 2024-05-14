@@ -29,6 +29,7 @@ app.post("/populatePopulation",db.populatePopulation);
 app.post("/insertCountry",db.insertCountry);
 app.post("/insertPopulation",db.insertPopulationCountry);
 app.post("/populateCountry", db.populateCountry);
+app.post("/populateEnergyType",db.populateEnergyType);
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);

@@ -101,7 +101,7 @@ INSERT INTO country (countryName, countryID) VALUES ($1, $2);
 
 INSERT INTO populationCountry(countryID, year, population) VALUES($1, $2, $3);
 
-INSERT INTO energyUseCountry(countryID, energyTypeID, year, amountInTWH)($1,$2,$3,$4);
+INSERT INTO energyUseCountry(countryID, energyTypeID, year, amountInTWH)VALUES($1,$2,$3,$4);
 
 INSERT INTO region(regionName, regionIDID) VALUES ($1, $2);
 
