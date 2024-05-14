@@ -1,4 +1,3 @@
-import { countriesConsumption, countriesConsumption } from "contries";
 const { Pool } = require("pg");
 require("dotenv").config();
 const csvtojson = require("csvtojson");
@@ -193,7 +192,7 @@ const insertDPTWH = (request, response) => {
     })
   }
 
-    const insertCountry = (request, response) => {
+  const insertCountry = (request, response) => {
     const { countryName, countryID } = request.body;
     pool.query(
       `INSERT INTO country (countryName, countryID) VALUES ($1, $2)`,
@@ -207,7 +206,7 @@ const insertDPTWH = (request, response) => {
     );
   }
   
-  const insertPopulation = (request, response) => {
+  const insertPopulationCountry = (request, response) => {
     const { countryID, year, population } = request.body;
     pool.query(
       `INSERT INTO populationCountry(countryID, year, population) VALUES($1, $2, $3);`,
@@ -221,37 +220,37 @@ const insertDPTWH = (request, response) => {
     );
   }
 
+const populateCountry = (request, response) => {
+    for(let i=0; i<countriesPopulation.length; i++){
+      let country = countriesPopulation[i];
+      let insertCountry = `INSERT INTO country (countryName, countryId) VALUES ($1, $2)`;
+      let countryItems = [country, i];    
+          //Inserting data of current row into database
+      pool.query(insertCountry, countryItems, (err, results, fields) => {
+          if (err) {
+            console.log("Unable to insert item at row " + i+1);
+            return console.log(err);
+          }
+      })
+    }
+  };
+
   const populatePopulation = (request, response) => {
     const popdata = "./data/population-and-demography.csv"; 
     const options = {
         delimiter: ','
       };
     csvtojson().fromFile(popdata, options).then(source => {
-        //Fetching the data from each row 
-        //and inserting to the table food_tmp
         for (let i = 0; i < source.length; i++) {
-          let country = source[i]["Country name"];
+          let country = source[i]["Country name"].toUpperCase();
           let year = source[i]["Year"];
           let population = source[i]["Population"];
           for(let n=0; n<countriesPopulation.length; n++){
             if(country==countriesPopulation[n]){
-              let insertCountry = `INSERT INTO country (countryName, countryID) VALUES ($1, $2)`;
-              let countryItems = [country, n];    
+              let insertCountryPop = `INSERT INTO populationCountry(countryID, year, population) VALUES($1, $2, $3)`;
+              let countryPop = [n, year, population];    
               //Inserting data of current row into database
-              pool.query(insertStatement, items, (err, results, fields) => {
-                if (err) {
-                    console.log("Unable to insert item at row " + i+1);
-                    return console.log(err);
-                  }
-              });
-            }
-          }
-          for(let n=0; n<countriesPopulation.length; n++){
-            if(country==countriesPopulation[n]){
-              let insertCountry = `INSERT INTO populationCountry(countryID, year, population) VALUES($1, $2, $3)`;
-              let countryItems = [n, year, population];    
-              //Inserting data of current row into database
-              pool.query(insertStatement, items, (err, results, fields) => {
+              pool.query(insertCountryPop, countryPop, (err, results, fields) => {
                 if (err) {
                     console.log("Unable to insert item at row " + i+1);
                     return console.log(err);
@@ -264,19 +263,270 @@ const insertDPTWH = (request, response) => {
     })
   }
 
-  module.exports = { 
-    insertDPTWH,
-    insertConsumptionCountry,
-    insertPopGrowth,
-    insertPopProjection,
-    insertCountry,
-    insertPopulation,
-    populateDPTWH,
-    populateConsumptionCountry,
-    populatePopGrowth,
-    populatePopProjection,
-    populatePopulation
-    
-  };
-  
-  
+
+
+module.exports = { 
+  insertDPTWH,
+  insertConsumptionCountry,
+  insertPopGrowth,
+  insertPopProjection,
+  insertPopulationCountry,
+  insertCountry,
+  populateDPTWH,
+  populateConsumptionCountry,
+  populatePopGrowth,
+  populatePopProjection,
+  populatePopulation,
+  populateCountry
+};
+
+const energyType =[
+  ["otherRenewables", "renewable"],
+  ["Biofuels", "renewable"],
+  ["Solar", "renewable"], 
+  ["Wind", "renewable"],
+  ["Hydro", "renewable"],
+  ["Nuclear", "nuclear"] 
+  ["Gas", "fossil"],
+  ["Coal", "fossil"],
+  ["Oil", "fossil"]
+]
+
+const countriesPopulation = [
+    "AFGHANISTAN",
+    "ALBANIA",
+    "ALGERIA",
+    "AMERICAN SAMOA",
+    "ANDORRA",
+    "ANGOLA",
+    "ANGUILLA",
+    "ANTIGUA AND BARBUDA",
+    "ARGENTINA",
+    "ARMENIA",
+    "ARUBA",
+    "AUSTRALIA",
+    "AUSTRIA",
+    "AZERBAIJAN",
+    "BAHAMAS",
+    "BAHRAIN",
+    "BANGLADESH",
+    "BARBADOS",
+    "BELARUS",
+    "BELGIUM",
+    "BELIZE",
+    "BENIN",
+    "BERMUDA",
+    "BHUTAN",
+    "BOLIVIA",
+    "BONAIRE SINT EUSTATIUS AND SABA",
+    "BOSNIA AND HERZEGOVINA",
+    "BOTSWANA",
+    "BRAZIL",
+    "BRITISH VIRGIN ISLANDS",
+    "BRUNEI",
+    "BULGARIA",
+    "BURKINA FASO",
+    "BURUNDI",
+    "CAMBODIA",
+    "CAMEROON",
+    "CANADA",
+    "CAPE VERDE",
+    "CAYMAN ISLANDS",
+    "CENTRAL AFRICAN REPUBLIC",
+    "CHAD",
+    "CHILE",
+    "CHINA",
+    "COLOMBIA",
+    "COMOROS",
+    "CONGO",
+    "COOK ISLANDS",
+    "COSTA RICA",
+    "COTE D'IVOIRE",
+    "CROATIA",
+    "CUBA",
+    "CURACAO",
+    "CYPRUS",
+    "CZECHIA",
+    "DEMOCRATIC REPUBLIC OF CONGO",
+    "DENMARK",
+    "DJIBOUTI",
+    "DOMINICA",
+    "DOMINICAN REPUBLIC",
+    "EAST TIMOR",
+    "ECUADOR",
+    "EGYPT",
+    "EL SALVADOR",
+    "EQUATORIAL GUINEA",
+    "ERITREA",
+    "ESTONIA",
+    "ESWATINI",
+    "ETHIOPIA",
+    "FALKLAND ISLANDS",
+    "FAROE ISLANDS",
+    "FIJI",
+    "FINLAND",
+    "FRANCE",
+    "FRENCH GUIANA",
+    "FRENCH POLYNESIA",
+    "GABON",
+    "GAMBIA",
+    "GEORGIA",
+    "GERMANY",
+    "GHANA",
+    "GIBRALTAR",
+    "GREECE",
+    "GREENLAND",
+    "GRENADA",
+    "GUADELOUPE",
+    "GUAM",
+    "GUATEMALA",
+    "GUERNSEY",
+    "GUINEA",
+    "GUINEA-BISSAU",
+    "GUYANA",
+    "HAITI",
+    "HONDURAS",
+    "HONG KONG",
+    "HUNGARY",
+    "ICELAND",
+    "INDIA",
+    "INDONESIA",
+    "IRAN",
+    "IRAQ",
+    "IRELAND",
+    "ISLE OF MAN",
+    "ISRAEL",
+    "ITALY",
+    "JAMAICA",
+    "JAPAN",
+    "JERSEY",
+    "JORDAN",
+    "KAZAKHSTAN",
+    "KENYA",
+    "KIRIBATI",
+    "KOSOVO",
+    "KUWAIT",
+    "KYRGYZSTAN",
+    "LAOS",
+    "LATVIA",
+    "LEBANON",
+    "LESOTHO",
+    "LIBERIA",
+    "LIBYA",
+    "LIECHTENSTEIN",
+    "LITHUANIA",
+    "LUXEMBOURG",
+    "MACAO",
+    "MADAGASCAR",
+    "MALAWI",
+    "MALAYSIA",
+    "MALDIVES",
+    "MALI",
+    "MALTA",
+    "MARSHALL ISLANDS",
+    "MARTINIQUE",
+    "MAURITANIA",
+    "MAURITIUS",
+    "MAYOTTE",
+    "MEXICO",
+    "MICRONESIA (COUNTRY)",
+    "MOLDOVA",
+    "MONACO",
+    "MONGOLIA",
+    "MONTENEGRO",
+    "MONTSERRAT",
+    "MOROCCO",
+    "MOZAMBIQUE",
+    "MYANMAR",
+    "NAMIBIA",
+    "NAURU",
+    "NEPAL",
+    "NETHERLANDS",
+    "NEW CALEDONIA",
+    "NEW ZEALAND",
+    "NICARAGUA",
+    "NIGER",
+    "NIGERIA",
+    "NIUE",
+    "NORTH KOREA",
+    "NORTH MACEDONIA",
+    "NORTHERN MARIANA ISLANDS",
+    "NORWAY",
+    "OMAN",
+    "PAKISTAN",
+    "PALAU",
+    "PALESTINE",
+    "PANAMA",
+    "PAPUA NEW GUINEA",
+    "PARAGUAY",
+    "PERU",
+    "PHILIPPINES",
+    "POLAND",
+    "PORTUGAL",
+    "PUERTO RICO",
+    "QATAR",
+    "REUNION",
+    "ROMANIA",
+    "RUSSIA",
+    "RWANDA",
+    "SAINT BARTHELEMY",
+    "SAINT HELENA",
+    "SAINT KITTS AND NEVIS",
+    "SAINT LUCIA",
+    "SAINT MARTIN (FRENCH PART)",
+    "SAINT PIERRE AND MIQUELON",
+    "SAINT VINCENT AND THE GRENADINES",
+    "SAMOA",
+    "SAN MARINO",
+    "SAO TOME AND PRINCIPE",
+    "SAUDI ARABIA",
+    "SENEGAL",
+    "SERBIA",
+    "SEYCHELLES",
+    "SIERRA LEONE",
+    "SINGAPORE",
+    "SINT MAARTEN (DUTCH PART)",
+    "SLOVAKIA",
+    "SLOVENIA",
+    "SOLOMON ISLANDS",
+    "SOMALIA",
+    "SOUTH AFRICA",
+    "SOUTH KOREA",
+    "SOUTH SUDAN",
+    "SPAIN",
+    "SRI LANKA",
+    "SUDAN",
+    "SURINAME",
+    "SWEDEN",
+    "SWITZERLAND",
+    "SYRIA",
+    "TAIWAN",
+    "TAJIKISTAN",
+    "TANZANIA",
+    "THAILAND",
+    "TOGO",
+    "TOKELAU",
+    "TONGA",
+    "TRINIDAD AND TOBAGO",
+    "TUNISIA",
+    "TURKEY",
+    "TURKMENISTAN",
+    "TURKS AND CAICOS ISLANDS",
+    "TUVALU",
+    "UGANDA",
+    "UKRAINE",
+    "UNITED ARAB EMIRATES",
+    "UNITED KINGDOM",
+    "UNITED STATES",
+    "UNITED STATES VIRGIN ISLANDS",
+    "URUGUAY",
+    "UZBEKISTAN",
+    "VANUATU",
+    "VENEZUELA",
+    "VIETNAM",
+    "WALLIS AND FUTUNA",
+    "WESTERN SAHARA",
+    "YEMEN",
+    "ZAMBIA",
+    "ZIMBABWE"
+];  

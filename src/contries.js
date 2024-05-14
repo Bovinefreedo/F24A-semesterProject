@@ -1,4 +1,4 @@
-export const countriesConsumption = [
+const countriesConsumption = [
     "ALGERIA",
     "ANGOLA",
     "ARGENTINA",
@@ -109,7 +109,7 @@ export const countriesConsumption = [
     "ZIMBABWE"
 ];
 
-export const countriesPopulation = [
+const countriesPopulation = [
     "AFGHANISTAN",
     "ALBANIA",
     "ALGERIA",
