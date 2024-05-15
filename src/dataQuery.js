@@ -330,8 +330,8 @@ const populateCountryEnergryUse = (request, response) => {
         listOfTypeAmount.push(source[i]["Coal consumption - TWh"]);
         listOfTypeAmount.push(source[i]["Oil consumption - TWh"]);
         for(let m=0; m<countriesPopulation.length;m++){
+          if(Entity==countriesPopulation[m]){
           for(let n=0; n<listOfTypeAmount.length;n++){
-            if(Entity==countriesPopulation[m]){
               let insertStatement = `INSERT INTO energyUseCountry(countryID, energyTypeID, year, amountInTWH) VALUES ($1,$2,$3,$4)`;
               if(listOfTypeAmount[n]===""){listOfTypeAmount=0;}
               let items = [m , n ,Year, listOfTypeAmount[n]];
@@ -348,9 +348,6 @@ const populateCountryEnergryUse = (request, response) => {
       response.status(201).send('all rows added');
   })
 }
-
-
-
 
 module.exports = { 
   insertDPTWH,
