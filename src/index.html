@@ -1,11 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script src="script.js"></script>
-</body>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+		<title>Smoothed D3.js Radar Chart</title>
+
+		
+
+		<!-- D3.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+		
+		<style>
+			body {
+				font-family: 'Open Sans', sans-serif;
+				font-size: 11px;
+				font-weight: 300;
+				fill: #242424;
+				text-align: center;
+				text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+				cursor: default;
+			}
+			
+			.legend {
+				font-family: 'Raleway', sans-serif;
+				fill: #333333;
+			}
+			
+			.tooltip {
+				fill: #333333;
+			}
+		</style>
+	
+	</head>
+	<body>
+
+		<div class="radarChart"></div>
+
+		<script src="script.js"></script>	
+		<script>
+      
+      /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+      
+			////////////////////////////////////////////////////////////// 
+			//////////////////////// Set-Up ////////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var margin = {top: 100, right: 100, bottom: 100, left: 100},
+				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+					
+			////////////////////////////////////////////////////////////// 
+			////////////////////////// Data ////////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var data = [
+					  [//Danmark
+						{axis:"Other renewables",value:23.934357},
+						{axis:"Biofuels",value:2.9534056},
+						{axis:"Solar",value:5.055607},
+						{axis:"Wind",value:49.540455},
+						{axis:"Hydro",value:0.038200554},
+						{axis:"Nuclear",value:0},
+						{axis:"Gas",value:16.985794},
+						{axis:"Coal",value:11.995051},	
+                        {axis:"Oil" ,value:78.893745}		
+					  ],[//
+                      {axis:"Other renewables",value:2413.8076},
+						{axis:"Biofuels",value:1199.2067},
+						{axis:"Solar",value:3448.2373},
+						{axis:"Wind",value:5487.6},
+						{axis:"Hydro",value:6702.3394},
+						{axis:"Nuclear",value:39413.043},
+						{axis:"Gas",value:44854.035},
+						{axis:"Coal",value:52969.59}	
+                        
+					  ],/*[//ideel energiforbrug blot en ide
+                      {axis:"Other renewables",value:0.22},
+						{axis:"Biofuels",value:0.28},
+						{axis:"Solar",value:0.29},
+						{axis:"Wind",value:0.17},
+						{axis:"Hydro",value:0.22},
+						{axis:"Nuclear",value:0.02},
+						{axis:"Gas",value:0.21},
+						{axis:"Coal",value:0.50}	
+                        
+					  ]
+                      */
+					];
+			////////////////////////////////////////////////////////////// 
+			//////////////////// Draw the Chart ////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var color = d3.scale.ordinal()
+				.range(["#EDC951","#CC333F","#00A0B0"]);
+				
+			var radarChartOptions = {
+			  w: width,
+			  h: height,
+			  margin: margin,
+			  maxValue: 50000,
+			  levels: 5,
+			  roundStrokes: true,
+			  color: color
+			};
+			//Call function to draw the Radar chart
+			RadarChart(".radarChart", data, radarChartOptions);
+		</script>
+	</body>
 </html>
