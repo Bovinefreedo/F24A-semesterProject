@@ -34,8 +34,9 @@
     color: rgb(34, 34, 34);
     font-weight: 450;
     text-decoration: none;
-    margin-left: 35px;
+    margin-left: 0px;
 }
+
 
 .navbar a::before {
     content: '';
