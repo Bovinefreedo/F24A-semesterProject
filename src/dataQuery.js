@@ -316,7 +316,7 @@ const populateCountryEnergryUse = (request, response) => {
       //Fetching the data from each row 
       //and inserting to the table consumptionCountry_tmp
       for (let i = 0; i < source.length; i++) {
-        let Entity = source[i]["Entity"];
+        let Entity = source[i]["Entity"].toUpperCase();
         let Code = source[i]["Code"];
         let Year = source[i]["Year"];
         let listOfTypeAmount =[];
@@ -333,6 +333,7 @@ const populateCountryEnergryUse = (request, response) => {
           for(let n=0; n<listOfTypeAmount.length;n++){
             if(Entity==countriesPopulation[m]){
               let insertStatement = `INSERT INTO energyUseCountry(countryID, energyTypeID, year, amountInTWH) VALUES ($1,$2,$3,$4)`;
+              if(listOfTypeAmount[n]===""){listOfTypeAmount=0;}
               let items = [m , n ,Year, listOfTypeAmount[n]];
               pool.query(insertStatement, items, (err, results, fields) => {
                 if (err) {
@@ -366,7 +367,8 @@ module.exports = {
   populatePopProjection,
   populatePopulation,
   populateCountry,
-  populateEnergyType
+  populateEnergyType,
+  populateCountryEnergryUse
 };
 
 const energyTypeList =[
