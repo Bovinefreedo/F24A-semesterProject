@@ -1,8 +1,24 @@
+/*
+let year = [];
+let energyUse = [];
+let start = 500;
+let data = [];
+
+for(let i=1970; i<2025; i++){
+    year.push(i);
+    start+=(Math.floor(Math.random()*10)-2);
+    energyUse.push(start);
+}
+
+for(let i = 0; i < year.lenth; i++){
+    let dataPoint={date:year[i], value:energyUse[i]}
+}
+*/
 
 
-const width = 1250
+const width = 1800
 const height = 500
-const margin = {top: 50, right: 50, bottom: 50, left: 100};
+const margin = {top: 20, right: 30, bottom: 30, left: 40};
 
 const x = d3.scaleTime()
 .range([0, width]);
@@ -17,11 +33,6 @@ const svg = d3.select("#three")
 .attr("height", height + margin.top + margin.bottom)
 .append("g")
 .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-const toolTip = d3.select("body")
-.append("div")
-.attr("class", "toolTip");
-
 
 
 const data = [
@@ -85,56 +96,20 @@ const data = [
     { date: new Date("2022"), value: 189.396615154 }
 ];
 
+
+console.log(data)
                                   
 x.domain(d3.extent(data, d => d.date));
 y.domain([160, d3.max(data, d => d.value)]);
 
 svg.append("g")
 .attr("transform", `translate(0,${height})`)
-.style("font-size", "12px")
 .call(d3.axisBottom(x)
 .ticks(d3.timeYear.every(10)));
 
 
 svg.append("g")
-.style("font-size", "12px")
-.call(d3.axisLeft(y).tickFormat(d => d + " Twh"));
-
-// created a horizontol grid 
-svg.selectAll("yGrid")
-.data(y.ticks((d3.max(data, d => d.value) / 25)).slice(1))
-.join("line")
-.attr("x1", 0)
-.attr("x2", width)
-.attr("y1", d => y(d))
-.attr("y2", d => y(d))
-.attr("stroke", "lightgrey")
-.attr("stroke-width", .5)
-
-// created a vertical grid 
-svg.selectAll("xGrid")
-    .data(x.ticks())
-    .join("line")
-    .attr("class", "xGrid")
-    .attr("x1", d => x(d))
-    .attr("x2", d => x(d))
-    .attr("y1", 0)
-    .attr("y2", height)
-    .attr("stroke", "lightgrey")
-    .attr("stroke-width", .5);
-
-
-// Add y axis label
-svg.append("text")
-.attr("transform", "rotate(-90)")
-.attr("y", 0 - margin.left)
-.attr("x", 0 - (height / 2))
-.attr("dy", "1em")
-.style("text-anchor", "middle")
-.style("font-size", "14px")
-.style("fill", "#777")
-.style("font-family", "sans-serif")
-.text("Terawatt i timen");
+.call(d3.axisLeft(y))
 
 
 
@@ -142,17 +117,12 @@ const line = d3.line()
 .x(d => x(d.date))
 .y(d => y(d.value));
 
-
-
-
 const circle = svg.append("circle")
     .attr("r", 0)
     .attr("fill", "steelblue")
     .style("stroke", "white")
     .attr("opacity", .70)
     .style("pointer-events", "none");
-
-
 
 
 const listeningRect = svg.append("rect")
@@ -169,37 +139,18 @@ const listeningRect = svg.append("rect")
         const d1 = data[i];
         const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
         const xPos = x(d.date);
-        const yPos = y(d.value);
+        const yPos = y(d.population);
 
 
-circle.attr("cx", xPos)
-.attr("cy", yPos);
+circle.attr("cx", xpos)
+.attr("cy", ypos);
+console.log(xpos)
 
-
+});
     
 circle.transition()
 .duration(50)
 .attr("r", 5);
-
-const year = d.date.getFullYear();
-
-toolTip
-.style("display", "block")
-.style("left", `${xPos + 100}px`)
-.style("top", `${yPos + 50}px`)
-.html(`<strong>År:</strong> ${year}<br><strong>Forbrug:</strong> ${d.value !== undefined ? (d.value).toFixed(0) + ' Twh' : 'N/A'}`)
-
-});
-
-
-listeningRect.on("mouseleave", function () {
-    circle.transition()
-      .duration(50)
-      .attr("r", 0);
-
-    toolTip.style("display", "none");
-  });
-
 
 svg.append("path")
 .datum(data)
@@ -214,5 +165,75 @@ svg.append("path")
     const length = this.getTotalLength();
     return d3.interpolate(`0,${length}`, `${length}, ${length}`);
 });
+
+const toolTip = d3.select("body")
+.append("div")
+.attr("class", "toolTip");
+
+
+
+/*
+const path = svg.select("path");
+const totalLength = path.node().getTotalLength();
+
+path.attr("stroke-dasharray", totalLength + "" + totalLength)
+.attr("stroke-dashoffset", totalLength)
+.transition()
+.duration(7000)
+.ease(d3.easeLinear)
+.attr("stroke-dashoffset", 0);
+
+*/
+/*
+const xAxis = (g) =>
+    g.attr("transform", `translate(0,${height - margin.bottom})`).call(
+        d3
+        .axisBottom(x)
+        .ticks(width / 80)
+        .ticksSizeOuter(0)
+    )
+
+
+    const yAxis = g => g
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y))
+    .call(g => g.select("domain").remove())
+    .call(g => g.select(".tick:last-of-type text").clone()
+    .attr("x", 3)
+    .attr("text-anchor", "start")
+    .attr("font-weight", "bold")
+    .text(data.y))
+
+
+    line = d3.line()
+    .defined(d => !isNaN(d.value))
+    .x(d => x(d.date))
+    .y(d => y(d.value))
+
+    function transition(path){
+        path.transition()
+        .duration(7500)
+        .attrTween("stroke-dasharray", tweenDash)
+        .on("end", () => {d3.select(this).call(transition);});
+    }
+
+    function tweenDash(){
+        const l = this.getTotalLenght(),
+        i = d3.interPolateString("0" + l, l + "," + l);
+        return function(t) {return i (t)};
+    }
+
+*/
+
+/*
+const data2 = [];
+for(let i= 0; i<data.length; i++){
+    point = {"date": i, value: data[i].value};
+    data2.push(point);
+}
+*/
+
+
+    
 
 
