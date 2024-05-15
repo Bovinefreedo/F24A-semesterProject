@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins";
+}
+
+/* FUNDAMENTAL */
+
+.header {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 35px 180px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 35px;
+    color: rgb(34, 34, 34);
+    text-decoration: none;
+    font-weight: 1000;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: rgb(34, 34, 34);
+    font-weight: 450;
+    text-decoration: none;
+    margin-left: 0px;
+}
+
+
+.navbar a::before {
+    content: '';
+    position: absolute ;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: rgb(34, 34, 34);
+    transition: 0.4s;
+}
+
+.navbar a:hover::before {
+    width: 100%;
+}
+
+.box {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    margin-left: 175px;
+    margin-right: 175px;
+}
+
+.start {
+    margin-top: 300px;
+    display: flex;
+    box-sizing: content-box;
+    position: absolute;
+}
+
+/*
+.one {
+    background-color: rgb(184, 184, 255);
+}
+
+.two {
+    background-color: rgb(215, 215, 255);
+}
+*/
+.three, body {
+    background: white;
+    background-color: radial-gradient(
+       circle, 
+       rgba (77, 14, 203, 1) 0%,
+       rgba (255, 255, 255,1) 100%
+    )
+}
+/*
+.four {
+    background-color: rgb(254, 254, 255);
+}
+*/
+
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    align-items: left;
+    width: 100%;
+    height: 60%;
+    margin-top: 0px; /* Set the top margin to -50px */
+    margin-left: 0;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+th:first-child, td:first-child {
+    width: 35%;
+}
+/* SECTION 1 */
+
+.content {
+    margin-right: auto; /* Set right margin to auto to push it to the left */
+    margin-left: 0; /* Set left margin to 0 to ensure it's aligned to the left */
+    justify-content: center;
+    align-items: center;
+}
+
+.content h1 {
+    font-size: 35px;
+    color: #333;
+    width: 75%;
+    padding-top: 50px;
+    letter-spacing: -2px;
+    font-weight: 30000;
+}
+
+.two p {
+    font-size: 10px;
+    color: #555;
+}
+
+.two h5 {
+    font-size: 20px;
+    color: #333;
+    font-weight: 30000;
+}
+
+.content p {
+    font-size: 12px;
+    color: #555;
+    width: 30%;
+    margin-top: -25px; /* Adjust the margin-top to reduce the gap space */
+}
+
+.facts-box {
+    border-radius: 5px;
+    width: 35%;
+    margin-top: 50px; /* Adjust the margin-top to reduce the gap space */
+}
+
+.facts-box h3 {
+    font-size: 12px;
+    color: #333;
+}
+
+.facts-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.facts-box li {
+    font-size: 10px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.quiz-container {
+   background-color: white; 
+   border-radius: 10px;
+   box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+   max-width: 100%;
+   width: 100%;
+}
+
+.quiz-header {
+    display: flex;
+    align-items: center;
+    padding: 2rem 2rem;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+.quiz-header h2 {
+    font-size: 1.5rem;
+}
+
+.quiz-body {
+    padding: 2rem 2rem;
+}
+
+.quiz-body h2 {
+    font-size: 2rem;
+    padding: 1rem 0;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+}
+
+.quiz-body ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quiz-body ul li{
+    margin: 1rem 0;
+    font-size: 1rem;
+    border: 1px solid;
+    padding: 0.7rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.quiz-body ul li label {
+    cursor: pointer;
+    padding: 0 0.4rem;
+}
+
+.quiz.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.quiz.footer button{
+    padding: 0.6rem 1.5rem;
+    background: green;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 5px;
+    color: white;
+    opacity: 0.9;
+    transition: all 0.3s ease-in;
+}
+
+.quiz-footer button:hover {
+    opacity: 1;
+}
