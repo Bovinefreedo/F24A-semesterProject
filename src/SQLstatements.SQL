@@ -95,6 +95,15 @@ CREATE TABLE energyUseCountry(
   PRIMARY KEY (countryID,energyTypeID,year)
 );
 
+CREATE TABLE popProjRegion (
+    regionID REFERENCES region(regionID),
+    year INT,
+    estimate VARCHAR,
+    poulation VARCHAR
+);
+
+INSERT INTO popProjRegion (regionID, year, estimate, poulation FLOAT) VALUES($1,$2,$3$);
+
 INSERT INTO energyType(energyTypeID, energyName, energySuperType) VALUES($1,$2,$3);
 
 INSERT INTO country (countryName, countryID) VALUES ($1, $2);

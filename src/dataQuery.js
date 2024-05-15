@@ -1,6 +1,7 @@
 const { Pool } = require("pg");
 require("dotenv").config();
 const csvtojson = require("csvtojson");
+const { request } = require("express");
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -477,6 +478,8 @@ const populateRegionEnergryUse = (request, response) => {
       response.status(201).send('all rows added');
   })
 }
+
+const insertPopProjectionRegion = (request, response) =>
 
 module.exports = { 
   insertDPTWH,
