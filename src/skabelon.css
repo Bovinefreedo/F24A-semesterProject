@@ -84,11 +84,16 @@ section {
 .two {
     background-color: rgb(215, 215, 255);
 }
-
-.three {
-    background-color: rgb(236, 236, 255);
+*/
+.three, body {
+    background: white;
+    background-color: radial-gradient(
+       circle, 
+       rgba (77, 14, 203, 1) 0%,
+       rgba (255, 255, 255,1) 100%
+    )
 }
-
+/*
 .four {
     background-color: rgb(254, 254, 255);
 }
@@ -171,3 +176,80 @@ th:first-child, td:first-child {
     margin-bottom: 5px;
 }
 
+.quiz-container {
+   background-color: white; 
+   border-radius: 10px;
+   box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+   max-width: 100%;
+   width: 100%;
+}
+
+.quiz-header {
+    display: flex;
+    align-items: center;
+    padding: 2rem 2rem;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+.quiz-header h2 {
+    font-size: 1.5rem;
+}
+
+.quiz-body {
+    padding: 2rem 2rem;
+}
+
+.quiz-body h2 {
+    font-size: 2rem;
+    padding: 1rem 0;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+}
+
+.quiz-body ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quiz-body ul li{
+    margin: 1rem 0;
+    font-size: 1rem;
+    border: 1px solid;
+    padding: 0.7rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.quiz-body ul li label {
+    cursor: pointer;
+    padding: 0 0.4rem;
+}
+
+.quiz.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.quiz.footer button{
+    padding: 0.6rem 1.5rem;
+    background: green;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 5px;
+    color: white;
+    opacity: 0.9;
+    transition: all 0.3s ease-in;
+}
+
+.quiz-footer button:hover {
+    opacity: 1;
+}

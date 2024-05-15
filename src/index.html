@@ -61,15 +61,26 @@
         </section>
 
         <section class="three">
-            <div class="quiz-container">
-                <div id="question">What is the capital of France?</div>
-                <div class="option"><input type="radio" name="answer" value="Paris"> Paris</div>
-                <div class="option"><input type="radio" name="answer" value="London"> London</div>
-                <div class="option"><input type="radio" name="answer" value="Berlin"> Berlin</div>
-                <div class="option"><input type="radio" name="answer" value="Rome"> Rome</div>
-                <button onclick="checkAnswer()">Submit Answer</button>
-                <div id="result"></div>
-                <button onclick="nextQuestion()" id="nextBtn" style="display: none;">Next Question</button>
+            <div class="quiz-container" id="quiz">
+                <div class="quiz-header">
+                    <h2 class="header-txt">Global Quiz</h2>
+                </div>
+                <div class="quiz-body">
+                    <h2 id="question">Question Text</h2>
+                    <ul>
+                        <li>
+                            <input type="radio" name="answer" id="a" class="answer">
+                            <label for="a" id="a_text">Answer</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="answer" id="a" class="answer">
+                            <label for="a" id="a_text">Answer</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="quiz-footer"></div>
+                <div class="quiz-detail">1 ud af 2</div>
+                <button type="" class id="btn">Næste</button>
             </div>
         </section>
 
