@@ -14,50 +14,38 @@ window.addEventListener("scroll", function() {
     
 });
 
-const quizData = [
-    {
-        question: "What is the capital of France?",
-    a: "Paris",
-    b: "Aarhus",
-    correct: "b",
-    },
+let descriptionAdded = false; // Flag to track if description has been added
 
-    {
-        question: "Hvad hedder Berkant til fornavn",
-    a: "John",
-    b: "Jon",
-    correct: "a",
-    },
-]
-
-const quiz = document.querySelector(".quiz-body");
-const answerEl = document.querySelector(".answer")
-const quiestionEl = document.getElementById("quiestion");
-const footerEl = document.querySelector (".quizfooter");
-const quizDetailEl = documentquerySelector(".quiz-details");
-
-const a_txt = document.getElementById ("a_txt");
-const b_txt = document.getElementById ("b_txt");
-
-let currentQuiz = 0;
-let score = 0;
-
-loadQuiz ();
-
-function loadQuiz (){
-    deselectAnswer ();
-    const currentQuizData = quizData [currentQuiz];
-
-    quiestionEl.innerText = currentQuizData.question;
-    a_txt.innerText = currentQuizData.a;
-    b_txt.innerText = currentQuizData.b;
-
-    quizDetailEl.innerHTML = `<p>${currentQuiz + 1} of ${quizData.length}</p>`;
-}
-
-
-function deselectAnswer (){
-    answerEl.forEach ((answerEl)=>{
-        (answerEl.checked) = false;
+// Add event listeners for option selection
+const options = document.querySelectorAll('.option');
+options.forEach(option => {
+    option.addEventListener('click', () => {
+        options.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        checkAnswer(option.id); // Call checkAnswer with the selected option ID
     });
+});
+
+function checkAnswer(selectedOption) {
+    const quizContainer = document.getElementById('quiz');
+    const correctAnswer = "a"; // Change this to your correct answer
+
+    if (selectedOption === correctAnswer) {
+        quizContainer.classList.remove('false');
+        quizContainer.classList.add('green');
+        document.querySelector('.quiz-detail').innerHTML = 'Correct!';
+    } else {
+        if (!descriptionAdded) {
+            quizContainer.classList.remove('green');
+            quizContainer.classList.add('false');
+            document.querySelector('.quiz-detail').innerHTML = 'Incorrect!';
+    
+            const answerDescription = document.createElement('p');
+            answerDescription.classList.add('answer-description');
+            answerDescription.textContent = 'Correct answer is Paris.';
+            quizContainer.appendChild(answerDescription);
+    
+            descriptionAdded = true; // Set flag to true
+        }
+    }
 }
