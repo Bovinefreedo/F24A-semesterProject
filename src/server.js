@@ -17,7 +17,7 @@ app.get("/", (request, response) =>{
     response.json({info : "Node.js, Express, and Postgres API"});    
 });
 
-
+app.get("/getPopProj", db.getPopProj)
 app.post("insertPopulationRegion",db.insertPopulationRegion);
 app.post("/populatePopulation",db.populatePopulation);
 app.post("/insertCountry",db.insertCountry);
@@ -28,7 +28,8 @@ app.post("/populateEnergyType",db.populateEnergyType);
 app.post("/populateCountryEnergryUse", db.populateCountryEnergryUse);
 app.post("/populateRegion", db.populateRegion);
 app.post("/populatePopulationRegion",db.populatePopulationRegion);
-app.post("/populateRegionEnergryUse", db.populateRegionEnergryUse)
+app.post("/populateRegionEnergryUse", db.populateRegionEnergryUse);
+
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);

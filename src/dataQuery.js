@@ -329,7 +329,8 @@ const insertPopProjectionRegion = (request, response) => {
     }
   );
 }
-
+//Similar to population region world, but with estimates for population
+//Data only covers world, but more can be found at the un databank
 const populatePopProjectionRegion = (request, response) => {
   const popdata = "./data/UNdata_Export_20240510_084501992.csv"; 
   const options = {
@@ -358,7 +359,18 @@ const populatePopProjectionRegion = (request, response) => {
   })
 }
 
+//
+const getPopProj = (request, response) => {
+  pool.query("SELECT * FROM populationregion", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 module.exports = { 
+  getPopProj,
   insertPopulationCountry,
   insertCountry,
   insertEnergyType,
