@@ -1,4 +1,4 @@
-const width = 800;
+const width = 1000;
 const height = 300;
 const margin = { top: 20, right: 30, bottom: 30, left: 100 };
 
@@ -146,7 +146,7 @@ const circleDataText = svg.append("text")
 // Define a function to handle mousemove events on the chart
 function handleChartMouseMove(event) {
     const [xCoord] = d3.pointer(event, this);
-    const bisectDate = d3.bisector(d => d.date).left;
+    const bisectDate = d3.bisector(d => d.date.getFullYear).left;
     const x0 = x.invert(xCoord);
     const i = bisectDate(data, x0, 1);
     const d0 = data[i - 1];

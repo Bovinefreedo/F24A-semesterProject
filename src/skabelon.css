@@ -6,7 +6,15 @@
     font-family: "Poppins";
 }
 
-/* FUNDAMENTAL */
+/* COLOR / KUN DISSE FARVER MÅ BRUGES
+
+rgba(251,252,252,255)
+rgba(118,62,221,255)
+rgba(164,200,255,255)
+rgb(75,84,101)
+rgb(26,29,50)
+
+*/
 
 .header {
     position:fixed;
@@ -57,6 +65,7 @@
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
     height: 100vh;
+
 }
 
 section {
@@ -65,12 +74,12 @@ section {
     justify-content: center;
     align-items: center;
     scroll-snap-align: start;
-    margin-left: 175px;
-    margin-right: 175px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 .start {
-    margin-top: 300px;
+    margin-top: 400px;
     display: flex;
     box-sizing: content-box;
     position: absolute;
@@ -84,16 +93,10 @@ section {
 .two {
     background-color: rgb(215, 215, 255);
 }
-*/
-.three, body {
-    background: white;
-    background-color: radial-gradient(
-       circle, 
-       rgba (77, 14, 203, 1) 0%,
-       rgba (255, 255, 255,1) 100%
-    )
+
+.three {
+    background-color: rgb(254, 254, 255);
 }
-/*
 .four {
     background-color: rgb(254, 254, 255);
 }
@@ -114,10 +117,114 @@ th, td {
     padding: 10px;
 }
 
-th:first-child, td:first-child {
-    width: 35%;
+.one {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
 }
-/* SECTION 1 */
+
+.two {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.three {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.four {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.five {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.seven {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.seven {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.baggrund {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    padding: 35px;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    border-radius: 30px;
+    background: rgb(26,29,50) ;
+}
+
+/*
+rgba(251,252,252,255)
+rgba(118,62,221,255)
+rgba(164,200,255,255)
+rgb(75,84,101)
+rgb(26,29,50)
+*/
+
+
+.kasse {
+    width: 100%;
+    height: 95%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ccc;
+    border-radius: 10px;
+    background: rgb(75,84,101) ;
+    color: white;
+}
+
+.kasse:last-child {
+    margin-left: 2%;
+}
+
+.kasse:first-child {
+    width: 40%;
+}
+
+
+th:first-child, td:first-child {
+    width: 40%;
+}
 
 .content {
     margin-right: auto; /* Set right margin to auto to push it to the left */
