@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
-		<title>Smoothed D3.js Radar Chart</title>
+		<title>Mit forsøg på en radarchart</title>
 
 		
 
@@ -55,36 +55,38 @@
 			var data = [
 					  [//Danmark
 						{axis:"Other renewables",value:23.934357},
-						{axis:"Biofuels",value:2.9534056},
-						{axis:"Solar",value:5.055607},
+						{axis:"Biofuels",value:20.9534056},
+						{axis:"Solar",value:28.055607},
 						{axis:"Wind",value:49.540455},
-						{axis:"Hydro",value:0.038200554},
-						{axis:"Nuclear",value:0},
+						{axis:"Hydro",value:12},
+						{axis:"Nuclear",value:11},
 						{axis:"Gas",value:16.985794},
 						{axis:"Coal",value:11.995051},	
-                        {axis:"Oil" ,value:78.893745}		
-					  ],[//
-                      {axis:"Other renewables",value:2413.8076},
-						{axis:"Biofuels",value:1199.2067},
-						{axis:"Solar",value:3448.2373},
-						{axis:"Wind",value:5487.6},
-						{axis:"Hydro",value:6702.3394},
-						{axis:"Nuclear",value:39413.043},
-						{axis:"Gas",value:44854.035},
-						{axis:"Coal",value:52969.59}	
+                        {axis:"Oil" ,value:30}		
+					  ],[
+                      {axis:"Other renewables",value:34},
+						{axis:"Biofuels",value:27},
+						{axis:"Solar",value:20},
+						{axis:"Wind",value:21},
+						{axis:"Hydro",value:40},
+						{axis:"Nuclear",value:37},
+						{axis:"Gas",value:15},
+						{axis:"Coal",value:50},
+						{axis:"Oil" ,value:20}	
                         
-					  ],/*[//ideel energiforbrug blot en ide
-                      {axis:"Other renewables",value:0.22},
-						{axis:"Biofuels",value:0.28},
-						{axis:"Solar",value:0.29},
-						{axis:"Wind",value:0.17},
-						{axis:"Hydro",value:0.22},
-						{axis:"Nuclear",value:0.02},
-						{axis:"Gas",value:0.21},
-						{axis:"Coal",value:0.50}	
+					  ],[//ideel energiforbrug blot en ide
+                      {axis:"Other renewables",value:34},
+						{axis:"Biofuels",value:29},
+						{axis:"Solar",value:11},
+						{axis:"Wind",value:45},
+						{axis:"Hydro",value:24},
+						{axis:"Nuclear",value:17},
+						{axis:"Gas",value:39},
+						{axis:"Coal",value:31},
+						{axis:"Oil" ,value:37}
                         
 					  ]
-                      */
+                      
 					];
 			////////////////////////////////////////////////////////////// 
 			//////////////////// Draw the Chart ////////////////////////// 
@@ -97,8 +99,8 @@
 			  w: width,
 			  h: height,
 			  margin: margin,
-			  maxValue: 50000,
-			  levels: 5,
+			  maxValue: 50,
+			  levels: 10,
 			  roundStrokes: true,
 			  color: color
 			};
