@@ -216,3 +216,144 @@ svg.append("path")
 });
 
 
+
+/*
+// BAR CHART
+
+const data = [
+    
+        { "date": new Date("1965"), "value": 43307.869491 },
+        { "date": new Date("1966"), "value": 45623.36121999999 },
+        { "date": new Date("1967"), "value": 47341.248466000005 },
+        { "date": new Date("1968"), "value": 50203.3882 },
+        { "date": new Date("1969"), "value": 53570.320537 },
+        { "date": new Date("1970"), "value": 53570.320537 },
+        { "date": new Date("1971"), "value": 59321.212442000004 },
+        { "date": new Date("1972"), "value": 62498.72938999999 },
+        { "date": new Date("1973"), "value": 66152.347567 },
+        { "date": new Date("1974"), "value": 66572.543126 },
+        { "date": new Date("1975"), "value": 66886.819792 },
+        { "date": new Date("1976"), "value": 70454.32714899999 },
+        { "date": new Date("1977"), "value": 73046.036659 },
+        { "date": new Date("1978"), "value": 76009.502364971 },
+        { "date": new Date("1979"), "value": 78627.85507594299 },
+        { "date": new Date("1980"), "value": 77946.874138333 },
+        { "date": new Date("1981"), "value": 77624.550771333 },
+        { "date": new Date("1982"), "value": 77205.68184816299 },
+        { "date": new Date("1983"), "value": 78453.689165421 },
+        { "date": new Date("1984"), "value": 82178.642776558 },
+        { "date": new Date("1985"), "value": 84306.37807554999 },
+        { "date": new Date("1986"), "value": 86197.38983113 },
+        { "date": new Date("1987"), "value": 89201.510200013 },
+        { "date": new Date("1988"), "value": 92560.120453443 },
+        { "date": new Date("1989"), "value": 94387.01442234 },
+        { "date": new Date("1990"), "value": 95604.4724825 },
+        { "date": new Date("1991"), "value": 96274.60217140001 },
+        { "date": new Date("1992"), "value": 96821.879729 },
+        { "date": new Date("1993"), "value": 97590.4946944 },
+        { "date": new Date("1994"), "value": 98825.79225530001 },
+        { "date": new Date("1995"), "value": 101077.8755395 },
+        { "date": new Date("1996"), "value": 103972.0809165 },
+        { "date": new Date("1997"), "value": 105047.63949120001 },
+        { "date": new Date("1998"), "value": 105711.1471776 },
+        { "date": new Date("1999"), "value": 107538.6629546 },
+        { "date": new Date("2000"), "value": 110356.5341164 },
+        { "date": new Date("2001"), "value": 111457.32547839999 },
+        { "date": new Date("2002"), "value": 113842.33751400001 },
+        { "date": new Date("2003"), "value": 117889.013508 },
+        { "date": new Date("2004"), "value": 123741.62616300001 },
+        { "date": new Date("2005"), "value": 127801.18816 },
+        { "date": new Date("2006"), "value": 131415.59607 },
+        { "date": new Date("2007"), "value": 135446.26037600002 },
+        { "date": new Date("2008"), "value": 137036.114603 },
+        { "date": new Date("2009"), "value": 134829.02342599997 },
+        { "date": new Date("2010"), "value": 141325.55716 },
+        { "date": new Date("2011"), "value": 144578.91247 },
+        { "date": new Date("2012"), "value": 146655.71709 },
+        { "date": new Date("2013"), "value": 149220.31066000002 },
+        { "date": new Date("2014"), "value": 150798.41086 },
+        { "date": new Date("2015"), "value": 152054.08198 },
+        { "date": new Date("2016"), "value": 153884.57384 },
+        { "date": new Date("2017"), "value": 157110.158 },
+        { "date": new Date("2018"), "value": 161402.7497 },
+        { "date": new Date("2019"), "value": 163163.34399999998 },
+        { "date": new Date("2020"), "value": 157357.8056 },
+        { "date": new Date("2021"), "value": 165946.1632 },
+        { "date": new Date("2022"), "value": 167787.675 }
+    ]
+
+    // SET THE WIDTH, HEIGHT AND MARGIN FOR THE D3
+    const margin = {top: 70, right: 40, bottom: 60, left: 175};
+    const width = 1000 - margin.left - margin.right
+const height = 750 - margin.top - margin.bottom
+
+
+// CREATE A SVG
+const svg = d3.select("#div8").append("svg") 
+.attr("height", height + margin.top + margin.bottom)
+.attr("width", width + margin.left + margin.right)
+.append("g")
+.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+// SET X AND Y SCALES
+const x = d3.scaleBand()
+    .domain(data.map(function(d) { return d.date.getFullYear(); }))
+    .range([0, width])
+    .padding(0.3);
+
+const y = d3.scaleLinear()
+    .domain([0, d3.max(data, function(d) { return d.value; })])
+    .range([height, 0]);
+
+
+// CREATE THE X AND Y AXES
+const yAxis = d3.axisLeft(y)
+.ticks(15)
+.tickSize(5)
+
+const xAxis = d3.axisBottom(x)
+.tickSize(0)
+.tickPadding(5)
+
+// ADD A HORIZONTOL GRID LINE
+svg.selectAll("line.horizontol-grid")
+.data(y.ticks(15))
+.enter()
+.append("line")
+.attr("class", "horizontol-grid")
+.attr("x1", 0)
+.attr("y1", function (d) { return y(d); })
+.attr("x2", width)
+.attr("y2", function (d) { return y(d); })
+.style("stroke", "gray")
+.style("stroke-width", 0.5)
+.style("stroke-dasharray", "3 3");
+
+// CREATING THE BAR
+svg.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", function(d) { return x(d.date.getFullYear()); })
+    .attr("y", function(d) { return y(d.value); })
+    .attr("width", x.bandwidth())
+    .attr("height", function(d) { return height - y(d.value); })
+    .style("fill", "royalblue");
+
+
+// ADD THE AXES TO THE CHART
+svg.append("g")
+.attr("class", "x axis")
+.attr("transform", "translate(0," + height + ")")
+.call(xAxis)
+.style("font-size", "10 px")
+
+svg.append("g")
+.call(yAxis)
+.attr("class", "y axis")
+.style("font-size", "10px")
+
+
+*/
