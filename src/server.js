@@ -17,17 +17,19 @@ app.get("/", (request, response) =>{
     response.json({info : "Node.js, Express, and Postgres API"});    
 });
 
-app.post("/insertPopGrowth", db.insertPopGrowth);
-app.post("/inserDPTWH", db.insertDPTWH);
-app.post("/insertConsumptionCountry", db.insertConsumptionCountry);
-app.post("/populateDPTWH", db.populateDPTWH);
-app.post("/populateConsumptionCountry", db.populateConsumptionCountry);
-app.post("/populatePopGrowth",db.populatePopGrowth);
-app.post("/populatePopProjection", db.populatePopProjection);
-app.post("/insertPopProjection", db.insertPopProjection);
+app.get("/getPopProj", db.getPopProj)
+app.post("insertPopulationRegion",db.insertPopulationRegion);
 app.post("/populatePopulation",db.populatePopulation);
 app.post("/insertCountry",db.insertCountry);
-app.post("/insertPopulation",db.insertPopulation);
+app.post("/insertEnergyUseRegion", db.insertEnergyUseRegion);
+app.post("/insertPopulation",db.insertPopulationCountry);
+app.post("/populateCountry", db.populateCountry);
+app.post("/populateEnergyType",db.populateEnergyType);
+app.post("/populateCountryEnergryUse", db.populateCountryEnergryUse);
+app.post("/populateRegion", db.populateRegion);
+app.post("/populatePopulationRegion",db.populatePopulationRegion);
+app.post("/populateRegionEnergryUse", db.populateRegionEnergryUse);
+
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);

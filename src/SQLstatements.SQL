@@ -66,6 +66,12 @@ CREATE TABLE region(
   regionName VARCHAR(75)
 );
 
+CREATE TABLE energyType(
+  energyTypeID INT PRIMARY KEY,
+  energyName VARCHAR(75),
+  energySuperType VARCHAR
+);
+
 CREATE TABLE populationRegion(
   regionID INT REFERENCES region(regionID),
   year INT,
@@ -89,15 +95,25 @@ CREATE TABLE energyUseCountry(
   PRIMARY KEY (countryID,energyTypeID,year)
 );
 
+CREATE TABLE popProjRegion (
+    regionID REFERENCES region(regionID),
+    year INT,
+    estimate VARCHAR,
+    poulation VARCHAR
+);
+
+INSERT INTO popProjRegion (regionID, year, estimate, poulation FLOAT) VALUES($1,$2,$3$);
+
+INSERT INTO energyType(energyTypeID, energyName, energySuperType) VALUES($1,$2,$3);
 
 INSERT INTO country (countryName, countryID) VALUES ($1, $2);
 
 INSERT INTO populationCountry(countryID, year, population) VALUES($1, $2, $3);
 
-INSERT INTO energyUseCountry(countryID, energyTypeID, year, amountInTWH)($1,$2,$3,$4);
+INSERT INTO energyUseCountry(countryID, energyTypeID, year, amountInTWH)VALUES($1,$2,$3,$4);
 
-INSERT INTO region(regionName, regionIDID) VALUES ($1, $2);
+INSERT INTO region(regionName, regionID) VALUES ($1, $2);
 
 INSERT INTO populationRegion(regionID, year, population) VALUES($1, $2, $3);
 
-INSERT INTO energyUseRegion(regionID, energyTypeID, year, amountInTWH)($1,$2,$3,$4);
+INSERT INTO energyUseRegion(regionID, energyTypeID, year, amountInTWH) VALUES ($1,$2,$3,$4);
