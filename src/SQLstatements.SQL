@@ -1,53 +1,4 @@
-/*
-importing /data/death-rates-from-energy-production-per-twh.csv
-Temporary table on Neon.Tech
-*/
-CREATE TABLE deathsPrTWH_tmp (
-    entity VARCHAR,
-    year VARCHAR,
-    deathsPrTWH VARCHAR
-    );
 
-/*
-importing /data/energy-consumption-by-source-and-country.csv
-Temporary table on Neon.Tech
-*/
-CREATE TABLE consumptionCountry_tmp (
-    entity VARCHAR,
-    year VARCHAR,
-    otherRenewables VARCHAR,
-    biofuels VARCHAR,
-    solar VARCHAR,
-    wind VARCHAR,
-    hydro VARCHAR,
-    nuclear VARCHAR,
-    gas VARCHAR,
-    coal VARCHAR,
-    oil VARCHAR,
-    unit VARCHAR
-    );
-
-  /*
-    importing /data/population-and-demography.csv
-    Temporary table on Neon.Tech
-  */
-CREATE TABLE popGrowth_tmp (
-    country VARCHAR,
-    year VARCHAR,
-    population VARCHAR
-    );
-
-  /*
-    importing /data/UNdata_Export_20240508_074443411.csv
-    Temporary table on Neon.Tech
-  */
-
-CREATE TABLE popProj_tmp (
-    country VARCHAR,
-    year VARCHAR,
-    estimate VARCHAR,
-    poulation VARCHAR
-);
 
 CREATE TABLE country (
     countryID INT PRIMARY KEY,
@@ -101,6 +52,15 @@ CREATE TABLE popProjRegion (
     estimate VARCHAR,
     poulation VARCHAR
 );
+
+CREATE TABLE populateAccessElCountry(
+  countryID INT REFERENCES country(countryID),
+  year INT,
+  numberWithoutEl DECIMAL,
+  PRIMARY KEY(countryID, year)
+);
+
+INSERT INTO populateAccessElCountry(countryID,year,numberWithoutEl) VALUES($1,$2,$3$);
 
 INSERT INTO popProjRegion (regionID, year, estimate, poulation FLOAT) VALUES($1,$2,$3$);
 
