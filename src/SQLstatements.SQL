@@ -87,6 +87,10 @@ CREATE TABLE energyUseRegion(
   PRIMARY KEY (regionID,energyTypeID,year)
 );
 
+"SELECT SUM(amountInTWH) AS VALUE, year
+FROM energyUseRegion
+GROUP BY year;"
+
 CREATE TABLE energyUseCountry(
   countryID INT REFERENCES country(countryID),
   energyTypeID INT REFERENCES energyType(energyTypeID),

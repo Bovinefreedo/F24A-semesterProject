@@ -17,6 +17,7 @@ app.get("/", (request, response) =>{
     response.json({info : "Node.js, Express, and Postgres API"});    
 });
 
+app.get("/getEnergyUseWorld", db.getEnergyUseWorld);
 app.get("/getPopProj", db.getPopProj)
 app.post("insertPopulationRegion",db.insertPopulationRegion);
 app.post("/populatePopulation",db.populatePopulation);
