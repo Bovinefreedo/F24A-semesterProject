@@ -103,6 +103,20 @@ const insertEnergyUseCountry = (request, response) => {
   );
 }
 
+const insertAccessElCountry = (request, response) => {
+  const { countryID, year, numberWithoutEl } = request.body;
+  pool.query(
+    `INSERT INTO populateAccessElCountry(countryID,Year,numberWithoutEl) VALUES($1, $2, $3);`,
+    [countryID, year, numberWithoutEl],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(201).send(`Food added`);
+    }
+  );
+}
+
 const insertEnergyUseRegion = (request, response) => {
   const { regionID, energyTypeID, year, amountInTWH } = request.body;
   pool.query(
@@ -198,6 +212,34 @@ const populatePopulation = (request, response) => {
         }
         response.status(201).send('all rows added');
     })
+}
+
+const populateAccessElCountry = (request, response) => {
+  const popdata = "./data/number-without-electricity-by-region.csv"; 
+  const options = {
+      delimiter: ','
+    };
+  csvtojson().fromFile(popdata, options).then(source => {
+      for (let i = 0; i < source.length; i++) {
+        let country = source[i]["Entity"].toUpperCase();
+        let year = source[i]["Year"];
+        let numberWithoutEl = source[i]["Number of people without access to electricity"];
+        for(let n=0; n<countriesPopulation.length; n++){
+          if(country==countriesPopulation[n]){
+            let insertCountryPop = `INSERT INTO populateAccessElCountry(countryID,Year,numberWithoutEl) VALUES($1, $2, $3)`;
+            let countryPop = [n, year, numberWithoutEl];    
+            //Inserting data of current row into database
+            pool.query(insertCountryPop, countryPop, (err, results, fields) => {
+              if (err) {
+                  console.log("Unable to insert item at row " + i+1);
+                  return console.log(err);
+                }
+            });
+          }
+        }
+      }
+      response.status(201).send('all rows added');
+  })
 }
 
 //this populates the population of the chosen regions, we again refer to the regionList  for the ID (position on)
@@ -361,7 +403,7 @@ const populatePopProjectionRegion = (request, response) => {
 
 //
 const getPopProj = (request, response) => {
-  pool.query("SELECT * FROM populationregion", (error, results) => {
+  pool.query("SELECT * FROM popProjRegions", (error, results) => {
     if (error) {
       throw error;
     }
@@ -389,6 +431,7 @@ module.exports = {
   insertPopulationRegion,
   insertEnergyUseRegion,
   insertPopProjectionRegion,
+  insertAccessElCountry,
   populatePopulation,
   populateCountry,
   populateEnergyType,
@@ -396,7 +439,8 @@ module.exports = {
   populateRegion,
   populatePopulationRegion,
   populateRegionEnergryUse,
-  populatePopProjectionRegion
+  populatePopProjectionRegion,
+  populateAccessElCountry
 };
 
 const energyTypeList =[
