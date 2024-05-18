@@ -29,6 +29,8 @@ app.post("/populateCountryEnergryUse", db.populateCountryEnergryUse);
 app.post("/populateRegion", db.populateRegion);
 app.post("/populatePopulationRegion",db.populatePopulationRegion);
 app.post("/populateRegionEnergryUse", db.populateRegionEnergryUse);
+app.post("/populateAccessElCountry", db.populateAccessElCountry);
+app.post("/insertAccessElCountry", db.insertAccessElCountry);
 
 
 app.listen(port, () => {
