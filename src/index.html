@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horizontal Scrolling Website</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="stylesheet" href="skabelon.css">
 </head>
 
@@ -47,32 +48,27 @@
         </section>
 
         <section class="two">
-            <table>
-                <td>
-                    <h5>Befolkningstilvækstningen gennem tiden for hele verdenen</h5>
-                    <p>Befolkningstilvæksten gennem tiden har været kompleks og påvirket af medicinske og
-                        teknologiske
-                        fremskridt. Efter landbrugets opståen steg befolkningen gradvist, men det var først under
-                        den
-                        industrielle revolution, at væksten blev eksplosiv. Teknologiske fremskridt og bedre
+            <div class="baggrund">
+                <div class="kasse 1">
+                        <h5>Befolkningstilvækstningen gennem tiden for hele verdenen</h5>
+                        <p>Befolkningstilvæksten gennem tiden har været kompleks og påvirket af medicinske og
+                        teknologiske fremskridt. Efter landbrugets opståen steg befolkningen gradvist, men det var først under
+                        den industrielle revolution, at væksten blev eksplosiv. Teknologiske fremskridt og bedre
                         sundhedsvæsen førte til en dramatisk stigning i levestandarden og fødselsoverskuddet. Denne
-                        tendens fortsatte gennem det 20. århundrede, hvilket førte til overbefolkning og
-                        udfordringer
+                        tendens fortsatte gennem det 20. århundrede, hvilket førte til overbefolkning og udfordringer
                         som ressourceknaphed og klimaforandringer. I dag er der fokus på bæredygtig udvikling og
                         balancen mellem befolkningsvækst og miljømæssig bevarelse for at sikre en bæredygtig
-                        fremtid.
-                    </p>
-                <td>
-                    <div id="animated-chart"></div>
-                    <div id="tooltip" class="tooltip"></div>
-                </td>
-                </td>
-
-            </table>
+                        fremtid.</p>
+                </div>
+                <div class="kasse 2">
+                <div class="kasse 2"><div id="Population"></div></div>
+                </div>
         </section>
 
-        <section class="three">
+        <div id="animated-chart"></div>
+        <div id="tooltip" class="tooltip"></div>
 
+        <section class="three">
             <div class="baggrund">
                 <div class="quiz-container" id="quiz">
                     <div class="quiz-header">
@@ -81,22 +77,15 @@
                     <div class="quiz-body">
                         <h2 id="question">Hvem er julemanden</h2>
                         <div class="options">
-                            <div class="option" id="a">
-                                Berkant med store skæg
-                            </div>
-                            <div class="option" id="b">
-                                Gio med det store skæg
-                            </div>
+                            <div class="option" id="a">Berkant med store skæg</div>
+                            <div class="option" id="b">Gio med det store skæg</div>
                         </div>
                     </div>
                     <div class="quiz-footer"></div>
                     <div class="quiz-detail"></div>
-            </div>
-
+                </div>
             </div>
         </section>
-
-
 
         <section class="four">
             <div class="baggrund">
@@ -120,19 +109,21 @@
         </section>
 
         <section class="seven">
-        <div class="baggrund">
-            <div class="kasse 1">Box 1</div>
-            <div class="kasse 2">Box 2</div>
-        </div>
-        </section>
+            <div class="baggrund">
+                <div class="kasse 1">                    <h5>VERDENS ADGANG TIL ELEKTRICITET</h5>
+                    <p>Den præsenterede visualisering illustrerer udviklingen af verdens adgang til elektricitet over årene. Den anvender et områdegrafikon til at vise antallet af mennesker med og uden adgang til elektricitet fra 1998 til 2019.
 
+                        Grafen viser en stigning i antallet af mennesker med adgang til elektricitet gennem årene, hvilket indikerer en positiv udvikling i elektrificeringen globalt set. Samtidig viser den også det faldende antal mennesker uden adgang til elektricitet, hvilket tyder på fremskridt i retning af at øge elektricitetsdækningen globalt.</p></div>
+                <div class="kasse 2"><div id="adgang"></div></div>
+            </div>
+        </section>
     </div>
-    </div>
+
+    <!-- Ensure your JavaScript files are correctly referenced -->
+    <script src="ElectricityAccess.js"></script>
     <script src="script.js"></script>
     <script src="Population.js"></script>
     <script src="WithAndWithourElec.js"></script>
-
-
 </body>
 
 </html>

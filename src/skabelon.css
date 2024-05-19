@@ -162,7 +162,7 @@ th, td {
     padding-top: 150px;
 }
 
-.seven {
+.six {
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -209,8 +209,8 @@ rgb(26,29,50)
     box-sizing: border-box;
     background-color: #ccc;
     border-radius: 10px;
-    background: rgb(75,84,101) ;
-    color: white;
+    background: rgb(227, 237, 255) ;
+    color: rgb(0, 0, 0);
 }
 
 .kasse:last-child {
