@@ -1,3 +1,6 @@
+import {createSection5} from "./sections/section5.js"
+
+createSection5();
 let lastScrollTop = 0;
 
 window.addEventListener("scroll", function() {

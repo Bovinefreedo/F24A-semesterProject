@@ -361,7 +361,7 @@ const populatePopProjectionRegion = (request, response) => {
 
 //
 const getPopProj = (request, response) => {
-  pool.query("SELECT * FROM populationregion", (error, results) => {
+  pool.query("SELECT * FROM popProjRegion", (error, results) => {
     if (error) {
       throw error;
     }
@@ -379,7 +379,18 @@ const getPopulation = (request, response) => {
   });
 };
 
-module.exports = { 
+const getEnergyUseSuperType = (request, response) => {
+  pool.query("SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, year ORDER BY year ASC" , (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+module.exports = {
+  getEnergyUseSuperType,
+  getPopulation, 
   getPopProj,
   insertPopulationCountry,
   insertCountry,
@@ -398,6 +409,7 @@ module.exports = {
   populateRegionEnergryUse,
   populatePopProjectionRegion
 };
+
 
 const energyTypeList =[
   ["otherRenewables", "renewable"],

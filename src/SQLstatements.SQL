@@ -102,6 +102,14 @@ CREATE TABLE popProjRegion (
     poulation VARCHAR
 );
 
+SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType 
+FROM energyUseRegion 
+INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID 
+GROUP BY energySuperType, year
+ORDER BY year ASC
+
+"SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, yearORDER BY year ASC"
+
 INSERT INTO popProjRegion (regionID, year, estimate, poulation FLOAT) VALUES($1,$2,$3$);
 
 INSERT INTO energyType(energyTypeID, energyName, energySuperType) VALUES($1,$2,$3);
