@@ -15,6 +15,36 @@ rgb(75,84,101)
 rgb(26,29,50)
 
 */
+.circle {
+    height: 12px;
+    width: 12px;
+    border-radius: 1px;
+    background-color: black;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999999; /* so that it stays on top of all other elements */
+  }
+
+.swipe-in {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.9s ease, transform 0.7s cubic-bezier(0.17, 0.67, 0.83, 0.90); /* Add transitions for opacity and transform */
+}
+
+/* Initially hide the element and scale it down */
+.baggrund {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+
+.baggrund.swipe-in {
+    opacity: 1; /* Show the div */
+    transform: translateX(0); /* Move the div back to its original position */
+}
+
 
 .header {
     position:fixed;
