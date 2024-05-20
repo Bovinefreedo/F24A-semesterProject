@@ -105,4 +105,3 @@ const sections = document.querySelectorAll('.one, .two, .three, .four, .five, .s
 sections.forEach(section => {
     observer.observe(section);
 });
-
