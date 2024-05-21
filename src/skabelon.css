@@ -162,7 +162,7 @@ th, td {
     max-width: 100vw; /* Set maximum width to viewport width */
     height: 100%;
     overflow: hidden; /* Hide overflow to prevent borders from appearing on other sides */
-    background: url('LandingBackground.jpg') no-repeat center center; /* Replace with your image path */
+    background: url('Background.jpg') no-repeat center center; /* Replace with your image path */
     background-size: cover;
 }
 
