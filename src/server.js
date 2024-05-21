@@ -13,6 +13,21 @@ app.use(
     })
 );
 
+const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
+  fetch(apiUrl)
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+      .then(data => {
+        console.log(data)
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+
 app.get("/", (request, response) =>{
     response.json({info : "Node.js, Express, and Postgres API"});    
 });
