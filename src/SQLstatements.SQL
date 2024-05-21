@@ -109,6 +109,16 @@ SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType
   GROUP BY energySuperType, year
   ORDER BY year ASC
 
+  SELECT amountInTWH, year, energyName, countryName
+    FROM energyUseCountry
+    INNER JOIN energyType
+      ON energyType.energyTypeID = energyUseCountry.energyTypeID
+    INNER JOIN country
+      ON country.countryID = energyUseCountry.countryID
+    WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' )
+
+  
+
 "SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, yearORDER BY year ASC"
 
 INSERT INTO popProjRegion (regionID, year, estimate, poulation FLOAT) VALUES($1,$2,$3$);
