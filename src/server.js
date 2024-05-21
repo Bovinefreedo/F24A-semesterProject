@@ -12,24 +12,14 @@ app.use(
         extended: true, 
     })
 );
+app.get("/", (request, response) => {
+    response.sendFile(__dirname + "/index.html");
+  });
 
-const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
-  fetch(apiUrl)
-      .then(response => {
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          return response.json();
-      })
-      .then(data => {
-        console.log(data)
-      })
-      .catch(error => {
-          console.error('Error:', error);
-      });
-
-app.get("/", (request, response) =>{
-    response.json({info : "Node.js, Express, and Postgres API"});    
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
 });
 
 app.get("/getEnergyUseSuperType", db.getEnergyUseSuperType);
