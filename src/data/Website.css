@@ -395,32 +395,3 @@ th:first-child, td:first-child {
 .answer-description {
     margin-top: 10px;
 }
-
-.chart-gauge {
-    width: 400px;
-    margin: 10px auto;
-  }
-  
-  .chart-color1 {
-    fill: #DEA82C;
-  }
-  
-  .chart-color2 {
-    fill: #E9621A;
-  }
-  
-  .chart-color3 {
-    fill: #e92213;
-  }
-  
-  .needle,
-  .needle-center {
-    fill: #464A4F;
-  }
-  
-  .prose {
-    text-align: center;
-    font-family: sans-serif;
-    color: #ababab;
-  }
-  
