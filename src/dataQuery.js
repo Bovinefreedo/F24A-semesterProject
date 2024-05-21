@@ -388,9 +388,19 @@ const getEnergyUseSuperType = (request, response) => {
   });
 };
 
+const getEnergyUseWorld = (request, response) => {
+  pool.query("SELECT SUM(amountInTWH) AS value, year AS date FROM energyUseRegion GROUP BY year ORDER BY year ASC;", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 module.exports = {
   getEnergyUseSuperType,
   getPopulation, 
+  getEnergyUseWorld,
   getPopProj,
   insertPopulationCountry,
   insertCountry,

@@ -1,10 +1,31 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        rect {
+          pointer-events: all;
+          fill-opacity: 0;
+          stroke-opacity: 0;
+          z-index: 1;
+        }
+    
+        .toolTip {
+        position: absolute;
+        padding: 10px;
+        background-color: steelblue;
+        color: white;
+        border: 1px solid white;
+        border-radius: 10px;
+        display: none;
+        opacity: .75;
+      }
+      </style>
+    
+
+
     <title>Horizontal Scrolling Website</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -104,10 +125,12 @@
             </div>
         </section>
 
-        <section class="four">
-            <div class="baggrund">
-                <div class="kasse 1">Box 1</div>
-                <div class="kasse 2">Box 2</div>
+
+
+        <section class="sectionCanvas" id="section8Content">
+            <div class="background">
+                <div id="energyChart"></div>
+                <div id="tooltip"></div>
             </div>
         </section>
 
@@ -162,7 +185,8 @@
     <script src="ElectricityAccess.js"></script>
     <script src="script.js"></script>
     <script src="Population.js"></script>
-    <script src="cursor.js"></script>
+    <script src="WithAndWithourElec.js"></script>
+
 </body>
 
 
