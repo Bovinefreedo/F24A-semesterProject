@@ -54,3 +54,4 @@ function checkAnswer(selectedOption) {
         }
     }
 }
+
