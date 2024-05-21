@@ -13,10 +13,19 @@ app.use(
     })
 );
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
+
 app.get("/", (request, response) =>{
     response.json({info : "Node.js, Express, and Postgres API"});    
 });
 
+app.get("/getEnergyUseSuperType", db.getEnergyUseSuperType);
+app.get("/getPopulation", db.getPopulation);
+app.get("/getPopProj", db.getPopProj);
 app.get("/getEnergyUseWorld", db.getEnergyUseWorld);
 app.get("/getPopProj", db.getPopProj)
 app.post("insertPopulationRegion",db.insertPopulationRegion);

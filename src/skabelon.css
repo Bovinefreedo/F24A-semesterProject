@@ -1,0 +1,380 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins";
+}
+
+/* COLOR / KUN DISSE FARVER MÅ BRUGES
+
+rgba(251,252,252,255)
+rgba(118,62,221,255)
+rgba(164,200,255,255)
+rgb(75,84,101)
+rgb(26,29,50)
+
+*/
+
+.header {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 35px 180px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 35px;
+    color: rgb(34, 34, 34);
+    text-decoration: none;
+    font-weight: 1000;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: rgb(34, 34, 34);
+    font-weight: 450;
+    text-decoration: none;
+    margin-left: 0px;
+}
+
+
+.navbar a::before {
+    content: '';
+    position: absolute ;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: rgb(34, 34, 34);
+    transition: 0.4s;
+}
+
+.navbar a:hover::before {
+    width: 100%;
+}
+
+.box {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.start {
+    margin-top: 400px;
+    display: flex;
+    box-sizing: content-box;
+    position: absolute;
+}
+
+/*
+.one {
+    background-color: rgb(184, 184, 255);
+}
+
+.two {
+    background-color: rgb(215, 215, 255);
+}
+
+.three {
+    background-color: rgb(254, 254, 255);
+}
+.four {
+    background-color: rgb(254, 254, 255);
+}
+*/
+
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    align-items: left;
+    width: 100%;
+    height: 60%;
+    margin-top: 0px; /* Set the top margin to -50px */
+    margin-left: 0;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.sectionCanvas {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.two {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.three {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.four {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.five {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.seven {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.seven {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+}
+
+.background {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    padding: 35px;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    border-radius: 30px;
+    background: rgb(26,29,50) ;
+}
+
+/*
+rgba(251,252,252,255)
+rgba(118,62,221,255)
+rgba(164,200,255,255)
+rgb(75,84,101)
+rgb(26,29,50)
+*/
+
+
+.kasse {
+    width: 100%;
+    height: 95%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ccc;
+    border-radius: 10px;
+    background: rgb(75,84,101) ;
+    color: white;
+}
+
+.kasse:last-child {
+    margin-left: 2%;
+}
+
+.kasse:first-child {
+    width: 40%;
+}
+
+
+th:first-child, td:first-child {
+    width: 40%;
+}
+
+.content {
+    margin-right: auto; /* Set right margin to auto to push it to the left */
+    margin-left: 0; /* Set left margin to 0 to ensure it's aligned to the left */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.content h1 {
+    font-size: 25px;
+    color: #333;
+    width: 100%;
+    padding-top: 50px;
+    letter-spacing: 6.35px;
+    font-weight: 30000;
+}
+
+.content p {
+    font-size: 12px;
+    color: #555;
+    width: 100%;
+    margin-top: -25px; /* Adjust the margin-top to reduce the gap space */
+}
+
+.two p {
+    font-size: 10px;
+    color: #555;
+}
+
+.two h5 {
+    font-size: 20px;
+    color: #333;
+    font-weight: 30000;
+}
+
+
+.facts-box {
+    border-radius: 5px;
+    width: 35%;
+    margin-top: 50px; /* Adjust the margin-top to reduce the gap space */
+}
+
+.facts-box h3 {
+    font-size: 12px;
+    color: #333;
+}
+
+.facts-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.facts-box li {
+    font-size: 10px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+
+/* quizzzz */
+
+/* Add your existing CSS styles here */
+
+/* Add your existing CSS styles here */
+
+.option {
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.option:hover {
+    background-color: #ffffff;
+}
+
+.quiz-container {
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #caf2f1; /* Fallback color */
+    animation: spinBorder 5s linear infinite;
+}
+
+@keyframes spinBorder {
+    0% {
+        border: 2px solid #e3e8ff;
+    }
+    25% {
+        border: 2px solid #bac7ff;
+    }
+    50% {
+        border: 2px solid #a1b2ff;
+    }
+    75% {
+        border: 2px solid #7a93ff;
+    }
+    100% {
+        border: 2px solid#5474ff;
+    }
+}
+
+
+
+.quiz-container.false {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.quiz-container.green {
+    background-color: rgb(181, 214, 181);
+}
+
+.quiz-body {
+    margin-bottom: 20px;
+}
+
+.answer-description {
+    margin-top: 10px;
+}
+
+.gauge
+{
+  width: 400px;
+  margin: 10px auto  
+} 
+.gauge-filled
+{
+  fill: steelblue;
+}
+.gauge-empty
+{
+  fill: #dedede;
+}
+.needle, .needle-center
+{
+  fill: #464A4F;
+}
+svg {
+  font: 10px sans-serif;
+}
