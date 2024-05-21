@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horizontal Scrolling Website</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="stylesheet" href="skabelon.css">
 </head>
 
+
 <body>
+
     <header class="header">
         <a href="forside.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
         <nav class="navbar">
@@ -17,63 +21,72 @@
         </nav>
     </header>
 
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
     <div class="box">
-        <section class="sectionCanvas">
-            <div class="content">
-                <h1>SAMMMEN GØR VI HVER DAG BEDRE MED GRØN OMSTILLING</h1>
-                <br>
-                <p class="beskrivelse">Energi er livsnerven i det moderne samfund, der driver vores industrier,
-                    oplyser vores byer og
-                    brænder for vores ambitioner. Alligevel forbliver energi for alt for mange en luksus, en fjern
-                    drøm
-                    der synes at være utilgængelig. I vores stræben efter fremskridt er det afgørende ikke at
-                    efterlade
-                    nogen bagved. Derfor handler Mål 7 ikke kun om at tænde en kontakt; det handler om at oplyse
-                    vejen
-                    til en lysere, mere inklusiv fremtid.</p>
-                <div class="facts-box">
-                    <h3>Vidste du at?</h3>
-                    <ul>
-                        <li>Globalt mangler cirka 789 millioner mennesker adgang til elektricitet, hovedsageligt i
-                            landdistrikterne. Denne mangel på energitilgængelighed hæmmer deres fulde deltagelse i
-                            økonomisk og social udvikling. Energifattigdom forværrer eksisterende uligheder og
-                            hindrer
-                            bestræbelserne på at forbedre levestandarden og mindske fattigdommen. Lad os arbejde
-                            sammen
-                            for at sikre energi til alle og bane vejen for en mere retfærdig verden.</li>
-                    </ul>
+        <section class="one">
+            <div class="baggrund" id="gradient">
+                <div class="LandingBox">
+                    <div id="LandingPageText">
+                        Sustainability
+                        <div id="LandingPageTextSmall">
+                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
+                            of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
+                            a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure
+                            Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the
+                            word in classical literature, discovered the undoubtable source
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="sectionCanvas">
-            <table>
-                <td>
+        <section class="two">
+            <div class="baggrund">
+                <div class="kasse 1">
                     <h5>Befolkningstilvækstningen gennem tiden for hele verdenen</h5>
                     <p>Befolkningstilvæksten gennem tiden har været kompleks og påvirket af medicinske og
-                        teknologiske
-                        fremskridt. Efter landbrugets opståen steg befolkningen gradvist, men det var først under
-                        den
-                        industrielle revolution, at væksten blev eksplosiv. Teknologiske fremskridt og bedre
+                        teknologiske fremskridt. Efter landbrugets opståen steg befolkningen gradvist, men det var først
+                        under
+                        den industrielle revolution, at væksten blev eksplosiv. Teknologiske fremskridt og bedre
                         sundhedsvæsen førte til en dramatisk stigning i levestandarden og fødselsoverskuddet. Denne
-                        tendens fortsatte gennem det 20. århundrede, hvilket førte til overbefolkning og
-                        udfordringer
+                        tendens fortsatte gennem det 20. århundrede, hvilket førte til overbefolkning og udfordringer
                         som ressourceknaphed og klimaforandringer. I dag er der fokus på bæredygtig udvikling og
                         balancen mellem befolkningsvækst og miljømæssig bevarelse for at sikre en bæredygtig
-                        fremtid.
-                    </p>
-                <td>
-                    <div id="animated-chart"></div>
-                    <div id="tooltip" class="tooltip"></div>
-                </td>
-                </td>
-
-            </table>
+                        fremtid.</p>
+                </div>
+                <div class="kasse 2">
+                    <div class="kasse 2">
+                        <div id="Population"></div>
+                    </div>
+                </div>
         </section>
 
-        <section class="sectionCanvas">
+        <div id="animated-chart"></div>
+        <div id="tooltip" class="tooltip"></div>
 
-            <div class="background">
+        <section class="three">
+            <div class="baggrund">
                 <div class="quiz-container" id="quiz">
                     <div class="quiz-header">
                         <h2 class="header-txt">Hvad tror du</h2>
@@ -81,54 +94,63 @@
                     <div class="quiz-body">
                         <h2 id="question">Hvem er julemanden</h2>
                         <div class="options">
-                            <div class="option" id="a">
-                                Berkant med store skæg
-                            </div>
-                            <div class="option" id="b">
-                                Gio med det store skæg
-                            </div>
+                            <div class="option" id="a">Berkant med store skæg</div>
+                            <div class="option" id="b">Gio med det store skæg</div>
                         </div>
                     </div>
                     <div class="quiz-footer"></div>
                     <div class="quiz-detail"></div>
-            </div>
-
+                </div>
             </div>
         </section>
 
-
-
-        <section class="sectionCanvas">
-            <div class="background">
+        <section class="four">
+            <div class="baggrund">
                 <div class="kasse 1">Box 1</div>
                 <div class="kasse 2">Box 2</div>
             </div>
         </section>
 
-        <section class= "sectionCanvasid" id="section5Content">
-        </section>
-
-        <section class="sectionCanvas">
-            <div class="background">
+        <section class="five">
+            <div class="baggrund">
                 <div class="kasse 1">Box 1</div>
                 <div class="kasse 2">Box 2</div>
             </div>
         </section>
 
-        <section class="sectionCanvas">
-        <div class="background">
-            <div class="kasse 1">Box 1</div>
-            <div class="kasse 2">Box 2</div>
-        </div>
+        <section class="six">
+            <div class="baggrund">
+                <div class="kasse 1">Box 1</div>
+                <div class="kasse 2">Box 2</div>
+            </div>
         </section>
 
+        <section class="seven">
+            <div class="baggrund">
+                <div class="kasse 1">
+                    <h5>VERDENS ADGANG TIL ELEKTRICITET</h5>
+                    <p>Den præsenterede visualisering illustrerer udviklingen af verdens adgang til elektricitet over
+                        årene. Den anvender et områdegrafikon til at vise antallet af mennesker med og uden adgang til
+                        elektricitet fra 1998 til 2019.
+
+                        Grafen viser en stigning i antallet af mennesker med adgang til elektricitet gennem årene,
+                        hvilket indikerer en positiv udvikling i elektrificeringen globalt set. Samtidig viser den også
+                        det faldende antal mennesker uden adgang til elektricitet, hvilket tyder på fremskridt i retning
+                        af at øge elektricitetsdækningen globalt.</p>
+                </div>
+                <div class="kasse 2">
+                    <div id="adgang"></div>
+                </div>
+            </div>
+        </section>
     </div>
-    </div>
-    <script src="script.js"  type="module" defer></script>
+
+    <!-- Ensure your JavaScript files are correctly referenced -->
+    <script src="ElectricityAccess.js"></script>
+    <script src="script.js"></script>
     <script src="Population.js"></script>
-    <script src="WithAndWithourElec.js"></script>
-
-
+    <script src="cursor.js"></script>
 </body>
+
 
 </html>
