@@ -26,7 +26,7 @@ export function createSection8() {
 
       // create the svg element and append it to the chart container
       const svg = d3
-        .select("#three")
+        .select("#energyChart")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
