@@ -1,3 +1,5 @@
+
+
 // set margin, width and height
 const width = 1250;
 const height = 500;

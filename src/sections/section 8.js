@@ -1,3 +1,25 @@
+export function createSection8() {
+  const section8 = document.getElementById("section8Content");
+  const canvas8 = document.createElement("div");
+  section8.appendChild(canvas8);
+  canvas8.id = "canvas8";
+  canvas8.className = "background";
+  const apiUrl = "http://localhost:4000/getEnergyUseWorld";
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
 // set margin, width and height
 const width = 1250;
 const height = 500;
@@ -213,4 +235,3 @@ svg
     const length = this.getTotalLength();
     return d3.interpolate(`0,${length}`, `${length}, ${length}`);
   });
-
