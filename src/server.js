@@ -23,7 +23,7 @@ app.get("/", (request, response) =>{
     response.json({info : "Node.js, Express, and Postgres API"});    
 });
 
-app.get("/getEnergyUseSuperType", db.getEnergyUseSuperType)
+app.get("/getEnergyUseSuperType", db.getEnergyUseSuperType);
 app.get("/getPopulation", db.getPopulation);
 app.get("/getPopProj", db.getPopProj);
 app.post("insertPopulationRegion",db.insertPopulationRegion);

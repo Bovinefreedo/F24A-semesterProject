@@ -103,10 +103,11 @@ CREATE TABLE popProjRegion (
 );
 
 SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType 
-FROM energyUseRegion 
-INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID 
-GROUP BY energySuperType, year
-ORDER BY year ASC
+  FROM energyUseRegion 
+  INNER JOIN energyType 
+    ON energyType.energyTypeID = energyUseRegion.energyTypeID 
+  GROUP BY energySuperType, year
+  ORDER BY year ASC
 
 "SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, yearORDER BY year ASC"
 
