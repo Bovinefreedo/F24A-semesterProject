@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
-    padding: 0;
     box-sizing: border-box;
     font-family: "Poppins";
+    margin: 0;
 }
 
 /* COLOR / KUN DISSE FARVER MÅ BRUGES
@@ -15,6 +15,36 @@ rgb(75,84,101)
 rgb(26,29,50)
 
 */
+.circle {
+    height: 12px;
+    width: 12px;
+    border-radius: 1px;
+    background-color: black;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999999; /* so that it stays on top of all other elements */
+  }
+
+.swipe-in {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.9s ease, transform 0.7s cubic-bezier(0.17, 0.67, 0.83, 0.90); /* Add transitions for opacity and transform */
+}
+
+/* Initially hide the element and scale it down */
+.baggrund {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+
+.baggrund.swipe-in {
+    opacity: 1; /* Show the div */
+    transform: translateX(0); /* Move the div back to its original position */
+}
+
 
 .header {
     position:fixed;
@@ -23,7 +53,6 @@ rgb(26,29,50)
     width: 100%;
     padding: 35px 180px;
     background: rgb(255, 255, 255);
-    display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
@@ -65,7 +94,7 @@ rgb(26,29,50)
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
     height: 100vh;
-
+    margin: 0;
 }
 
 section {
@@ -117,13 +146,81 @@ th, td {
     padding: 10px;
 }
 
-.sectionCanvas {
+.one {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     scroll-snap-align: start;
     padding-top: 150px;
+}
+
+/* Add this CSS to define the background image with a gradient overlay */
+#gradient {
+    position: relative;
+    width: 100%;
+    max-width: 100vw; /* Set maximum width to viewport width */
+    height: 100%;
+    overflow: hidden; /* Hide overflow to prevent borders from appearing on other sides */
+    background: url('LandingBackground.jpg') no-repeat center center; /* Replace with your image path */
+    background-size: cover;
+}
+
+#gradient::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.972) 30%, rgba(0, 0, 0, 0.7) 65%, rgba(0, 0, 0, 0) 100%);
+}
+
+
+/* Ensure the section and its contents are styled correctly */
+.one {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    padding-top: 150px;
+    margin: 0; /* Remove default margin */
+}
+
+.LandingBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+    text-align: center;
+    margin-top: -200px;
+}
+
+#LandingPageText {
+    font-size: 100px;
+    max-width: 100%;
+    font-family: "Poppins";
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.9); /* Adjust color opacity for better visibility */
+    z-index: 1; /* Ensure the text is above the background */
+    -webkit-font-smoothing: antialiased; /* Enhance text rendering */
+    -moz-osx-font-smoothing: grayscale; /* Enhance text rendering */
+}
+
+#LandingPageTextSmall {
+    font-size: 15px;
+    max-width: 100%;
+    padding-right: 50px;
+    padding-left: 50px;
+    font-family: "Poppins";
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9); /* Adjust color opacity for better visibility */
+    z-index: 1; /* Ensure the text is above the background */
+    -webkit-font-smoothing: antialiased; /* Enhance text rendering */
+    -moz-osx-font-smoothing: grayscale; /* Enhance text rendering */
 }
 
 .two {
@@ -162,7 +259,7 @@ th, td {
     padding-top: 150px;
 }
 
-.seven {
+.six {
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -180,7 +277,7 @@ th, td {
     padding-top: 150px;
 }
 
-.background {
+.baggrund {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -189,7 +286,6 @@ th, td {
     padding: 35px;
     box-sizing: border-box;
     background-color: #f0f0f0;
-    border-radius: 30px;
     background: rgb(26,29,50) ;
 }
 
@@ -209,8 +305,8 @@ rgb(26,29,50)
     box-sizing: border-box;
     background-color: #ccc;
     border-radius: 10px;
-    background: rgb(75,84,101) ;
-    color: white;
+    background: rgb(227, 237, 255) ;
+    color: rgb(0, 0, 0);
 }
 
 .kasse:last-child {
@@ -226,64 +322,6 @@ th:first-child, td:first-child {
     width: 40%;
 }
 
-.content {
-    margin-right: auto; /* Set right margin to auto to push it to the left */
-    margin-left: 0; /* Set left margin to 0 to ensure it's aligned to the left */
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.content h1 {
-    font-size: 25px;
-    color: #333;
-    width: 100%;
-    padding-top: 50px;
-    letter-spacing: 6.35px;
-    font-weight: 30000;
-}
-
-.content p {
-    font-size: 12px;
-    color: #555;
-    width: 100%;
-    margin-top: -25px; /* Adjust the margin-top to reduce the gap space */
-}
-
-.two p {
-    font-size: 10px;
-    color: #555;
-}
-
-.two h5 {
-    font-size: 20px;
-    color: #333;
-    font-weight: 30000;
-}
-
-
-.facts-box {
-    border-radius: 5px;
-    width: 35%;
-    margin-top: 50px; /* Adjust the margin-top to reduce the gap space */
-}
-
-.facts-box h3 {
-    font-size: 12px;
-    color: #333;
-}
-
-.facts-box ul {
-    list-style-type: none;
-    padding: 0;
-    margin-right: 10px;
-}
-
-.facts-box li {
-    font-size: 10px;
-    color: #666;
-    margin-bottom: 5px;
-}
 
 
 /* quizzzz */
@@ -356,25 +394,4 @@ th:first-child, td:first-child {
 
 .answer-description {
     margin-top: 10px;
-}
-
-.gauge
-{
-  width: 400px;
-  margin: 10px auto  
-} 
-.gauge-filled
-{
-  fill: steelblue;
-}
-.gauge-empty
-{
-  fill: #dedede;
-}
-.needle, .needle-center
-{
-  fill: #464A4F;
-}
-svg {
-  font: 10px sans-serif;
 }
