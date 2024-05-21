@@ -20,12 +20,11 @@ export function createSection5(){
       .then(data => {
         console.log(data)
         function createGauge(id, needleLength, needleWidth) {
-            var needle, ref;
+            var ref;
             let i;
             let barWidth = 40;
             let numSections = 3;
         
-            // / 2 for HALF circle
             let sectionPerc = 1 / numSections / 2;  
             let padRad = 0.05;
             let chartInset = 10;
@@ -33,7 +32,7 @@ export function createSection5(){
             // start at 270deg
             let totalPercent = .75;
           
-            let el = d3.select('#chart-gauge');
+            let el = d3.select('.chart-gauge');
           
             let margin = {
               top: 20,
