@@ -1,25 +1,27 @@
 
-function RadarChart(id, data, options) {
-	var cfg = {
-	 w: 600,				//Width of the circle
-	 h: 600,				//Height of the circle
-	 margin: {top: 20, right: 20, bottom: 20, left: 20}, //The margins of the SVG
-	 levels: 3,				//How many levels or inner circles should there be drawn
-	 maxValue: 0, 			//What is the value that the biggest circle will represent
-	 labelFactor: 1.25, 	//How much farther than the radius of the outer circle should the labels be placed
-	 wrapWidth: 60, 		//The number of pixels after which a label needs to be given a new line
-	 opacityArea: 0.35, 	//The opacity of the area of the blob
-	 dotRadius: 4, 			//The size of the colored circles of each blog
-	 opacityCircles: 0.1, 	//The opacity of the circles of each blob
-	 strokeWidth: 2, 		//The width of the stroke around each blob
-	 roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
-	 color: d3.scale.category10()	//Color function
-	};
+function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som tager tre argumenter: id (et string, der angiver ID'et på det HTML-element, hvor diagrammet skal placeres), data (et array af arrays, der indeholder dataene for diagrammet), og options (et objekt, der indeholder konfigurationsindstillinger for diagrammet).
+
+    var cfg = {                         // Definerer et objekt kaldet cfg, der indeholder standardkonfigurationen for diagrammet.
+        w: 600,                        // Bredde af diagrammet i pixels (standardværdi: 600).
+        h: 600,                        // Højde af diagrammet i pixels (standardværdi: 600).
+        margin: { top: 20, right: 20, bottom: 20, left: 20 }, // Margener omkring diagrammet i pixels (standardværdi: 20 pixels på alle sider).
+        levels: 3,                     // Antallet af niveauer (cirkler) i diagrammet (standardværdi: 3).
+        maxValue: 0,                   // Maksimumsværdien for dataene (standardværdi: 0). Dette vil blive beregnet senere baseret på de faktiske data.
+        labelFactor: 1.25,             // Hvor langt væk fra den yderste cirkel akse-labels skal placeres (standardværdi: 1.25).
+        wrapWidth: 60,                 // Antallet af pixels, hvor en akse-label skal ombrydes til en ny linje (standardværdi: 60).
+        opacityArea: 0.35,             // Opacitet (gennemsigtighed) af polygon-områderne (standardværdi: 0.35).
+        dotRadius: 4,                  // Radius af datapunkterne (cirkler) i pixels (standardværdi: 4).
+        opacityCircles: 0.1,           // Opacitet af datapunkterne (cirkler) (standardværdi: 0.1).
+        strokeWidth: 2,                // Tykkelse af stregen omkring polygonerne i pixels (standardværdi: 2).
+        roundStrokes: false,           // Angiver, om stregerne omkring polygonerne skal være runde (true) eller ej (false). Standardværdien er false.
+        color: d3.scale.category10()   // Farveskala til at tildele farver til forskellige datasæt. D3's category10-skala bruges som standard.
+    };
+
 	
 	//Put all of the options into a variable called cfg
-	if('undefined' !== typeof options){
-	  for(var i in options){
-		if('undefined' !== typeof options[i]){ cfg[i] = options[i]; }
+	if('undefined' !== typeof options){			// Tjekker om `options` (brugerdefinerede indstillinger) er defineret (ikke 'undefined')
+	  for(var i in options){					// Looper gennem alle nøgler (egenskabsnavne) i `options` objektet
+		if('undefined' !== typeof options[i]){ cfg[i] = options[i]; } // Tjekker om værdien for den aktuelle nøgle er defineret
 	  }//for i
 	}//if
 	
@@ -29,13 +31,13 @@ function RadarChart(id, data, options) {
 	var allAxis = (data[0].map(function(i, j){return i.axis})),	//Names of each axis
 		total = allAxis.length,					//The number of different axes
 		radius = Math.min(cfg.w/2, cfg.h/2), 	//Radius of the outermost circle
-		Format = d3.format(''),			 	//Percentage formatting
+		Format = d3.format(' %'),			 	//Percentage formatting
 		angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
 	
 	//Scale for the radius
 	var rScale = d3.scale.linear()
-		.range([0, radius])
-		.domain([0, maxValue]);
+		.range([0, radius])						// Output range (pixels)
+		.domain([0, maxValue]);					// Input domain (data values)
 		
 	/////////////////////////////////////////////////////////
 	//////////// Create the container SVG and g /////////////
@@ -73,7 +75,7 @@ function RadarChart(id, data, options) {
 	
 	//Draw the background circles
 	axisGrid.selectAll(".levels")
-	   .data(d3.range(1,(cfg.levels+1)).reverse())
+	   .data(d3.range(1,(cfg.levels+1)).reverse())		
 	   .enter()
 		.append("circle")
 		.attr("class", "gridCircle")

@@ -1,111 +1,106 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
-		<title>Mit forsøg på en radarchart</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>Mit forsøg på en radarchart</title>
 
-		
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
-		<!-- D3.js -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-		
-		<style>
-			body {
-				font-family: 'Open Sans', sans-serif;
-				font-size: 11px;
-				font-weight: 300;
-				fill: #242424;
-				text-align: center;
-				text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
-				cursor: default;
-			}
-			
-			.legend {
-				font-family: 'Raleway', sans-serif;
-				fill: #333333;
-			}
-			
-			.tooltip {
-				fill: #333333;
-			}
-		</style>
-	
-	</head>
-	<body>
+        <style>
+            body {
+                font-family: 'Times New Roman', Times, serif;       /* Skrifttype for body-tekst */      
+                font-size: 11px;                                    /* Skriftstørrelse for body-tekst (11 pixels) */
+                font-weight: 300;                                   /* Skrifttykkelse for body-tekst (light) */
+                fill: #242424;                                      /* Fyldfarve for SVG-elementer i body (mørkegrå) */   
+                text-align: center;                                 /* Centrerer tekst i body */
+                text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff; /* Skygge på body-tekst (hvid) */
+                cursor: default;                                    /* Standardmusemarkør over body */
+            }
+            
+            .legend {
+                font-family: 'Raleway', sans-serif;                 /* Skrifttype for legend (forklaring) */
+                fill: #333333;                                      /* Fyldfarve for tekst i legenden (mørkegrå) */
+            }
+            
+            .tooltip {
+                fill: #333333;                                      /* Fyldfarve for tekst i tooltips (mørkegrå) */
+            }
+        </style>
+    </head>
+    <body>
 
-		<div class="radarChart"></div>
-
-		<script src="script.js"></script>	
-		<script>
+        <div class="radarChart"></div>                           <script src="script.js"></script>                       <script>
       
-      /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+            /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
       
-			////////////////////////////////////////////////////////////// 
-			//////////////////////// Set-Up ////////////////////////////// 
-			////////////////////////////////////////////////////////////// 
+            ////////////////////////////////////////////////////////////// 
+            //////////////////////// Set-Up ////////////////////////////// 
+            ////////////////////////////////////////////////////////////// 
 
-			var margin = {top: 100, right: 100, bottom: 100, left: 100},
-				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
-				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
-					
-			////////////////////////////////////////////////////////////// 
-			////////////////////////// Data ////////////////////////////// 
-			////////////////////////////////////////////////////////////// 
+            var margin = {top: 100, right: 100, bottom: 100, left: 100},  /* Marginer omkring diagrammet */
+                width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right, /* Beregner bredden af diagrammet */
+                height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20); /* Beregner højden af diagrammet */
+                    
+            ////////////////////////////////////////////////////////////// 
+            ////////////////////////// Data ////////////////////////////// 
+            ////////////////////////////////////////////////////////////// 
 
-			var data = [
-					  [//Danmark
-						{axis:"Other renewables",value:23.934357},
-						{axis:"Biofuels",value:20.9534056},
-						{axis:"Solar",value:28.055607},
-						{axis:"Wind",value:49.540455},
-						{axis:"Hydro",value:12},
-						{axis:"Nuclear",value:11},
-						{axis:"Gas",value:16.985794},
-						{axis:"Coal",value:11.995051},	
-                        {axis:"Oil" ,value:30}		
-					  ],[
-                      {axis:"Other renewables",value:34},
-						{axis:"Biofuels",value:27},
-						{axis:"Solar",value:20},
-						{axis:"Wind",value:21},
-						{axis:"Hydro",value:40},
-						{axis:"Nuclear",value:37},
-						{axis:"Gas",value:15},
-						{axis:"Coal",value:50},
-						{axis:"Oil" ,value:20}	
+            var data = [
+                      [//Danmark                                /* Data for Danmark (2022) */
+                        {axis:"Other renewables",value:23.934357},
+                        {axis:"Biofuels",value:20.9534056},
+                        {axis:"Solar",value:28.055607},
+                        {axis:"Wind",value:49.540455},
+                        {axis:"Hydro",value:12},
+                        {axis:"Nuclear",value:11},
+                        {axis:"Gas",value:16.985794},
+                        {axis:"Coal",value:11.995051},  
+                        {axis:"Oil" ,value:30}      
+                      ],[
+                      {axis:"Other renewables",value:34},    /* Data for verden (2022) */
+                        {axis:"Biofuels",value:27},
+                        {axis:"Solar",value:20},
+                        {axis:"Wind",value:21},
+                        {axis:"Hydro",value:40},
+                        {axis:"Nuclear",value:37},
+                        {axis:"Gas",value:15},
+                        {axis:"Coal",value:50},
+                        {axis:"Oil" ,value:20}  
                         
-					  ],[//ideel energiforbrug blot en ide
+                      ],[                                     /* Data for ideelt energiforbrug */
                       {axis:"Other renewables",value:34},
-						{axis:"Biofuels",value:29},
-						{axis:"Solar",value:11},
-						{axis:"Wind",value:45},
-						{axis:"Hydro",value:24},
-						{axis:"Nuclear",value:17},
-						{axis:"Gas",value:39},
-						{axis:"Coal",value:31},
-						{axis:"Oil" ,value:37}
+                        {axis:"Biofuels",value:29},
+                        {axis:"Solar",value:11},
+                        {axis:"Wind",value:45},
+                        {axis:"Hydro",value:24},
+                        {axis:"Nuclear",value:17},
+                        {axis:"Gas",value:39},
+                        {axis:"Coal",value:31},
+                        {axis:"Oil" ,value:37}
                         
-					  ]
+                      ]
                       
-					];
-			////////////////////////////////////////////////////////////// 
-			//////////////////// Draw the Chart ////////////////////////// 
-			////////////////////////////////////////////////////////////// 
+                    ];
+            
+            ////////////////////////////////////////////////////////////// 
+            //////////////////// Draw the Chart ////////////////////////// 
+            ////////////////////////////////////////////////////////////// 
 
-			var color = d3.scale.ordinal()
-				.range(["#EDC951","#CC333F","#00A0B0"]);
-				
-			var radarChartOptions = {
-			  w: width,
-			  h: height,
-			  margin: margin,
-			  maxValue: 50,
-			  levels: 10,
-			  roundStrokes: true,
-			  color: color
-			};
-			//Call function to draw the Radar chart
-			RadarChart(".radarChart", data, radarChartOptions);
-		</script>
-	</body>
+            var color = d3.scale.ordinal()
+                .range(["#EDC951","#CC333F","#00A0B0"]);       /* Farver for de forskellige datasæt */
+                
+            var radarChartOptions = {
+              w: width,                                          /* Bredde af diagrammet */
+              h: height,                                         /* Højde af diagrammet */
+              margin: margin,                                    /* Margener omkring diagrammet */
+              maxValue: 50,                                      /* Maksimumsværdi på akserne */
+              levels: 10,                                       /* Antal niveauer (gitterlinjer) */
+              roundStrokes: true,                               /* Afrundede streger på polygonerne */
+              color: color                                      /* Farveskala for datasættene */
+            };
+            //Call function to draw the Radar chart
+            RadarChart(".radarChart", data, radarChartOptions);  /* Kalder funktionen til at tegne diagrammet */
+
+        </script>
+    </body>
 </html>

@@ -361,7 +361,7 @@ const populatePopProjectionRegion = (request, response) => {
 
 //
 const getPopProj = (request, response) => {
-  pool.query("SELECT * FROM populationregion", (error, results) => {
+  pool.query("SELECT * FROM popProjRegion", (error, results) => {
     if (error) {
       throw error;
     }
