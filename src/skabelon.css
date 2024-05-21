@@ -126,60 +126,6 @@ th, td {
     padding-top: 150px;
 }
 
-.two {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.three {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.four {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.five {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.seven {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.seven {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
 .background {
     display: flex;
     justify-content: space-between;
@@ -358,23 +304,3 @@ th:first-child, td:first-child {
     margin-top: 10px;
 }
 
-.gauge
-{
-  width: 400px;
-  margin: 10px auto  
-} 
-.gauge-filled
-{
-  fill: steelblue;
-}
-.gauge-empty
-{
-  fill: #dedede;
-}
-.needle, .needle-center
-{
-  fill: #464A4F;
-}
-svg {
-  font: 10px sans-serif;
-}

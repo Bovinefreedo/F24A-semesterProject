@@ -4,6 +4,8 @@ export function createSection5(){
   section5.appendChild(canvas5);
   canvas5.id="canvas5";
   canvas5.className = "background"
+  
+  
   const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
   fetch(apiUrl)
       .then(response => {
