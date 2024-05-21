@@ -395,3 +395,21 @@ th:first-child, td:first-child {
 .answer-description {
     margin-top: 10px;
 }
+
+rect {
+    pointer-events: all;
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    z-index: 1;
+  }
+
+  .toolTip {
+  position: absolute;
+  padding: 10px;
+  background-color: steelblue;
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  display: none;
+  opacity: .75;
+}

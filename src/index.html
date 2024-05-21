@@ -5,26 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        rect {
-          pointer-events: all;
-          fill-opacity: 0;
-          stroke-opacity: 0;
-          z-index: 1;
-        }
-    
-        .toolTip {
-        position: absolute;
-        padding: 10px;
-        background-color: steelblue;
-        color: white;
-        border: 1px solid white;
-        border-radius: 10px;
-        display: none;
-        opacity: .75;
-      }
-      </style>
-    
-
 
     <title>Horizontal Scrolling Website</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
@@ -36,7 +16,7 @@
 <body>
 
     <header class="header">
-        <a href="forside.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
+        <a href="index.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
         <nav class="navbar">
             <a href="forside.html">MORE ABOUT THE GOALS</a>
         </nav>
@@ -134,7 +114,7 @@
             </div>
         </section>
 
-        <section class="five">
+        <section class="five" id="section5Content">
             <div class="baggrund">
                 <div class="kasse 1">Box 1</div>
                 <div class="kasse 2">Box 2</div>
@@ -142,10 +122,7 @@
         </section>
 
         <section class="six">
-            <div class="baggrund">
-                <div class="kasse 1">Box 1</div>
-                <div class="kasse 2">Box 2</div>
-            </div>
+            <div id = "treemap-container"></div>
         </section>
 
         <section class="seven">
@@ -182,9 +159,9 @@
 
     <!-- Ensure your JavaScript files are correctly referenced -->
     <script src="script.js"  type="module" defer></script>
-    <script src="sections/sectionElectricityAccess.js"></script>
-    <script src="Population.js"></script>
-    <script src="WithAndWithourElec.js"></script>
+    <script src="/src/sections/sectionElectricityAccess.js"></script>
+    <script src="/src/sections/sectionPopulation.js"></script>
+    <!-- <script src="/src/sections/sectionTreeMap.js"></script> -->
 
 </body>
 
