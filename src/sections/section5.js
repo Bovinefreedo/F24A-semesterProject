@@ -4,7 +4,7 @@ export function createSection5(){
   section5.appendChild(canvas5);
   canvas5.id="canvas5";
   canvas5.className = "background";
-  const gauge = document.createElement("div");
+  let gauge = document.createElement("div");
   gauge.className = "chart-gauge";
   canvas5.appendChild(gauge);
   
@@ -18,30 +18,29 @@ export function createSection5(){
           return response.json();
       })
       .then(data => {
-        console.log(data)
-        let gauge = new createGauge(1, 90, 10)
-        gauge.chart.needle.animateOn()    
+        console.log(data);
+        gauge = new createGauge(1, 70, 7, 0, 0, 200);
+        gauge.needle.animateOn(gauge.chart, .70);
       })
       .catch(error => {
           console.error('Error:', error);
       });
 }
 
-function createGauge(id, needleLength, needleWidth) {
-  let this.chart;
-  var ref;
+function createGauge(id, needleLength, needleWidth, positionTop, positionLeft, width) {
+  let ref;
   let i;
   let barWidth = 40;
   let numSections = 3;
 
   let sectionPerc = 1 / numSections / 2;  
-  let padRad = 0.05;
+  let padRad = 0.1;
   let chartInset = 10;
 
   // start at 270deg
   let totalPercent = .75;
 
-  let el = d3.select('.chart-gauge');
+  this.el = d3.select('.chart-gauge');
 
   let margin = {
     top: 20,
@@ -50,7 +49,7 @@ function createGauge(id, needleLength, needleWidth) {
     left: 20
   };
 
-  let width = 275 - margin.left - margin.right;
+  width = width - margin.left - margin.right;
 
   let height = width;
 
@@ -68,11 +67,11 @@ function createGauge(id, needleLength, needleWidth) {
     return deg * Math.PI / 180;
   };
 
-  let svg = el.append('svg')
+  let svg = this.el.append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom);
 
-  chart = svg.append('g')
+  this.chart = svg.append('g')
     .attr('transform', `translate(${(width + margin.left) / 2}, ${(height + margin.top) / 2})`);
 
 // build gauge bg
@@ -86,7 +85,8 @@ function createGauge(id, needleLength, needleWidth) {
       .innerRadius(radius - chartInset - barWidth)
       .startAngle(arcStartRad + startPadRad)
       .endAngle(arcEndRad - endPadRad);
-    chart.append('path')
+    
+      this.chart.append('path')
     .attr('class', `arc chart-color${sectionIndx}`)
     .attr('d', arc);
   }
@@ -109,11 +109,11 @@ function createGauge(id, needleLength, needleWidth) {
     }
 
     this.animateOn = (el, perc) => {
-      var self;
+      let self;
       self = this;
-      return el.transition().delay(500).ease('elastic').duration(3000).selectAll('.needle').tween('progress', function() {
+      return el.transition().duration(1000).selectAll('.needle').tween('progress', function() {
         return function(percentOfPercent) {
-          var progress;
+          let progress;
           progress = percentOfPercent * perc;
           return d3.select(this).attr('d', self.mkCmd(progress));
         };      
@@ -136,7 +136,7 @@ function createGauge(id, needleLength, needleWidth) {
     }
   };
 
-  let needle = new Needle(needleLength, needleWidth);
+  this.needle = new Needle(needleLength, needleWidth);
 
-  needle.drawOn(chart, 0);          
+  this.needle.drawOn(this.chart, 0);        
 }
