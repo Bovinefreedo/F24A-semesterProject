@@ -397,7 +397,17 @@ const getEnergyUseWorld = (request, response) => {
   });
 };
 
+const getYearEnergyUseRegion = (request, response) => {
+  pool.query("SELECT DISTINCT year FROM energyUseRegion ORDER BY year ASC", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 module.exports = {
+  getYearEnergyUseRegion,
   getEnergyUseSuperType,
   getPopulation, 
   getEnergyUseWorld,

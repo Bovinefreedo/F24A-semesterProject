@@ -22,6 +22,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get("/getYearEnergyUseRegion", db.getYearEnergyUseRegion);
 app.get("/getEnergyUseSuperType", db.getEnergyUseSuperType);
 app.get("/getPopulation", db.getPopulation);
 app.get("/getPopProj", db.getPopProj);
