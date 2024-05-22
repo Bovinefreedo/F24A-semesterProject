@@ -1,3 +1,4 @@
+/*
 // Function to handle intersection changes for the new chart
 function handleElectricityChartIntersection(entries, observer) {
     entries.forEach(entry => {
@@ -8,10 +9,11 @@ function handleElectricityChartIntersection(entries, observer) {
             observer.unobserve(entry.target);
         }
     });
-}
-
-// Function to load the new chart
-function loadElectricityChart() {
+  }
+  */
+  
+  // Function to load the new chart
+  function loadElectricityChart() {
     var options = {
         series: [{
             name: 'With electricity access',
@@ -54,8 +56,23 @@ function loadElectricityChart() {
         },
         tooltip: {
             x: {
-                format: 'yyyy'
+                format: 'year'
             },
             theme: 'dark' // Change this to 'light' if you want a light-colored tooltip
         },
-    }};
+    };
+  
+    var chart = new ApexCharts(document.querySelector("#adgang"), options);
+    chart.render();
+  }
+  
+  /*
+  // Create an intersection observer instance for the new chart
+  const electricityChartObserver = new IntersectionObserver(handleElectricityChartIntersection, {
+    threshold: 0.5 // Trigger when 50% of the section is in view
+  });
+  
+  // Observe the section containing the new chart
+  const electricityChartSection = document.querySelector('.seven');
+  electricityChartObserver.observe(electricityChartSection);
+  */
