@@ -1,87 +1,87 @@
 /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
   
-        ////////////////////////////////////////////////////////////// 
-        //////////////////////// Set-Up ////////////////////////////// 
-        ////////////////////////////////////////////////////////////// 
+////////////////////////////////////////////////////////////// 
+//////////////////////// Set-Up ////////////////////////////// 
+////////////////////////////////////////////////////////////// 
 
-        var margin = {top: 100, right: 100, bottom: 100, left: 100},  /* Marginer omkring diagrammet */
-            width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right, /* Beregner bredden af diagrammet */
-            height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20); /* Beregner højden af diagrammet */
-                
-        ////////////////////////////////////////////////////////////// 
-        ////////////////////////// Data ////////////////////////////// 
-        ////////////////////////////////////////////////////////////// 
+var margin = {top: 100, right: 100, bottom: 100, left: 100},  /* Marginer omkring diagrammet */
+     width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right, /* Beregner bredden af diagrammet */
+    height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20); /* Beregner højden af diagrammet */
 
-        var data = [
-                  [//Danmark                                /* Data for Danmark (2022) */
-                    {axis:"Other renewables",value:23.934357},
-                    {axis:"Solar",value:20},
-                    {axis:"Wind",value:21},
-                    {axis:"Hydro",value:40},
-                    {axis:"Nuclear",value:37},
-                    {axis:"Gas",value:15},
-                    {axis:"Coal",value:50},
-                    {axis:"Oil" ,value:20}  
+let contries =["DENMARK", "GERMANY"];
+    /*               
+////////////////////////////////////////////////////////////// 
+////////////////////////// Data ////////////////////////////// 
+////////////////////////////////////////////////////////////// 
+  
+var data = [
+    [                                //Data for Danmark (2022)
+        {axis:"Other renewables",value:23.934357},
+        {axis:"Solar",value:20},
+        {axis:"Wind",value:21},
+        {axis:"Hydro",value:40},
+        {axis:"Nuclear",value:37},
+        {axis:"Gas",value:15},
+        {axis:"Coal",value:50},
+        {axis:"Oil" ,value:20}  
                     
-                  ],[                                     /* Data for ideelt energiforbrug */
-                    {axis:"Other renewables",value:34},
-                    {axis:"Biofuels",value:29},
-                    {axis:"Solar",value:11},
-                    {axis:"Wind",value:45},
-                    {axis:"Hydro",value:24},
-                    {axis:"Nuclear",value:17},
-                    {axis:"Gas",value:39},
-                    {axis:"Coal",value:31},
-                    {axis:"Oil" ,value:37}
-                    
-                  ]
+],[                                       //Data for ideelt energiforbrug
+        {axis:"Other renewables",value:34},
+        {axis:"Biofuels",value:29},
+        {axis:"Solar",value:11},
+        {axis:"Wind",value:45},
+        {axis:"Hydro",value:24},
+        {axis:"Nuclear",value:17},
+        {axis:"Gas",value:39},
+        {axis:"Coal",value:31},
+        {axis:"Oil" ,value:37}
+        ]
                   
-                ];
-        
-        ////////////////////////////////////////////////////////////// 
-        //////////////////// Draw the Chart ////////////////////////// 
-        ////////////////////////////////////////////////////////////// 
+    ];
+*/            
+////////////////////////////////////////////////////////////// 
+//////////////////// Draw the Chart ////////////////////////// 
+////////////////////////////////////////////////////////////// 
 
-        var color = d3.scale.ordinal()
-            .range(["#EDC951","#CC333F","#00A0B0"]);       /* Farver for de forskellige datasæt */
+var color = d3.scale.ordinal()
+.range(["#EDC951","#CC333F","#00A0B0"]);        //Farver for de forskellige datasæt 
             
-        var radarChartOptions = {
-          w: width,                                          /* Bredde af diagrammet */
-          h: height,                                         /* Højde af diagrammet */
-          margin: margin,                                    /* Margener omkring diagrammet */
-          maxValue: 50,                                      /* Maksimumsværdi på akserne */
-          levels: 10,                                       /* Antal niveauer (gitterlinjer) */
-          roundStrokes: true,                               /* Afrundede streger på polygonerne */
-          color: color                                      /* Farveskala for datasættene */
-        };
-        //Call function to draw the Radar chart
-        RadarChart(".radarChart", data, radarChartOptions);  /* Kalder funktionen til at tegne diagrammet */
+var radarChartOptions = {
+    w: width,                                             // Bredde af diagrammet
+    h: height,                                            // Højde af diagrammet 
+    margin: margin,                                       // Margener omkring diagrammet
+    maxValue: 50,                                         // Maksimumsværdi på akserne
+    levels: 10,                                           // Antal niveauer (gitterlinjer)
+    roundStrokes: true,                                   // Afrundede streger på polygonerne
+    color: color                                          // Farveskala for datasættene 
+};
 
-
-
-function checkAnswer(selectedOption) {
-    const quizContainer = document.getElementById('quiz');
-    const correctAnswer = "a"; // Change this to your correct answer
-
-    if (selectedOption === correctAnswer) {
-        quizContainer.classList.remove('false');
-        quizContainer.classList.add('green');
-        document.querySelector('.quiz-detail').innerHTML = 'Correct!';
-    } else {
-        if (!descriptionAdded) {
-            quizContainer.classList.remove('green');
-            quizContainer.classList.add('false');
-            document.querySelector('.quiz-detail').innerHTML = 'Incorrect!';
-    
-            const answerDescription = document.createElement('p');
-            answerDescription.classList.add('answer-description');
-            answerDescription.textContent = 'Correct answer is Paris.';
-            quizContainer.appendChild(answerDescription);
-    
-            descriptionAdded = true; // Set flag to true
+const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
+fetch(apiUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-    }
-}
+        return response.json();
+    })
+    .then(data => {
+      for(let i=0; i< contries.length; i++){
+        contries.push([])
+      }
+      for(let i=0; i<contries.length; i++){
+        for(let j=0; j<data.length; j++){
+            if(data[j].countryname == contries[i]){
+                data[i].push(data[j]);
+            }
+        }
+      }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+//Call function to draw the Radar chart
+RadarChart(".radarChart", data, radarChartOptions);  /* Kalder funktionen til at tegne diagrammet */
 
 
 function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som tager tre argumenter: id (et string, der angiver ID'et på det HTML-element, hvor diagrammet skal placeres), data (et array af arrays, der indeholder dataene for diagrammet), og options (et objekt, der indeholder konfigurationsindstillinger for diagrammet).
