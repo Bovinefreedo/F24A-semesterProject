@@ -36,6 +36,12 @@ const colors = [
     "#48005f",
     "#3d005e"
   ];
+
+  for(let i = 0; i< 50; i++){
+    let circle = document.createElement('div')
+    circle.className="circle";
+    document.body.appendChild(circle);
+  }
   
 
 circles.forEach(function (circle, index) {

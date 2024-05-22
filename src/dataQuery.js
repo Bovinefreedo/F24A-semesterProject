@@ -397,7 +397,27 @@ const getEnergyUseWorld = (request, response) => {
   });
 };
 
+const getYearEnergyUseRegion = (request, response) => {
+  pool.query("SELECT DISTINCT year FROM energyUseRegion ORDER BY year ASC", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+const getEnergyMixCountry = (request, response) => {
+  pool.query("SELECT amountInTWH AS value, year, energyName AS axsis, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' )", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 module.exports = {
+  getEnergyMixCountry,
+  getYearEnergyUseRegion,
   getEnergyUseSuperType,
   getPopulation, 
   getEnergyUseWorld,
