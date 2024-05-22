@@ -70,6 +70,6 @@ function handleElectricityChartIntersection(entries, observer) {
   });
   
   // Observe the section containing the new chart
-  const electricityChartSection = document.querySelector('.seven');
+  const electricityChartSection = document.querySelector('seven');
   electricityChartObserver.observe(electricityChartSection);
   

@@ -1,19 +1,8 @@
-/*
-// Function to handle intersection changes for the new chart
-function handleElectricityChartIntersection(entries, observer) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-            // Load the chart when the section is 50% in view
-            loadElectricityChart();
-            // Stop observing after the chart is loaded
-            observer.unobserve(entry.target);
-        }
-    });
-  }
-  */
-  
-  // Function to load the new chart
-  function loadElectricityChart() {
+document.addEventListener('DOMContentLoaded', function () {
+    loadElectricityChart();
+});
+
+function loadElectricityChart() {
     var options = {
         series: [{
             name: 'With electricity access',
@@ -32,7 +21,7 @@ function handleElectricityChartIntersection(entries, observer) {
         }],
         chart: {
             height: 350,
-            type: 'area'
+            type: 'line'
         },
         dataLabels: {
             enabled: false
@@ -41,11 +30,15 @@ function handleElectricityChartIntersection(entries, observer) {
             curve: 'smooth'
         },
         xaxis: {
-            type: 'year',
             categories: [
                 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013,
-                2014, 2015, 2016, 2017, 2018, 2019,
-            ]
+                2014, 2015, 2016, 2017, 2018, 2019
+            ],
+            labels: {
+                formatter: function (value) {
+                    return value.toString();
+                }
+            }
         },
         yaxis: {
             labels: {
@@ -56,23 +49,12 @@ function handleElectricityChartIntersection(entries, observer) {
         },
         tooltip: {
             x: {
-                format: 'year'
+                format: 'yyyy'
             },
-            theme: 'dark' // Change this to 'light' if you want a light-colored tooltip
+            theme: 'dark'
         },
     };
-  
+
     var chart = new ApexCharts(document.querySelector("#adgang"), options);
     chart.render();
-  }
-  
-  /*
-  // Create an intersection observer instance for the new chart
-  const electricityChartObserver = new IntersectionObserver(handleElectricityChartIntersection, {
-    threshold: 0.5 // Trigger when 50% of the section is in view
-  });
-  
-  // Observe the section containing the new chart
-  const electricityChartSection = document.querySelector('.seven');
-  electricityChartObserver.observe(electricityChartSection);
-  */
+}
