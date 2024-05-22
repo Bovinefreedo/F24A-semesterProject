@@ -24,7 +24,7 @@
                     {axis:"Oil" ,value:20}  
                     
                   ],[                                     /* Data for ideelt energiforbrug */
-                  {axis:"Other renewables",value:34},
+                    {axis:"Other renewables",value:34},
                     {axis:"Biofuels",value:29},
                     {axis:"Solar",value:11},
                     {axis:"Wind",value:45},
