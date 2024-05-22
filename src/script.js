@@ -4,23 +4,6 @@ import {createSection8 } from "./sections/section8.js";
 createSection5();
 createSection8();
 
-
-let lastScrollTop = 0;
-
-window.addEventListener("scroll", function() {
-    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // Check if scrolling down from the top of the page
-    if (currentScroll > lastScrollTop && window.scrollY > window.innerHeight) {
-        document.querySelector("header").style.display = "none"; // Hide navbar
-    } else {
-        document.querySelector("header").style.display = "block"; // Show navbar
-    }
-
-    lastScrollTop = currentScroll;
-    
-});
-
 function handleIntersection(entries) {
     entries.forEach(entry => {
         // Check if the target is one of the sections we are interested in
