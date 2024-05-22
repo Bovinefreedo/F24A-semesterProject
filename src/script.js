@@ -3,6 +3,8 @@ import {createSection8 } from "./sections/section8.js";
 
 createSection5();
 createSection8();
+
+
 let lastScrollTop = 0;
 
 window.addEventListener("scroll", function() {
@@ -19,21 +21,51 @@ window.addEventListener("scroll", function() {
     
 });
 
-let descriptionAdded = false; // Flag to track if description has been added
+function handleIntersection(entries) {
+    entries.forEach(entry => {
+        // Check if the target is one of the sections we are interested in
+        if (entry.target.classList.contains('one') || entry.target.classList.contains('two') || entry.target.classList.contains('three') || entry.target.classList.contains('four') || entry.target.classList.contains('five') || entry.target.classList.contains('six') || entry.target.classList.contains('seven')) {
+            // Get the corresponding baggrund div within the section
+            const baggrundDiv = entry.target.querySelector('.baggrund');
+            // Check if 50% of the section is in view
+            if (entry.intersectionRatio >= 0.5) {
+                // If 50% or more is in view, add a class to the baggrund div
+                baggrundDiv.classList.add('swipe-in');
+            } 
+        }
+    });
+}
 
-// Add event listeners for option selection
+// Create an intersection observer instance
+const observer = new IntersectionObserver(handleIntersection, {
+    threshold: 0.5 // Trigger when 50% of the section is in view
+});
+
+// Get all the sections from class one to seven
+const sections = document.querySelectorAll('.one, .two, .three, .four, .five, .six, .seven');
+
+// Observe each section
+sections.forEach(section => {
+    observer.observe(section);
+});
+
+/* QUIZ FUNCTIONS*/
+let descriptionAdded = false; 
+
+
+
 const options = document.querySelectorAll('.option');
 options.forEach(option => {
     option.addEventListener('click', () => {
         options.forEach(opt => opt.classList.remove('selected'));
         option.classList.add('selected');
-        checkAnswer(option.id); // Call checkAnswer with the selected option ID
+        checkAnswer(option.id); 
     });
 });
 
 function checkAnswer(selectedOption) {
     const quizContainer = document.getElementById('quiz');
-    const correctAnswer = "a"; // Change this to your correct answer
+    const correctAnswer = "a"; 
 
     if (selectedOption === correctAnswer) {
         quizContainer.classList.remove('false');
@@ -50,8 +82,7 @@ function checkAnswer(selectedOption) {
             answerDescription.textContent = 'Correct answer is Paris.';
             quizContainer.appendChild(answerDescription);
     
-            descriptionAdded = true; // Set flag to true
+            descriptionAdded = true; 
         }
     }
 }
-
