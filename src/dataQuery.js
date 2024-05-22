@@ -9,7 +9,7 @@
 const { Pool } = require("pg");
 require("dotenv").config();
 const csvtojson = require("csvtojson");
-const { request } = require("express");
+const { request, response } = require("express");
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -395,6 +395,18 @@ const getEnergyUseWorld = (request, response) => {
     }
     response.status(200).json(results.rows);
   });
+};
+
+const getEnergyDenmark = (request, response) => {
+  pool.query(
+    "SELECT SUM(amountInTWH) AS value, year AS date FROM energyUseCountry GROUP BY year ORDER BY year ASC;",
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
 };
 
 module.exports = {
