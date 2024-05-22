@@ -60,8 +60,8 @@ function handleElectricityChartIntersection(entries, observer) {
         },
     };
   
-    var chart = new ApexCharts(document.querySelector("#adgang"), options);
-    chart.render();
+    //var chart = new ApexCharts(document.querySelector("#adgang"), options);
+    //chart.render();
   }
   
   // Create an intersection observer instance for the new chart

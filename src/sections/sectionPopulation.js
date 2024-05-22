@@ -271,8 +271,8 @@ function loadChart() {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#Population"), options);
-    chart.render();
+    //var chart = new ApexCharts(document.querySelector("#Population"), options);
+    //chart.render();
 }
 
 // Create an intersection observer instance for the chart
