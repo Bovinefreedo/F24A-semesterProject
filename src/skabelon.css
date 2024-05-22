@@ -349,3 +349,22 @@ rect {
   display: none;
   opacity: .75;
 }
+
+body {
+    font-family: 'Times New Roman', Times, serif;       /* Skrifttype for body-tekst */      
+    font-size: 11px;                                    /* Skriftstørrelse for body-tekst (11 pixels) */
+    font-weight: 300;                                   /* Skrifttykkelse for body-tekst (light) */
+    fill: #242424;                                      /* Fyldfarve for SVG-elementer i body (mørkegrå) */   
+    text-align: center;                                 /* Centrerer tekst i body */
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff; /* Skygge på body-tekst (hvid) */
+    cursor: default;                                    /* Standardmusemarkør over body */
+}
+
+.legend {
+    font-family: 'Raleway', sans-serif;                 /* Skrifttype for legend (forklaring) */
+    fill: #333333;                                      /* Fyldfarve for tekst i legenden (mørkegrå) */
+}
+
+.tooltip {
+    fill: #333333;                                      /* Fyldfarve for tekst i tooltips (mørkegrå) */
+}
