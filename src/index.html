@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizontal Scrolling Website</title>
+
+    <title>Energy for tomorow, by team Stygge</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="skabelon.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
@@ -30,70 +31,79 @@
     </style>
 </head>
 
+
 <body>
     <header class="header">
-        <a href="forside.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
+        <a href="index.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
         <nav class="navbar">
             <a href="forside.html">MORE ABOUT THE GOALS</a>
         </nav>
     </header>
 
-    <div class="box">
-        <section class="sectionCanvas">
-            <div class="content">
-                <h1>SAMMMEN GØR VI HVER DAG BEDRE MED GRØN OMSTILLING</h1>
-                <br>
-                <p class="beskrivelse">Energi er livsnerven i det moderne samfund, der driver vores industrier,
-                    oplyser vores byer og
-                    brænder for vores ambitioner. Alligevel forbliver energi for alt for mange en luksus, en fjern
-                    drøm
-                    der synes at være utilgængelig. I vores stræben efter fremskridt er det afgørende ikke at
-                    efterlade
-                    nogen bagved. Derfor handler Mål 7 ikke kun om at tænde en kontakt; det handler om at oplyse
-                    vejen
-                    til en lysere, mere inklusiv fremtid.</p>
-                <div class="facts-box">
-                    <h3>Vidste du at?</h3>
-                    <ul>
-                        <li>Globalt mangler cirka 789 millioner mennesker adgang til elektricitet, hovedsageligt i
-                            landdistrikterne. Denne mangel på energitilgængelighed hæmmer deres fulde deltagelse i
-                            økonomisk og social udvikling. Energifattigdom forværrer eksisterende uligheder og
-                            hindrer
-                            bestræbelserne på at forbedre levestandarden og mindske fattigdommen. Lad os arbejde
-                            sammen
-                            for at sikre energi til alle og bane vejen for en mere retfærdig verden.</li>
-                    </ul>
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+        <section class="one">
+            <div class="background" id="gradient">
+                <div class="LandingBox">
+                    <div id="LandingPageText">
+                        Sustainability
+                        <div id="LandingPageTextSmall">
+                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
+                            of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
+                            a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure
+                            Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the
+                            word in classical literature, discovered the undoubtable source
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="sectionCanvas">
-            <table>
-                <td>
+        <section class="two">
+            <div class="background">
+                <div class="kasse 1">
                     <h5>Befolkningstilvækstningen gennem tiden for hele verdenen</h5>
                     <p>Befolkningstilvæksten gennem tiden har været kompleks og påvirket af medicinske og
-                        teknologiske
-                        fremskridt. Efter landbrugets opståen steg befolkningen gradvist, men det var først under
-                        den
-                        industrielle revolution, at væksten blev eksplosiv. Teknologiske fremskridt og bedre
+                        teknologiske fremskridt. Efter landbrugets opståen steg befolkningen gradvist, men det var først
+                        under
+                        den industrielle revolution, at væksten blev eksplosiv. Teknologiske fremskridt og bedre
                         sundhedsvæsen førte til en dramatisk stigning i levestandarden og fødselsoverskuddet. Denne
-                        tendens fortsatte gennem det 20. århundrede, hvilket førte til overbefolkning og
-                        udfordringer
+                        tendens fortsatte gennem det 20. århundrede, hvilket førte til overbefolkning og udfordringer
                         som ressourceknaphed og klimaforandringer. I dag er der fokus på bæredygtig udvikling og
                         balancen mellem befolkningsvækst og miljømæssig bevarelse for at sikre en bæredygtig
-                        fremtid.
-                    </p>
-                <td>
-                    <div id="animated-chart"></div>
-                    <div id="tooltip" class="tooltip"></div>
-                </td>
-                </td>
-
-            </table>
+                        fremtid.</p>
+                </div>
+                <div class="kasse 2">
+                    <div class="kasse 2">
+                        <div id="Population"></div>
+                    </div>
+                </div>
         </section>
 
-        <section class="sectionCanvas">
+        <div id="animated-chart"></div>
+        <div id="tooltip" class="tooltip"></div>
 
+        <section class="three">
             <div class="background">
                 <div class="quiz-container" id="quiz">
                     <div class="quiz-header">
@@ -102,115 +112,75 @@
                     <div class="quiz-body">
                         <h2 id="question">Hvem er julemanden</h2>
                         <div class="options">
-                            <div class="option" id="a">
-                                Berkant med store skæg
-                            </div>
-                            <div class="option" id="b">
-                                Gio med det store skæg
-                            </div>
+                            <div class="option" id="a">Berkant med store skæg</div>
+                            <div class="option" id="b">Gio med det store skæg</div>
                         </div>
                     </div>
                     <div class="quiz-footer"></div>
                     <div class="quiz-detail"></div>
-            </div>
-
+                </div>
             </div>
         </section>
 
 
 
-        <section class="sectionCanvas">
+        <section class="sectionCanvas" id="section8Content">
+            <div class="background">
+                <div id="energyChart"></div>
+                <div id="tooltip"></div>
+            </div>
+        </section>
+
+        <section class="five" id="section5Content">
             <div class="background">
                 <div class="kasse 1">Box 1</div>
                 <div class="kasse 2">Box 2</div>
             </div>
         </section>
 
-        <section class= "sectionCanvasid" id="section5Content">
+        <section class="six">
+            <div id = "treemap-container"></div>
         </section>
 
-        <section class="sectionCanvas">
+        <section class="seven">
             <div class="background">
-                <div class="kasse 1">Box 1</div>
-                <div class="kasse 2">Box 2</div>
+                <div class="kasse 1">
+                    <h5>VERDENS ADGANG TIL ELEKTRICITET</h5>
+                    <p>Den præsenterede visualisering illustrerer udviklingen af verdens adgang til elektricitet over
+                        årene. Den anvender et områdegrafikon til at vise antallet af mennesker med og uden adgang til
+                        elektricitet fra 1998 til 2019.
+
+                        Grafen viser en stigning i antallet af mennesker med adgang til elektricitet gennem årene,
+                        hvilket indikerer en positiv udvikling i elektrificeringen globalt set. Samtidig viser den også
+                        det faldende antal mennesker uden adgang til elektricitet, hvilket tyder på fremskridt i retning
+                        af at øge elektricitetsdækningen globalt.</p>
+                </div>
+                <div class="kasse 2">
+                    <div id="adgang"></div>
+                </div>
             </div>
         </section>
+    
+<!--  <section class= "sectionCanvasid" id="section5Content">
+    </section>
 
-        <section class="sectionCanvas">
+    <section class="sectionCanvas">
         <div class="background">
             <div class="kasse 1">Box 1</div>
             <div class="kasse 2">Box 2</div>
         </div>
-        </section>
+    </section>
+-->
 
-    </div>
-    </div>
+
+    <!-- Ensure your JavaScript files are correctly referenced -->
     <script src="script.js"  type="module" defer></script>
-    <script src="Population.js"></script>
-    <script src="WithAndWithourElec.js"></script>
-    <div class="radarChart"></div>                           <script>
-        /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
-  
-        ////////////////////////////////////////////////////////////// 
-        //////////////////////// Set-Up ////////////////////////////// 
-        ////////////////////////////////////////////////////////////// 
-
-        var margin = {top: 100, right: 100, bottom: 100, left: 100},  /* Marginer omkring diagrammet */
-            width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right, /* Beregner bredden af diagrammet */
-            height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20); /* Beregner højden af diagrammet */
-                
-        ////////////////////////////////////////////////////////////// 
-        ////////////////////////// Data ////////////////////////////// 
-        ////////////////////////////////////////////////////////////// 
-
-        var data = [
-                  [//Danmark                                /* Data for Danmark (2022) */
-                    {axis:"Other renewables",value:23.934357},
-                    {axis:"Solar",value:20},
-                    {axis:"Wind",value:21},
-                    {axis:"Hydro",value:40},
-                    {axis:"Nuclear",value:37},
-                    {axis:"Gas",value:15},
-                    {axis:"Coal",value:50},
-                    {axis:"Oil" ,value:20}  
-                    
-                  ],[                                     /* Data for ideelt energiforbrug */
-                  {axis:"Other renewables",value:34},
-                    {axis:"Biofuels",value:29},
-                    {axis:"Solar",value:11},
-                    {axis:"Wind",value:45},
-                    {axis:"Hydro",value:24},
-                    {axis:"Nuclear",value:17},
-                    {axis:"Gas",value:39},
-                    {axis:"Coal",value:31},
-                    {axis:"Oil" ,value:37}
-                    
-                  ]
-                  
-                ];
-        
-        ////////////////////////////////////////////////////////////// 
-        //////////////////// Draw the Chart ////////////////////////// 
-        ////////////////////////////////////////////////////////////// 
-
-        var color = d3.scale.ordinal()
-            .range(["#EDC951","#CC333F","#00A0B0"]);       /* Farver for de forskellige datasæt */
-            
-        var radarChartOptions = {
-          w: width,                                          /* Bredde af diagrammet */
-          h: height,                                         /* Højde af diagrammet */
-          margin: margin,                                    /* Margener omkring diagrammet */
-          maxValue: 50,                                      /* Maksimumsværdi på akserne */
-          levels: 10,                                       /* Antal niveauer (gitterlinjer) */
-          roundStrokes: true,                               /* Afrundede streger på polygonerne */
-          color: color                                      /* Farveskala for datasættene */
-        };
-        //Call function to draw the Radar chart
-        RadarChart(".radarChart", data, radarChartOptions);  /* Kalder funktionen til at tegne diagrammet */
-
-    </script>  
-
+    <script src="/src/sections/sectionElectricityAccess.js"></script>
+    <script src="/src/sections/sectionPopulation.js"></script>
+    <script src="/src/sections/sectionTreeMap.js"></script>
+    <script src="/src/sections/sectionRadarMap.js"></script>
 
 </body>
+
 
 </html>
