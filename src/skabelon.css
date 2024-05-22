@@ -146,14 +146,6 @@ th, td {
     padding: 10px;
 }
 
-section {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
 
 /* Add this CSS to define the background image with a gradient overlay */
 #gradient {

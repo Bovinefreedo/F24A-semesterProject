@@ -41,7 +41,6 @@ app.post("/populateRegion", db.populateRegion);
 app.post("/populatePopulationRegion",db.populatePopulationRegion);
 app.post("/populateRegionEnergryUse", db.populateRegionEnergryUse);
 
-
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);
 })
