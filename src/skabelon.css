@@ -146,14 +146,6 @@ th, td {
     padding: 10px;
 }
 
-.one {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
 
 /* Add this CSS to define the background image with a gradient overlay */
 #gradient {
@@ -178,16 +170,6 @@ th, td {
 
 
 /* Ensure the section and its contents are styled correctly */
-.one {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-    margin: 0; /* Remove default margin */
-}
 
 .LandingBox {
     display: flex;
@@ -223,61 +205,7 @@ th, td {
     -moz-osx-font-smoothing: grayscale; /* Enhance text rendering */
 }
 
-.two {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.three {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.four {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.five {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.six {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.seven {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-snap-align: start;
-    padding-top: 150px;
-}
-
-.baggrund {
+.background {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -396,6 +324,42 @@ th:first-child, td:first-child {
     margin-top: 10px;
 }
 
+rect {
+    pointer-events: all;
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    z-index: 1;
+  }
+
+  .toolTip {
+  position: absolute;
+  padding: 10px;
+  background-color: steelblue;
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  display: none;
+  opacity: .75;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;       /* Skrifttype for body-tekst */      
+    font-size: 11px;                                    /* Skriftstørrelse for body-tekst (11 pixels) */
+    font-weight: 300;                                   /* Skrifttykkelse for body-tekst (light) */
+    fill: #242424;                                      /* Fyldfarve for SVG-elementer i body (mørkegrå) */   
+    text-align: center;                                 /* Centrerer tekst i body */
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff; /* Skygge på body-tekst (hvid) */
+    cursor: default;                                    /* Standardmusemarkør over body */
+}
+
+.legend {
+    font-family: 'Raleway', sans-serif;                 /* Skrifttype for legend (forklaring) */
+    fill: #333333;                                      /* Fyldfarve for tekst i legenden (mørkegrå) */
+}
+
+.tooltip {
+    fill: #333333;                                      /* Fyldfarve for tekst i tooltips (mørkegrå) */
+}
 .chart-gauge {
     width: 400px;
     margin: 10px auto;

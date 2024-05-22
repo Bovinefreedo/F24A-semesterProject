@@ -12,11 +12,18 @@ app.use(
         extended: true, 
     })
 );
+app.get("/", (request, response) => {
+    response.sendFile(__dirname + "/index.html");
+  });
 
-app.get("/", (request, response) =>{
-    response.json({info : "Node.js, Express, and Postgres API"});    
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
 });
 
+app.get("/getEnergyMixCountry", db.getEnergyMixCountry);
+app.get("/getYearEnergyUseRegion", db.getYearEnergyUseRegion);
 app.get("/getEnergyUseSuperType", db.getEnergyUseSuperType);
 app.get("/getPopulation", db.getPopulation);
 app.get("/getPopProj", db.getPopProj);
@@ -33,7 +40,6 @@ app.post("/populateCountryEnergryUse", db.populateCountryEnergryUse);
 app.post("/populateRegion", db.populateRegion);
 app.post("/populatePopulationRegion",db.populatePopulationRegion);
 app.post("/populateRegionEnergryUse", db.populateRegionEnergryUse);
-
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);

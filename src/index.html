@@ -1,42 +1,19 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        rect {
-          pointer-events: all;
-          fill-opacity: 0;
-          stroke-opacity: 0;
-          z-index: 1;
-        }
-    
-        .toolTip {
-        position: absolute;
-        padding: 10px;
-        background-color: steelblue;
-        color: white;
-        border: 1px solid white;
-        border-radius: 10px;
-        display: none;
-        opacity: .75;
-      }
-      </style>
-    
 
-
-    <title>Horizontal Scrolling Website</title>
+    <title>Energy for tomorow, by team Stygge</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="stylesheet" href="skabelon.css">
 </head>
 
 
 <body>
-
     <header class="header">
-        <a href="forside.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
+        <a href="index.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
         <nav class="navbar">
             <a href="forside.html">MORE ABOUT THE GOALS</a>
         </nav>
@@ -64,9 +41,8 @@
     <div class="circle"></div>
     <div class="circle"></div>
 
-    <div class="box">
         <section class="one">
-            <div class="baggrund" id="gradient">
+            <div class="background" id="gradient">
                 <div class="LandingBox">
                     <div id="LandingPageText">
                         Sustainability
@@ -83,7 +59,7 @@
         </section>
 
         <section class="two">
-            <div class="baggrund">
+            <div class="background">
                 <div class="kasse 1">
                     <h5>Befolkningstilvækstningen gennem tiden for hele verdenen</h5>
                     <p>Befolkningstilvæksten gennem tiden har været kompleks og påvirket af medicinske og
@@ -107,7 +83,7 @@
         <div id="tooltip" class="tooltip"></div>
 
         <section class="three">
-            <div class="baggrund">
+            <div class="background">
                 <div class="quiz-container" id="quiz">
                     <div class="quiz-header">
                         <h2 class="header-txt">Hvad tror du</h2>
@@ -134,18 +110,19 @@
             </div>
         </section>
 
-        <section class="five">
-        </section>
-
-        <section class="six">
-            <div class="baggrund">
+        <section class="five" id="section5Content">
+            <div class="background">
                 <div class="kasse 1">Box 1</div>
                 <div class="kasse 2">Box 2</div>
             </div>
         </section>
 
+        <section class="six">
+            <div id = "treemap-container"></div>
+        </section>
+
         <section class="seven">
-            <div class="baggrund">
+            <div class="background">
                 <div class="kasse 1">
                     <h5>VERDENS ADGANG TIL ELEKTRICITET</h5>
                     <p>Den præsenterede visualisering illustrerer udviklingen af verdens adgang til elektricitet over
@@ -162,7 +139,6 @@
                 </div>
             </div>
         </section>
-    </div>
     
 <!--  <section class= "sectionCanvasid" id="section5Content">
     </section>
@@ -177,9 +153,11 @@
 
 
     <!-- Ensure your JavaScript files are correctly referenced -->
-    <script src="script.js" type="module" defer></script>
-    <script src="ElectricityAccess.js"></script>
-    <script src="Population.js"></script>
+    <script src="script.js"  type="module" defer></script>
+    <script src="/src/sections/sectionElectricityAccess.js"></script>
+    <script src="/src/sections/sectionPopulation.js"></script>
+    <script src="/src/sections/sectionTreeMap.js"></script>
+    <script src="/src/sections/sectionRadarMap.js"></script>
 
 </body>
 
