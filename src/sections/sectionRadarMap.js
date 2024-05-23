@@ -8,7 +8,7 @@ var margin = {top: 100, right: 100, bottom: 100, left: 100},  /* Marginer omkrin
      width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right, /* Beregner bredden af diagrammet */
     height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20); /* Beregner højden af diagrammet */
 
-let contries =["DENMARK", "GERMANY", "SWEDEN"];
+let contries =["DENMARK", "GERMANY", "SWEDEN", "NORWAY"];
     /*               
 ////////////////////////////////////////////////////////////// 
 ////////////////////////// Data ////////////////////////////// 
@@ -50,7 +50,7 @@ var radarChartOptions = {
     w: width,                                             // Bredde af diagrammet
     h: height,                                            // Højde af diagrammet 
     margin: margin,                                       // Margener omkring diagrammet
-    maxValue: 50,                                         // Maksimumsværdi på akserne
+    maxValue: 100,                                         // Maksimumsværdi på akserne
     levels: 10,                                           // Antal niveauer (gitterlinjer)
     roundStrokes: true,                                   // Afrundede streger på polygonerne
     color: color                                          // Farveskala for datasættene 
@@ -112,7 +112,7 @@ function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som
         h: 600,                        // Højde af diagrammet i pixels (standardværdi: 600).
         margin: { top: 20, right: 20, bottom: 20, left: 20 }, // Margener omkring diagrammet i pixels (standardværdi: 20 pixels på alle sider).
         levels: 3,                     // Antallet af niveauer (cirkler) i diagrammet (standardværdi: 3).
-        maxValue: 0,                   // Maksimumsværdien for dataene (standardværdi: 0). Dette vil blive beregnet senere baseret på de faktiske data.
+        maxValue: 100,                   // Maksimumsværdien for dataene (standardværdi: 0). Dette vil blive beregnet senere baseret på de faktiske data.
         labelFactor: 1.25,             // Hvor langt væk fra den yderste cirkel akse-labels skal placeres (standardværdi: 1.25).
         wrapWidth: 60,                 // Antallet af pixels, hvor en akse-label skal ombrydes til en ny linje (standardværdi: 60).
         opacityArea: 0.35,             // Opacitet (gennemsigtighed) af polygon-områderne (standardværdi: 0.35).
@@ -137,7 +137,7 @@ function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som
 	var allAxis = (data[0].map(function(i, j){return i.axis})),	//Names of each axis
 		total = allAxis.length,					//The number of different axes
 		radius = Math.min(cfg.w/2, cfg.h/2), 	//Radius of the outermost circle
-		Format = d3.format(' %'),			 	//Percentage formatting
+		Format = d3.format(' '),			 	//Percentage formatting
 		angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
 	
 	//Scale for the radius
