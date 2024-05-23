@@ -8,7 +8,14 @@ export function createSection5(){
   gaugeContainer.id = "gaugeContainer";
   canvas5.appendChild(gaugeContainer);
   gaugeContainerStyle(gaugeContainer);
-
+  let sliderContainer = document.createElement("div")
+  sliderContainer.id = "sliderContainer";
+  sliderContainer.width = "250px"
+  gaugeContainer.appendChild(sliderContainer);
+  let slider = document.createElement("input");
+  inputSettings(slider);
+  sliderContainer.appendChild(slider);
+  let gaugesList = [];
   const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
   fetch(apiUrl)
       .then(response => {
@@ -18,18 +25,35 @@ export function createSection5(){
           return response.json();
       })
       .then(data => {
+        for(let i =1; i<data.length; i++){
+          if(data[i].energysupertype==data[i-1].energysupertype){
+            data[i].change = data[i].usedenergy - data[i-1].usedenergy;
+          }
+        }
+        for(let i=2; i<data.length; i++){
+          if(data[i].energysupertype==data[i-1].energysupertype){
+            data[i].rateOfChange = data[i].change - data[i-1].change;
+          }
+        }  
         console.log(data);
-        const gauge = new Gauge(1, gaugeContainer, 70, 7, 0, 0, 200);
-        const gauge2 = new Gauge(2, gaugeContainer, 70, 7, 200, 0, 200)
-        gauge.needle.animateOn(gauge.chart, .70);
+        
+        for(let i=0; i<3; i++){
+          for(let j=0; j<2; j++){
+            const gauge = new Gauge(""+i+j, gaugeContainer, 70, 7, j*300, i*300, 200);
+            gaugesList.push(gauge)
+          }
+        }
+        gaugesList[0].needle.animateOn(gaugesList[0].chart, .70);
+        gaugesList[1].needle.animateOn(gaugesList[1].chart, .20)
       })
       .catch(error => {
           console.error('Error:', error);
       });
 }
 
+//modified from https://codepen.io/jaketrent/pen/DzWyZM
 function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionLeft, width) {
-    
+    // options for the gauge
     let ref;
     let i;
     let barWidth = 40;
@@ -45,17 +69,19 @@ function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionL
         left: 20
     };
 
+    //creation of the div where it lives
     let barometerDiv = document.createElement("div");
     barometerDiv.id = "gauge"+id;
     parrentDiv.appendChild(barometerDiv);
     this.el = d3.select("#gauge"+id);
+    
+    //mandatory settings
     width = width - margin.left - margin.right;
     let height = width;
     let radius = Math.min(width, height) / 2;
     let percToDeg = function(perc) {
         return perc * 360;
     };
-    
     let percToRad = function(perc) {
         return degToRad(percToDeg(perc));
     };
@@ -161,4 +187,20 @@ function section5BackgroundStyle(div){
   div.style.boxSizing = 'border-box';
   div.style.backgroundColor = '#f0f0f0';
   div.style.background = 'rgb(26,29,50)';
+}
+
+function inputSettings(input){
+  let rangeInput = input;
+  rangeInput.type = 'range';
+  rangeInput.min = '1964';
+  rangeInput.max = '2022';
+  rangeInput.value = '2022';
+  rangeInput.classList.add('slider');
+  rangeInput.id = 'myRange';
+  rangeInput.addEventListener('mouseover', function() {
+    rangeInput.style.opacity = '1';
+  });
+  rangeInput.addEventListener('mouseout', function() {
+    rangeInput.style.opacity = '0.7';
+  });
 }

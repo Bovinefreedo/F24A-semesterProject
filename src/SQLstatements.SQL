@@ -67,7 +67,7 @@ SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType
   INNER JOIN energyType 
     ON energyType.energyTypeID = energyUseRegion.energyTypeID 
   GROUP BY energySuperType, year
-  ORDER BY year ASC
+  ORDER BY energySuperType ASC, year ASC
 
   SELECT amountInTWH, year, energyName, countryName
     FROM energyUseCountry
