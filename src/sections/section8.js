@@ -69,7 +69,7 @@ const data = [
   { date: new Date("2021"), value: 165946.1632 },
   { date: new Date("2022"), value: 167787.67500000002 },
 ];
-
+console.log(data);
 // create the svg element and append it to the chart container
 const svg = d3
   .select("#energyChart")
@@ -179,9 +179,13 @@ listeningRect.on("mousemove", function (event) {
   // Add the tooltip
   toolTip
     .style("display", "block")
-    .style("left", `${xPos + 100}px`)
-    .style("top", `${yPos + 50}px`)
-    .html(`<strong>År:</strong> ${d.date.getFullYear()}<br><strong>Forbrug:</strong> ${d.value !== undefined ? d.value.toFixed(0) + " Twh" : "N/A"}`);
+    .style("left", `${xPos + margin.left}px`)
+    .style("top", `${yPos + margin.top}px`)
+    .html(
+      `<strong>År:</strong> ${d.date.getFullYear()}<br><strong>Forbrug:</strong> ${
+        d.value !== undefined ? d.value.toFixed(0) + " Twh" : "N/A"
+      }`
+    );
 });
 // Removes the tooltip when mouse is not in the chart
 listeningRect.on("mouseleave", function () {
