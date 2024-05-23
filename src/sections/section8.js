@@ -176,14 +176,12 @@ listeningRect.on("mousemove", function (event) {
   // Add the transition for the circle radius
   circle.transition().duration(50).attr("r", 5);
 
-  const year = d.date.getFullYear;
-
   // Add the tooltip
   toolTip
     .style("display", "block")
     .style("left", `${xPos + 100}px`)
     .style("top", `${yPos + 50}px`)
-    .html(`<strong>År:</strong> ${year}<br><strong>Forbrug:</strong> ${d.value !== undefined ? d.value.toFixed(0) + " Twh" : "N/A"}`);
+    .html(`<strong>År:</strong> ${d.date.getFullYear()}<br><strong>Forbrug:</strong> ${d.value !== undefined ? d.value.toFixed(0) + " Twh" : "N/A"}`);
 });
 // Removes the tooltip when mouse is not in the chart
 listeningRect.on("mouseleave", function () {
