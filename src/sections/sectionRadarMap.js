@@ -8,7 +8,7 @@ var margin = {top: 100, right: 100, bottom: 100, left: 100},  /* Marginer omkrin
      width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right, /* Beregner bredden af diagrammet */
     height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20); /* Beregner højden af diagrammet */
 
-let contries =["DENMARK", "GERMANY"];
+let contries =["DENMARK", "GERMANY", "SWEDEN"];
     /*               
 ////////////////////////////////////////////////////////////// 
 ////////////////////////// Data ////////////////////////////// 
@@ -56,7 +56,7 @@ var radarChartOptions = {
     color: color                                          // Farveskala for datasættene 
 };
 
-const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
+const apiUrl = 'http://localhost:4000/getEnergyMixCountry';
 fetch(apiUrl)
     .then(response => {
         if (!response.ok) {
@@ -64,7 +64,27 @@ fetch(apiUrl)
         }
         return response.json();
     })
-    .then(data => {
+	.then(rawData => {
+        // Strukturér data for hvert land
+        let structuredData = contries.map(country => {
+            // Filtrer data for det aktuelle land og omform til den ønskede struktur
+            return rawData.filter(d => d.countryname === country).map(d => ({
+                axis: d.axsis,
+                value: d.value
+            }));
+        });
+
+        // Kontroller struktureret data
+        console.log(structuredData);
+
+        // Kald funktionen til at tegne RadarChart med den strukturerede data
+        RadarChart(".radarChart", structuredData, radarChartOptions);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+	/*
+    then(data => {
       for(let i=0; i< contries.length; i++){
         contries.push([])
       }
@@ -80,7 +100,7 @@ fetch(apiUrl)
     .catch(error => {
         console.error('Error:', error);
     });
-
+*/
 //Call function to draw the Radar chart
 RadarChart(".radarChart", data, radarChartOptions);  /* Kalder funktionen til at tegne diagrammet */
 

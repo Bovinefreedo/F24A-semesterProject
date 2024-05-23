@@ -369,6 +369,15 @@ const getPopProj = (request, response) => {
   });
 };
 
+const getPopulation = (request, response) => {
+  pool.query("SELECT * FROM populationregion", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 const getEnergyUseSuperType = (request, response) => {
   pool.query("SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, year ORDER BY year ASC" , (error, results) => {
     if (error) {
@@ -397,7 +406,7 @@ const getYearEnergyUseRegion = (request, response) => {
 };
 
 const getEnergyMixCountry = (request, response) => {
-  pool.query("SELECT amountInTWH AS value, year, energyName AS axsis, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' )", (error, results) => {
+  pool.query("SELECT amountInTWH AS value, year, energyName AS axsis, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' OR countryName ILIKE 'SWEDEN')", (error, results) => {
     if (error) {
       throw error;
     }
