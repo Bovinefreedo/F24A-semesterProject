@@ -187,9 +187,9 @@ th, td {
     max-width: 100%;
     font-family: "Poppins";
     font-weight: 900;
-    color: rgba(255, 255, 255, 0.9); /* Adjust color opacity for better visibility 
-    z-index: 1;  Ensure the text is above the background 
-    -webkit-font-smoothing: antialiased; /* Enhance text rendering 
+    color: rgba(255, 255, 255, 0.9); /* Adjust color opacity for better visibility */
+    z-index: 1;  /*Ensure the text is above the background */
+    -webkit-font-smoothing: antialiased; /* Enhance text rendering */
     -moz-osx-font-smoothing: grayscale; /* Enhance text rendering */
 }
 
@@ -200,9 +200,9 @@ th, td {
     padding-left: 50px;
     font-family: "Poppins";
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.9); /* Adjust color opacity for better visibility 
-    z-index: 1; /* Ensure the text is above the background 
-    -webkit-font-smoothing: antialiased; /* Enhance text rendering 
+    color: rgba(255, 255, 255, 0.9); /* Adjust color opacity for better visibility */
+    z-index: 1; /* Ensure the text is above the background */
+    -webkit-font-smoothing: antialiased; /* Enhance text rendering */
     -moz-osx-font-smoothing: grayscale; /* Enhance text rendering */
 }
 
