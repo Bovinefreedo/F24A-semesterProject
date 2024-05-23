@@ -1,4 +1,4 @@
-/* const width = 1000;
+ const width = 1000;
 const height = 300;
 const margin = { top: 20, right: 30, bottom: 30, left: 100 };
 
@@ -283,4 +283,3 @@ const chartObserver = new IntersectionObserver(handleChartIntersection, {
 // Observe the section containing the chart
 const chartSection = document.querySelector('.two');
 chartObserver.observe(chartSection);
-*/

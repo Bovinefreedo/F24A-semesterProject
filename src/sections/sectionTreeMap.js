@@ -1,4 +1,4 @@
-/*
+
 const yearsFromApi = "http://localhost:4000/getYearEnergyUseRegion";
 
 //Keys are where we put the years
@@ -20,4 +20,3 @@ fetch(yearsFromApi)
 .catch(error => {
     console.error('Error:', error);
 });
-*/

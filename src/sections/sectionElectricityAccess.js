@@ -1,4 +1,4 @@
-/*
+
 // Function to handle intersection changes for the new chart
 function handleElectricityChartIntersection(entries, observer) {
     entries.forEach(entry => {
@@ -73,4 +73,4 @@ function handleElectricityChartIntersection(entries, observer) {
   // Observe the section containing the new chart
   const electricityChartSection = document.querySelector('.seven');
   electricityChartObserver.observe(electricityChartSection);
-  */
+  

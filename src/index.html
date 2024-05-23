@@ -8,25 +8,6 @@
     <title>Energy for tomorow, by team Stygge</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="skabelon.css">
-<style>
-     rect {
-    pointer-events: all;
-    fill-opacity: 0;
-    stroke-opacity: 0;
-    z-index: 1;
-  }
-
-  .toolTip {
-    position:absolute;
-  padding: 10px;
-  background-color: steelblue;
-  color: white;
-  border: 1px solid white;
-  border-radius: 10px;
-  display: none;
-  opacity: .75;
-}
-</style>
 </head>
 
 
@@ -77,25 +58,11 @@
             </div>
         </section>
 
-        <section class="two">
-            <div class="background">
-                <div class="kasse 1">
-                    <h5>Befolkningstilvækstningen gennem tiden for hele verdenen</h5>
-                    <p>Befolkningstilvæksten gennem tiden har været kompleks og påvirket af medicinske og
-                        teknologiske fremskridt. Efter landbrugets opståen steg befolkningen gradvist, men det var først
-                        under
-                        den industrielle revolution, at væksten blev eksplosiv. Teknologiske fremskridt og bedre
-                        sundhedsvæsen førte til en dramatisk stigning i levestandarden og fødselsoverskuddet. Denne
-                        tendens fortsatte gennem det 20. århundrede, hvilket førte til overbefolkning og udfordringer
-                        som ressourceknaphed og klimaforandringer. I dag er der fokus på bæredygtig udvikling og
-                        balancen mellem befolkningsvækst og miljømæssig bevarelse for at sikre en bæredygtig
-                        fremtid.</p>
-                </div>
-                <div class="kasse 2">
-                    <div class="kasse 2">
-                        <div id="Population"></div>
-                    </div>
-                </div>
+        <section class="six" id="section6Content">
+            <div id = "denmarkEnergy"></div>
+            <div id="toolTip"></div>
+            <div id="rect"></div>
+            
         </section>
 
         <div id="animated-chart"></div>
@@ -122,7 +89,7 @@
 
 
 
-        <section class="sectionCanvas" id="section8Content">
+        <section class="four" id="section8Content">
             
                 <div id="energyChart"></div>
                 <div id="toolTip"></div>
@@ -137,9 +104,7 @@
             </div>
         </section>
 
-        <section class="six">
-            <div id = "treemap-container"></div>
-        </section>
+        <section class="six"></section>
 
         <section class="seven">
             <div class="background">
@@ -179,6 +144,7 @@
     <script src="/src/sections/sectionTreeMap.js"></script>
     <script src="/src/sections/sectionRadarMap.js"></script>
     <script src="/src/sections/section8.js"></script>
+    <script src="/src/sections/section1.js"></script>
 
 </body>
 

@@ -1,18 +1,16 @@
-
-/*
 // set margin, width and height
 const width = 1250;
 const height = 500;
 const margin = { top: 50, right: 50, bottom: 50, left: 100 };
 
 // set x and y scales
-const x = d3.scaleTime().range([0, width]);
+const x = d3.scaconstime().range([0, width]);
 
 const y = d3.scaleLinear().range([height, 0]);
 
 // create the svg element and append it to the chart container
 const svg = d3
-  .select("#three")
+  .select("#denmarkEnergy")
   .append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
@@ -215,4 +213,3 @@ svg
     const length = this.getTotalLength();
     return d3.interpolate(`0,${length}`, `${length}, ${length}`);
   });
-*/
