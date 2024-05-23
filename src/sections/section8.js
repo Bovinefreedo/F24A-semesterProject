@@ -15,7 +15,7 @@ export function createSection8() {
     .then((data) => {
       console.log(data);
       // set margin, width and height
-      const width = 1250;
+      const width = 1000;
       const height = 500;
       const margin = { top: 50, right: 50, bottom: 50, left: 100 };
 
