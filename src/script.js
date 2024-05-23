@@ -7,7 +7,7 @@ createSection8();
 function handleIntersection(entries) {
     entries.forEach(entry => {
         // Check if the target is one of the sections we are interested in
-        if (entry.target.classList.contains('one') || entry.target.classList.contains('two') || entry.target.classList.contains('three') || entry.target.classList.contains('four') || entry.target.classList.contains('five') || entry.target.classList.contains('six') || entry.target.classList.contains('seven')) {
+        if (entry.target.classList.contains('one') || entry.target.classList.contains('two') || entry.target.classList.contains('three') || entry.target.classList.contains('four') || entry.target.classList.contains('five') || entry.target.classList.contains('six') || entry.target.classList.contains('seven') || entry.target.classList.contains('eight') || entry.target.classList.contains('nine') ) {
             // Get the corresponding baggrund div within the section
             const baggrundDiv = entry.target.querySelector('.baggrund');
             // Check if 50% of the section is in view
@@ -25,7 +25,7 @@ const observer = new IntersectionObserver(handleIntersection, {
 });
 
 // Get all the sections from class one to seven
-const sections = document.querySelectorAll('.one, .two, .three, .four, .five, .six, .seven');
+const sections = document.querySelectorAll('.one, .two, .three, .four, .five, .six, .seven., eight., nine.');
 
 // Observe each section
 sections.forEach(section => {
