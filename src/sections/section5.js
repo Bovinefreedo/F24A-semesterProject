@@ -1,3 +1,4 @@
+/*
 export function createSection5(){
   const section5 = document.getElementById("section5Content");
   const canvas5 = document.createElement("div");
@@ -19,4 +20,4 @@ export function createSection5(){
           console.error('Error:', error);
       });
 }
- 
+ */

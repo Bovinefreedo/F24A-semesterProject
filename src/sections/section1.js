@@ -1,5 +1,5 @@
 
-
+/*
 // set margin, width and height
 const width = 1250;
 const height = 500;
@@ -215,3 +215,4 @@ svg
     const length = this.getTotalLength();
     return d3.interpolate(`0,${length}`, `${length}, ${length}`);
   });
+*/

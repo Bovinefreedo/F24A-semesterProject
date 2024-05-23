@@ -1,15 +1,15 @@
-/* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+/* Radar chart design created by Nadieh Bremer - VisualCinnamon.com 
   
 ////////////////////////////////////////////////////////////// 
 //////////////////////// Set-Up ////////////////////////////// 
 ////////////////////////////////////////////////////////////// 
 
-var margin = {top: 100, right: 100, bottom: 100, left: 100},  /* Marginer omkring diagrammet */
-     width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right, /* Beregner bredden af diagrammet */
-    height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20); /* Beregner højden af diagrammet */
+var margin = {top: 100, right: 100, bottom: 100, left: 100},  /* Marginer omkring diagrammet 
+     width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right, /* Beregner bredden af diagrammet 
+    height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20); /* Beregner højden af diagrammet 
 
 let contries =["DENMARK", "GERMANY"];
-    /*               
+             
 ////////////////////////////////////////////////////////////// 
 ////////////////////////// Data ////////////////////////////// 
 ////////////////////////////////////////////////////////////// 
@@ -38,7 +38,7 @@ var data = [
         ]
                   
     ];
-*/            
+           
 ////////////////////////////////////////////////////////////// 
 //////////////////// Draw the Chart ////////////////////////// 
 ////////////////////////////////////////////////////////////// 
@@ -82,7 +82,7 @@ fetch(apiUrl)
     });
 
 //Call function to draw the Radar chart
-RadarChart(".radarChart", data, radarChartOptions);  /* Kalder funktionen til at tegne diagrammet */
+RadarChart(".radarChart", data, radarChartOptions);  /* Kalder funktionen til at tegne diagrammet 
 
 
 function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som tager tre argumenter: id (et string, der angiver ID'et på det HTML-element, hvor diagrammet skal placeres), data (et array af arrays, der indeholder dataene for diagrammet), og options (et objekt, der indeholder konfigurationsindstillinger for diagrammet).
@@ -351,3 +351,4 @@ function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som
 	}//wrap	
 	
 }//RadarChart
+*/

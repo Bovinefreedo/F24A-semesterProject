@@ -201,7 +201,7 @@ listeningRect.on("mouseenter", function () {
     svg.on("mousemove", handleChartMouseMove); // Reattach the mousemove event listener
 });
 
-*/
+
 
 // Function to handle intersection changes for chart
 function handleChartIntersection(entries, observer) {
@@ -283,3 +283,4 @@ const chartObserver = new IntersectionObserver(handleChartIntersection, {
 // Observe the section containing the chart
 const chartSection = document.querySelector('.two');
 chartObserver.observe(chartSection);
+*/
