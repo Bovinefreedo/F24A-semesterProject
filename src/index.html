@@ -4,58 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Energy for tomorow, by team Stygge</title>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <title>Energy for Tomorrow, by Team Stygge</title>
     <link rel="stylesheet" href="skabelon.css">
-</head>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+</head>
 
 <body>
     <header class="header">
         <a href="index.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
-        <nav class="navbar">
-            <a href="forside.html">MORE ABOUT THE GOALS</a>
-        </nav>
     </header>
 
-
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-
+    <div class="box">
         <section class="one">
             <div class="background" id="gradient">
                 <div class="LandingBox">
                     <div id="LandingPageText">
-                        Sustainability
+                        Energy for Tomorrow
                         <div id="LandingPageTextSmall">
-                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
-                            of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
-                            a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure
-                            Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the
-                            word in classical literature, discovered the undoubtable source
+                            <div class="Beskrivelse">
+                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                piece
+                                of classical Latin literature from 45 BC, making it over 2000 years old. Richard
+                                McClintock,
+                                a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more
+                                obscure
+                                Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the
+                                word in classical literature, discovered the undoubtable source.
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
 
         <section class="two">
@@ -65,22 +44,13 @@
                     <p>Befolkningstilvæksten gennem tiden har været kompleks og påvirket af medicinske og
                         teknologiske fremskridt. Efter landbrugets opståen steg befolkningen gradvist, men det var først
                         under
-                        den industrielle revolution, at væksten blev eksplosiv. Teknologiske fremskridt og bedre
-                        sundhedsvæsen førte til en dramatisk stigning i levestandarden og fødselsoverskuddet. Denne
-                        tendens fortsatte gennem det 20. århundrede, hvilket førte til overbefolkning og udfordringer
-                        som ressourceknaphed og klimaforandringer. I dag er der fokus på bæredygtig udvikling og
-                        balancen mellem befolkningsvækst og miljømæssig bevarelse for at sikre en bæredygtig
-                        fremtid.</p>
+                        den industrielle revolution, at væksten blev eksplosiv.</p>
                 </div>
                 <div class="kasse 2">
-                    <div class="kasse 2">
-                        <div id="Population"></div>
-                    </div>
+                    <div id="Population"></div>
                 </div>
+            </div>
         </section>
-
-        <div id="animated-chart"></div>
-        <div id="tooltip" class="tooltip"></div>
 
         <section class="three">
             <div class="background">
@@ -101,24 +71,31 @@
             </div>
         </section>
 
-
-
-        <section class="sectionCanvas" id="section8Content">
+        <section class="four">
             <div class="background">
-                <div id="energyChart"></div>
-                <div id="tooltip"></div>
+                <div class="kasse 1">Box 1</div>
+                <div class="kasse 2">
+                    <div id="section8Content"></div>
+                </div>
             </div>
         </section>
 
-        <section class="five" id="section5Content">
+        <section class="five">
             <div class="background">
                 <div class="kasse 1">Box 1</div>
-                <div class="kasse 2">Box 2</div>
+                <div class="kasse 2">
+                    <div id="section5Content"></div>
+                </div>
             </div>
         </section>
 
         <section class="six">
-            <div id = "treemap-container"></div>
+            <div class="background">
+                <div class="kasse 1">Box 1</div>
+                <div class="kasse 2">
+                    <div id="treemap-container"></div>
+                </div>
+            </div>
         </section>
 
         <section class="seven">
@@ -138,28 +115,33 @@
                     <div id="adgang"></div>
                 </div>
             </div>
+
         </section>
-    
-<!--  <section class= "sectionCanvasid" id="section5Content">
-    </section>
 
-    <section class="sectionCanvas">
-        <div class="background">
-            <div class="kasse 1">Box 1</div>
-            <div class="kasse 2">Box 2</div>
-        </div>
-    </section>
--->
+        <section class="eight">
+            <div class="background">
+                <div class="kasse 1">
+                </div>
+                <div class="kasse 2">
+                </div>
+            </div>
+        </section>
 
+        <section class="nine">
+            <div class="background">
+                <div class="kasse 1"></div>
+                <div class="kasse 2"></div>
+            </div>
+        </section>
 
-    <!-- Ensure your JavaScript files are correctly referenced -->
-    <script src="script.js"  type="module" defer></script>
+    </div>
+
+    <script src="script.js" type="module" defer></script>
+    <script src="/src/sections/section2.js"></script>
     <script src="/src/sections/sectionElectricityAccess.js"></script>
-    <script src="/src/sections/sectionPopulation.js"></script>
     <script src="/src/sections/sectionTreeMap.js"></script>
     <script src="/src/sections/sectionRadarMap.js"></script>
 
 </body>
-
 
 </html>

@@ -1,17 +1,4 @@
-// Function to handle intersection changes for the new chart
-function handleElectricityChartIntersection(entries, observer) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-            // Load the chart when the section is 50% in view
-            loadElectricityChart();
-            // Stop observing after the chart is loaded
-            observer.unobserve(entry.target);
-        }
-    });
-  }
-  
-  // Function to load the new chart
-  function loadElectricityChart() {
+function loadElectricityChart() {
     var options = {
         series: [{
             name: 'With electricity access',
@@ -56,20 +43,14 @@ function handleElectricityChartIntersection(entries, observer) {
             x: {
                 format: 'year'
             },
-            theme: 'dark' // Change this to 'light' if you want a light-colored tooltip
+            theme: 'dark'
         },
     };
-  
-    //var chart = new ApexCharts(document.querySelector("#adgang"), options);
-    //chart.render();
-  }
-  
-  // Create an intersection observer instance for the new chart
-  const electricityChartObserver = new IntersectionObserver(handleElectricityChartIntersection, {
-    threshold: 0.5 // Trigger when 50% of the section is in view
-  });
-  
-  // Observe the section containing the new chart
-  const electricityChartSection = document.querySelector('.seven');
-  electricityChartObserver.observe(electricityChartSection);
-  
+
+    var chart = new ApexCharts(document.querySelector("#adgang"), options);
+    chart.render();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadElectricityChart();
+});

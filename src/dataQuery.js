@@ -416,6 +416,7 @@ const getEnergyMixCountry = (request, response) => {
 };
 
 module.exports = {
+  getElectricity,
   getEnergyMixCountry,
   getYearEnergyUseRegion,
   getEnergyUseSuperType,
