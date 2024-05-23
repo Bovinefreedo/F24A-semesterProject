@@ -8,6 +8,25 @@
     <title>Energy for tomorow, by team Stygge</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="skabelon.css">
+<style>
+     rect {
+    pointer-events: all;
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    z-index: 1;
+  }
+
+  .toolTip {
+  position: absolute;
+  padding: 10px;
+  background-color: steelblue;
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  display: none;
+  opacity: .75;
+}
+</style>
 </head>
 
 
@@ -106,7 +125,7 @@
         <section class="sectionCanvas" id="section8Content">
             <div class="background">
                 <div id="energyChart"></div>
-                <div id="tooltip"></div>
+                <div id="toolTip"></div>
                 <div id="rect"></div>
             </div>
         </section>
