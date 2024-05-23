@@ -16,6 +16,7 @@ export function createSection5(){
   inputSettings(slider);
   sliderContainer.appendChild(slider);
   let gaugesList = [];
+
   const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
   fetch(apiUrl)
       .then(response => {
@@ -39,12 +40,15 @@ export function createSection5(){
         
         for(let i=0; i<3; i++){
           for(let j=0; j<2; j++){
-            const gauge = new Gauge(""+i+j, gaugeContainer, 70, 7, j*300, i*300, 200);
+            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, j*200, i*200, 200);
             gaugesList.push(gauge)
           }
         }
         gaugesList[0].needle.animateOn(gaugesList[0].chart, .70);
-        gaugesList[1].needle.animateOn(gaugesList[1].chart, .20)
+        gaugesList[1].needle.animateOn(gaugesList[1].chart, .20);
+        slider.oninput = function() {
+          output.innerHTML = this.value;
+        }
       })
       .catch(error => {
           console.error('Error:', error);
@@ -93,9 +97,9 @@ function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionL
     let svg = this.el.append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
-        .attr('top', positionTop)
-        .attr('left', positionLeft)
-        .attr('position', "relative");
+        .attr('top',""+positionTop+"px")
+        .attr('left',""+positionLeft+"px")
+        .attr('position', "absolute");
 
     this.chart = svg.append('g')
         .attr('transform', `translate(${(width + margin.left) / 2}, ${(height + margin.top) / 2})`);
