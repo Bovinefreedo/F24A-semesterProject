@@ -3,7 +3,7 @@ export function createSection5(){
   const canvas5 = document.createElement("div");
   section5.appendChild(canvas5);
   canvas5.id="canvas5";
-  canvas5.className = "background";
+  section5BackgroundStyle(canvas5);
   let gaugeContainer = document.createElement("div");
   gaugeContainer.id = "gaugeContainer";
   canvas5.appendChild(gaugeContainer);
@@ -19,7 +19,8 @@ export function createSection5(){
       })
       .then(data => {
         console.log(data);
-        gauge = new createGauge(1, gaugeContainer, 70, 7, 0, 0, 200);
+        const gauge = new Gauge(1, gaugeContainer, 70, 7, 0, 0, 200);
+        const gauge2 = new Gauge(2, gaugeContainer, 70, 7, 200, 0, 200)
         gauge.needle.animateOn(gauge.chart, .70);
       })
       .catch(error => {
@@ -27,7 +28,7 @@ export function createSection5(){
       });
 }
 
-function createGauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionLeft, width) {
+function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionLeft, width) {
     
     let ref;
     let i;
@@ -43,7 +44,11 @@ function createGauge(id, parrentDiv, needleLength, needleWidth, positionTop, pos
         bottom: 30,
         left: 20
     };
-    this.el = d3.select('.chart-gauge');
+
+    let barometerDiv = document.createElement("div");
+    barometerDiv.id = "gauge"+id;
+    parrentDiv.appendChild(barometerDiv);
+    this.el = d3.select("#gauge"+id);
     width = width - margin.left - margin.right;
     let height = width;
     let radius = Math.min(width, height) / 2;
@@ -61,7 +66,10 @@ function createGauge(id, parrentDiv, needleLength, needleWidth, positionTop, pos
 
     let svg = this.el.append('svg')
         .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom);
+        .attr('height', height + margin.top + margin.bottom)
+        .attr('top', positionTop)
+        .attr('left', positionLeft)
+        .attr('position', "relative");
 
     this.chart = svg.append('g')
         .attr('transform', `translate(${(width + margin.left) / 2}, ${(height + margin.top) / 2})`);
@@ -132,6 +140,7 @@ function createGauge(id, parrentDiv, needleLength, needleWidth, positionTop, pos
 }
 
 function gaugeContainerStyle(div){
+    div.style.diplay = "stretch";
     div.style.position= "relative";
     div.style.top ="30px";
     div.style.left ="30px";
@@ -142,4 +151,14 @@ function gaugeContainerStyle(div){
     div.style.backgroundColor = 'green';
     div.style.borderRadius = '10px';
     div.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+}
+
+function section5BackgroundStyle(div){
+  div.style.display = "unset";
+  div.style.width = '100%';
+  div.style.height = '80%';
+  div.style.padding = '35px';
+  div.style.boxSizing = 'border-box';
+  div.style.backgroundColor = '#f0f0f0';
+  div.style.background = 'rgb(26,29,50)';
 }
