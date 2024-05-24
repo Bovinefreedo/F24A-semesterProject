@@ -1,3 +1,4 @@
+// Verdenen
 async function fetchEnergyUseData() {
     try {
         const response = await fetch('http://localhost:4000/getEnergyUseWorld');
