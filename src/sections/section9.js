@@ -1,45 +1,98 @@
-function parseCsvToCandlestick(csvData) {
-    const rows = csvData.trim().split('\n');
-    const data = rows.slice(1).map(row => {
-        const [country, year, population] = row.split(',');
-        return {
-            x: new Date(year),
-            y: [parseInt(population), parseInt(population), parseInt(population), parseInt(population)]
-        };
-    });
-    return [{ data }];
+async function fetchEnergyUseData() {
+    try {
+        const response = await fetch('http://localhost:4000/getEnergyUseWorld');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching the data:', error);
+    }
 }
 
-// Function to handle file input change event
-function handleFileInputChange(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        const csvData = e.target.result;
-        const options = {
-            series: parseCsvToCandlestick(csvData),
-            chart: {
-                type: 'candlestick',
-                height: 350
-            },
-            title: {
-                text: 'Population Candlestick Chart',
-                align: 'left'
-            },
-            xaxis: {
-                type: 'datetime'
-            },
-            yaxis: {
-                tooltip: {
-                    enabled: true
-                }
-            }
-        };
-        const chart = new ApexCharts(document.querySelector("#befolkning"), options);
-        chart.render();
-    };
-    reader.readAsText(file);
-}
+fetchEnergyUseData().then(data => {
+    if (!data) {
+        return;
+    }
 
-// Add event listener for file input change event
-document.getElementById('fileInput').addEventListener('change', handleFileInputChange);
+    const margin = { top: 20, right: 30, bottom: 30, left: 40 },
+          width = 960 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom;
+
+    const svg = d3.select("#Energy")
+                  .append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear()
+                .domain(d3.extent(data, d => d.date))
+                .range([0, width]);
+
+    const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.value)])
+                .range([height, 0]);
+
+    const line = d3.line()
+                   .x(d => x(d.date))
+                   .y(d => y(d.value));
+
+    svg.append("g")
+       .attr("transform", `translate(0,${height})`)
+       .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+
+    svg.append("g")
+       .call(d3.axisLeft(y));
+
+    svg.append("path")
+       .datum(data)
+       .attr("class", "line")
+       .attr("d", line);
+
+    const tooltip = d3.select("body").append("div")
+                      .attr("class", "tooltip")
+                      .style("opacity", 0);
+
+    const verticalLine = svg.append("line")
+                            .attr("class", "vertical-line")
+                            .attr("y1", 0)
+                            .attr("y2", height)
+                            .style("opacity", 0);
+
+    svg.append("rect")
+       .attr("width", width)
+       .attr("height", height)
+       .attr("class", "overlay")
+       .style("fill", "none")
+       .style("pointer-events", "all")
+       .on("mouseover", function() {
+           tooltip.style("opacity", 1);
+           verticalLine.style("opacity", 1);
+       })
+       .on("mousemove", function(event) {
+           const bisectDate = d3.bisector(d => d.date).left;
+           const mouseX = d3.pointer(event, this)[0];
+           const xDate = x.invert(mouseX);
+           const index = bisectDate(data, xDate, 1);
+           const d0 = data[index - 1];
+           const d1 = data[index];
+           const d = xDate - d0.date > d1.date - xDate ? d1 : d0;
+
+           verticalLine.attr("x1", x(d.date))
+                       .attr("x2", x(d.date))
+                       .attr("y1", 0)
+                       .attr("y2", height);
+
+           tooltip.html(`Date: ${d.date}<br>Value: ${d3.format(",")(d.value)}`)
+                  .style("left", (event.pageX + 5) + "px")
+                  .style("top", (event.pageY - 28) + "px");
+       })
+       .on("mouseout", function() {
+           tooltip.style("opacity", 0);
+           verticalLine.style("opacity", 0);
+       });
+}).catch(error => {
+    console.error('Error fetching the data:', error);
+});

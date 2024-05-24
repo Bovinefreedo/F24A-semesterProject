@@ -247,3 +247,14 @@ th:first-child, td:first-child {
 .answer-description {
     margin-top: 10px;
 }
+
+
+/* GIO GIO GIO*/
+
+
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+}
