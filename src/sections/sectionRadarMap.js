@@ -8,36 +8,9 @@ var margin = {top: 100, right: 100, bottom: 100, left: 100},  /* Marginer omkrin
      width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right, /* Beregner bredden af diagrammet */
     height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20); /* Beregner højden af diagrammet */
 
-let contries =["DENMARK", "GERMANY", "SWEDEN", "NORWAY"];
+let contries =["GERMANY"];
     /*               
-////////////////////////////////////////////////////////////// 
-////////////////////////// Data ////////////////////////////// 
-////////////////////////////////////////////////////////////// 
-  
-var data = [
-    [                                //Data for Danmark (2022)
-        {axis:"Other renewables",value:23.934357},
-        {axis:"Solar",value:20},
-        {axis:"Wind",value:21},
-        {axis:"Hydro",value:40},
-        {axis:"Nuclear",value:37},
-        {axis:"Gas",value:15},
-        {axis:"Coal",value:50},
-        {axis:"Oil" ,value:20}  
-                    
-],[                                       //Data for ideelt energiforbrug
-        {axis:"Other renewables",value:34},
-        {axis:"Biofuels",value:29},
-        {axis:"Solar",value:11},
-        {axis:"Wind",value:45},
-        {axis:"Hydro",value:24},
-        {axis:"Nuclear",value:17},
-        {axis:"Gas",value:39},
-        {axis:"Coal",value:31},
-        {axis:"Oil" ,value:37}
-        ]
-                  
-    ];
+
 */            
 ////////////////////////////////////////////////////////////// 
 //////////////////// Draw the Chart ////////////////////////// 
@@ -50,8 +23,8 @@ var radarChartOptions = {
     w: width,                                             // Bredde af diagrammet
     h: height,                                            // Højde af diagrammet 
     margin: margin,                                       // Margener omkring diagrammet
-    maxValue: 100,                                         // Maksimumsværdi på akserne
-    levels: 10,                                           // Antal niveauer (gitterlinjer)
+    maxValue: 0.5,                                         // Maksimumsværdi på akserne
+    levels: 4,                                           // Antal niveauer (gitterlinjer)
     roundStrokes: true,                                   // Afrundede streger på polygonerne
     color: color                                          // Farveskala for datasættene 
 };
@@ -66,14 +39,17 @@ fetch(apiUrl)
     })
 	.then(rawData => {
         // Strukturér data for hvert land
-        let structuredData = contries.map(country => {
-            // Filtrer data for det aktuelle land og omform til den ønskede struktur
-            return rawData.filter(d => d.countryname === country).map(d => ({
-                axis: d.axsis,
-                value: d.value
+  let structuredData = contries.map(country => {
+    // Filtrer data for det aktuelle land og omform til den ønskede struktur
+    const countryData = rawData.filter(d => d.countryname === country);
+    const totalValue = d3.sum(countryData, d => d.value);
+    return countryData.map(d => ({
+      axis: d.axsis,
+      value: (d.value / totalValue) * 100
             }));
         });
 
+	
         // Kontroller struktureret data
         console.log(structuredData);
 
@@ -112,7 +88,7 @@ function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som
         h: 600,                        // Højde af diagrammet i pixels (standardværdi: 600).
         margin: { top: 20, right: 20, bottom: 20, left: 20 }, // Margener omkring diagrammet i pixels (standardværdi: 20 pixels på alle sider).
         levels: 3,                     // Antallet af niveauer (cirkler) i diagrammet (standardværdi: 3).
-        maxValue: 100,                   // Maksimumsværdien for dataene (standardværdi: 0). Dette vil blive beregnet senere baseret på de faktiske data.
+        maxValue: 0,                   // Maksimumsværdien for dataene (standardværdi: 0). Dette vil blive beregnet senere baseret på de faktiske data.
         labelFactor: 1.25,             // Hvor langt væk fra den yderste cirkel akse-labels skal placeres (standardværdi: 1.25).
         wrapWidth: 60,                 // Antallet af pixels, hvor en akse-label skal ombrydes til en ny linje (standardværdi: 60).
         opacityArea: 0.35,             // Opacitet (gennemsigtighed) af polygon-områderne (standardværdi: 0.35).
@@ -137,7 +113,7 @@ function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som
 	var allAxis = (data[0].map(function(i, j){return i.axis})),	//Names of each axis
 		total = allAxis.length,					//The number of different axes
 		radius = Math.min(cfg.w/2, cfg.h/2), 	//Radius of the outermost circle
-		Format = d3.format(' '),			 	//Percentage formatting
+		Format = d3.format('%'),			 	//Percentage formatting
 		angleSlice = Math.PI * 2 / total;		//The width in radians of each "slice"
 	
 	//Scale for the radius
@@ -286,18 +262,36 @@ function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som
 		.style("fill", "none")
 		.style("filter" , "url(#glow)");		
 	
-	//Append the circles
-	blobWrapper.selectAll(".radarCircle")
-		.data(function(d,i) { return d; })
-		.enter().append("circle")
-		.attr("class", "radarCircle")
-		.attr("r", cfg.dotRadius)
-		.attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
-		.attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
-		.style("fill", function(d,i,j) { return cfg.color(j); })
-		.style("fill-opacity", 0.8);
+	// Append the circles
+blobWrapper.selectAll(".radarCircle")
+.data(function(d, i) { return d; })
+.enter().append("circle")
+.attr("class", "radarCircle")
+.attr("r", cfg.dotRadius)
+.attr("cx", function(d, i) { return rScale(d.value) * Math.cos(angleSlice * i - Math.PI / 2); })
+.attr("cy", function(d, i) { return rScale(d.value) * Math.sin(angleSlice * i - Math.PI / 2); })
+.style("fill", function(d, i, j) { return cfg.color(j); })
+.style("fill-opacity", 0.8)
+.style("pointer-events", "all")
+.on("mouseover", function(d, i) {
+  // Show the tooltip with the data value
+  tooltip.text(d.value.toFixed(1) + "%")
+	.style("opacity", 1);
+})
+.on("mouseout", function() {
+  // Hide the tooltip
+  tooltip.style("opacity", 0);
+});
 
-	/////////////////////////////////////////////////////////
+// Set up the tooltip
+var tooltip = d3.select("body")
+.append("div")
+.attr("class", "tooltip")
+.style("opacity", 0);
+
+		
+
+////////////////////////////////////
 	//////// Append invisible circles for tooltip ///////////
 	/////////////////////////////////////////////////////////
 	
@@ -307,37 +301,42 @@ function RadarChart(id, data, options) { // Definerer funktionen RadarChart, som
 		.enter().append("g")
 		.attr("class", "radarCircleWrapper");
 		
-	//Append a set of invisible circles on top for the mouseover pop-up
-	blobCircleWrapper.selectAll(".radarInvisibleCircle")
-		.data(function(d,i) { return d; })
-		.enter().append("circle")
-		.attr("class", "radarInvisibleCircle")
-		.attr("r", cfg.dotRadius*1.5)
-		.attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
-		.attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
-		.style("fill", "none")
-		.style("pointer-events", "all")
-		.on("mouseover", function(d,i) {
-			newX =  parseFloat(d3.select(this).attr('cx')) - 10;
-			newY =  parseFloat(d3.select(this).attr('cy')) - 10;
-					
-			tooltip
-				.attr('x', newX)
-				.attr('y', newY)
-				.text(Format(d.value))
-				.transition().duration(200)
-				.style('opacity', 1);
-		})
-		.on("mouseout", function(){
-			tooltip.transition().duration(200)
-				.style("opacity", 0);
-		});
+		//Append a set of invisible circles on top for the mouseover pop-up
+		blobCircleWrapper.selectAll(".radarInvisibleCircle")
+			.data(function(d,i) { return d; })
+			.enter().append("circle")
+			.attr("class", "radarInvisibleCircle")
+			.attr("r", cfg.dotRadius*1.5)
+			.attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
+			.attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
+			.style("fill", "none")
+			.style("pointer-events", "all")
+			.on("mouseover", function(d,i) {
+				newX =  parseFloat(d3.select(this).attr('cx')) - 10;
+				newY =  parseFloat(d3.select(this).attr('cy')) - 10;
+						
+				tooltip
+					.attr('x', newX)
+					.attr('y', newY)
+					.text(Format(d.value))
+					.transition().duration(200)
+					.style('opacity', 1);
+			})
+			.on("mouseout", function(){
+				tooltip.transition().duration(200)
+					.style("opacity", 0);
+			});
 		
-	//Set up the small tooltip for when you hover over a circle
-	var tooltip = g.append("text")
-		.attr("class", "tooltip")
-		.style("opacity", 0);
-	
+		//Set up the small tooltip for when you hover over a circle
+		var tooltip = g.append("text")
+			.attr("class", "tooltip")
+			.attr("x", 10)
+			.attr("y", 10)
+			.attr("text-anchor", "left")
+			.attr("font-family", "sans-serif")
+			.attr("font-size", 10)
+			.attr("pointer-events", "none")
+			.style("opacity", 0);
 	/////////////////////////////////////////////////////////
 	/////////////////// Helper Function /////////////////////
 	/////////////////////////////////////////////////////////
