@@ -4,7 +4,7 @@ const height = 500;
 const margin = { top: 50, right: 50, bottom: 50, left: 100 };
 
 // set x and y scales
-const x = d3.scaconstime().range([0, width]);
+const x = d3.scaleTime().range([0, width]);
 
 const y = d3.scaleLinear().range([height, 0]);
 

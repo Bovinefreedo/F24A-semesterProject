@@ -2,7 +2,7 @@
 const yearsFromApi = "http://localhost:4000/getYearEnergyUseRegion";
 
 //Keys are where we put the years
-const data = { keys : [], group :{ 
+const data2 = { keys : [], group :{ 
         "vedvarnde" : {"sol" : [], "vind" : [], "vand" : [], "biofuel" :[] , "andreVedvarende": []},
         "atom" :{"atom":[]},
         "forsil" : {"kul" :[], "olie":[], "gas":[]}}}
