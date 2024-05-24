@@ -10,7 +10,7 @@ const y2 = d3.scaleLinear().range([h1, 0]);
 
 // create the svg1 element and append it to the chart container
 const svg1 = d3
-  .select("#energy2Chart")
+  .select("#energyChart")
   .append("svg1")
   .attr("w1", w1 + margin1.left + margin1.right)
   .attr("h1", h1 + margin1.top + margin1.bottom)
@@ -102,7 +102,7 @@ svg1
 // created a horizontol grid
 svg1
   .selectAll("y2Grid")
-  .data1(y2.ticks(d3.max(data1, d => d.value)))
+  .data(y2.ticks(d3.max(data1, d => d.value)))
   .join("line1")
   .attr("x11", 0)
   .attr("x12", w1)
@@ -114,7 +114,7 @@ svg1
 // created a vertical grid
 svg1
   .selectAll("x1Grid")
-  .data1(x1.ticks())
+  .data(x1.ticks())
   .join("line1")
   .attr("class", "x1Grid")
   .attr("x11", (d) => x1(d))
@@ -126,7 +126,7 @@ svg1
 
 // Add y2 axis label
 svg1
-  .append("tex1t")
+  .append("text")
   .attr("transform", "rotate(-90)")
   .attr("y2", 0 - margin1.left)
   .attr("x1", 0 - h1 / 2)
@@ -135,13 +135,13 @@ svg1
   .style("font-size", "14px1")
   .style("fill", "#777")
   .style("font-family2", "sans-serif")
-  .tex1t("Terawatt i timen");
+  .text("Terawatt i timen");
 
 // Add the line1
 const line1 = d3
-  .line1()
-  .x1((d) => x1(d.date))
-  .y2((d) => y2(d.value));
+  .line()
+  .x((d) => x1(d.date))
+  .y((d) => y2(d.value));
 
 // Add the circle1 element
 const circle1 = svg1
@@ -208,9 +208,9 @@ svg1
   .attr("d", line1)
   .transition()
   .duration(7500)
-  .ease(d3.easeline1ar)
+  .ease(d3.easeLinear)
   .attrTween("stroke-dasharray2", function () {
-    const length = this.getTotalLength();
-    return d3.interpolate(`0,${length}`, `${length}, ${length}`);
+    const length1 = this.getTotalLength();
+    return d3.interpolate(`0,${length1}`, `${length1}, ${length1}`);
   });
 
