@@ -1,27 +1,27 @@
-// set margin1, w1 and h1
-const w1 = 1250;
-const h1 = 500;
-const margin1 = { top: 50, right: 50, bottom: 50, left: 100 };
+// set margin, width and height
+const width = 1250;
+const height = 500;
+const margin = { top: 50, right: 50, bottom: 50, left: 100 };
 
-// set x1 and y2 scales
-const x1 = d3.scaleTime().range([0, w1]);
+// set x and y scales
+const x = d3.scaleTime().range([0, width]);
 
-const y2 = d3.scaleLinear().range([h1, 0]);
+const y = d3.scaleLinear().range([height, 0]);
 
-// create the svg1 element and append it to the chart container
-const svg1 = d3
+// create the svg element and append it to the chart container
+const svg = d3
   .select("#energyChart")
-  .append("svg1")
-  .attr("w1", w1 + margin1.left + margin1.right)
-  .attr("h1", h1 + margin1.top + margin1.bottom)
+  .append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
   .append("g")
-  .attr("transform", `translate(${margin1.left}, ${margin1.top})`);
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-// Create the toolTip1
-const toolTip1 = d3.select("body2").append("div").attr("class", "toolTip1");
+// Create the tooltip
+const toolTip = d3.select("body").append("div").attr("class", "toolTip");
 
-// data1
-const data1 = [
+// Data
+const data = [
   { date: new Date("1965"), value: 43307.869491 },
   { date: new Date("1966"), value: 45623.36121999999 },
   { date: new Date("1967"), value: 47341.248466000005 },
@@ -82,135 +82,135 @@ const data1 = [
   { date: new Date("2022"), value: 167787.67500000002 },
 ];
 
-// Set the x1 and y2 domains
-x1.domain(d3.extent(data1, (d) => d.date));
-y2.domain([160, d3.max(data1, (d) => d.value)]);
+// Set the x and y domains
+x.domain(d3.extent(data, (d) => d.date));
+y.domain([40000, d3.max(data, (d) => d.value)]);
 
-// Add the x1 axis
-svg1
+// Add the x axis
+svg
   .append("g")
-  .attr("transform", `translate(0,${h1})`)
-  .style("font-size", "12px1")
-  .call(d3.axisBottom(x1).ticks(d3.timeYear.every(10)));
+  .attr("transform", `translate(0,${height})`)
+  .style("font-size", "12px")
+  .call(d3.axisBottom(x).ticks(d3.timeYear.every(10)));
 
-// Add the y2 axis
-svg1
+// Add the y axis
+svg
   .append("g")
-  .style("font-size", "12px1")
-  .call(d3.axisLeft(y2).tickFormat((d) => d + " Twh"));
+  .style("font-size", "12px")
+  .call(d3.axisLeft(y).tickFormat((d) => d + " Twh"));
 
-// created a horizontol grid
-svg1
-  .selectAll("y2Grid")
-  .data(y2.ticks(d3.max(data1, d => d.value)))
-  .join("line1")
-  .attr("x11", 0)
-  .attr("x12", w1)
-  .attr("y21", (d) => y2(d))
-  .attr("y22", (d) => y2(d))
-  .attr("stroke", "lightgrey2")
-  .attr("stroke-w1", 0.5);
+// Created a horizontol grid
+svg
+  .selectAll(".yGrid")
+  .data(y.ticks(5))
+  .join("line")
+  .attr("class", "yGrid")
+  .attr("x1", 0)
+  .attr("x2", width)
+  .attr("y1", (d) => y(d))
+  .attr("y2", (d) => y(d))
+  .attr("stroke", "lightgrey")
+  .attr("stroke-width", 0.8);
 
 // created a vertical grid
-svg1
-  .selectAll("x1Grid")
-  .data(x1.ticks())
-  .join("line1")
-  .attr("class", "x1Grid")
-  .attr("x11", (d) => x1(d))
-  .attr("x12", (d) => x1(d))
-  .attr("y21", 0)
-  .attr("y22", h1)
-  .attr("stroke", "lightgrey2")
-  .attr("stroke-w1", 0.5);
+svg
+  .selectAll(".xGrid")
+  .data(x.ticks())
+  .join("line")
+  .attr("class", "xGrid")
+  .attr("y1", 0)
+  .attr("y2", height)
+  .attr("x1", (d) => x(d))
+  .attr("x2", (d) => x(d))
+  .attr("stroke", "lightgrey")
+  .attr("stroke-width", 0.8);
 
-// Add y2 axis label
-svg1
+// Add y axis label
+svg
   .append("text")
   .attr("transform", "rotate(-90)")
-  .attr("y2", 0 - margin1.left)
-  .attr("x1", 0 - h1 / 2)
-  .attr("dy2", "1em")
-  .style("tex1t-anchor", "middle")
-  .style("font-size", "14px1")
+  .attr("y", 0 - margin.left)
+  .attr("x", 0 - height / 2)
+  .attr("dy", "1em")
+  .style("text-anchor", "middle")
+  .style("font-size", "14px")
   .style("fill", "#777")
-  .style("font-family2", "sans-serif")
+  .style("font-family", "sans-serif")
   .text("Terawatt i timen");
 
-// Add the line1
-const line1 = d3
+// Add the line
+const line = d3
   .line()
-  .x((d) => x1(d.date))
-  .y((d) => y2(d.value));
+  .x((d) => x(d.date))
+  .y((d) => y(d.value));
 
-// Add the circle1 element
-const circle1 = svg1
-  .append("circle1")
+// Add the circle element
+const circle = svg
+  .append("circle")
   .attr("r", 0)
   .attr("fill", "steelblue")
   .style("stroke", "white")
-  .attr("opacity2", 0.7)
+  .attr("opacity", 0.7)
   .style("pointer-events", "none");
 
-// Create the svg1 element and append it to the chart container. This gives the ability2 to move the mouse any2where on the chart and get the appropriate point
-const listeningrect1 = svg1
-  .append("rect1")
-  .attr("w1", w1)
-  .attr("h1", h1);
+// Create the svg element and append it to the chart container. This gives the ability to move the mouse anywhere on the chart and get the appropriate point
+const listeningRect = svg
+  .append("rect")
+  .attr("width", width)
+  .attr("height", height);
 
-// Give the event when the mouse moves. The bisector takes the position of the mouse and finds the nearest data1point.
-listeningrect1.on("mousemove", function (event) {
-  const [x1Coord] = d3.pointer(event, this);
+// Give the event when the mouse moves. The bisector takes the position of the mouse and finds the nearest datapoint.
+listeningRect.on("mousemove", function (event) {
+  const [xCoord] = d3.pointer(event, this);
   const bisectDate = d3.bisector((d) => d.date).left;
-  const x10 = x1.invert(x1Coord);
-  const i = bisectDate(data1, x10, 1);
-  const d0 = data1[i - 1];
-  const d1 = data1[i];
-  const d = x10 - d0.date > d1.date - x10 ? d1 : d0;
-  const x1Pos = x1(d.date);
-  const y2Pos = y2(d.value);
+  const x0 = x.invert(xCoord);
+  const i = bisectDate(data, x0, 1);
+  const d0 = data[i - 1];
+  const d1 = data[i];
+  const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+  const xPos = x(d.date);
+  const yPos = y(d.value);
 
-  // Update circle1 position
-  circle1.attr("cx1", x1Pos).attr("cy2", y2Pos);
+  // Update circle position
+  circle.attr("cx", xPos).attr("cy", yPos);
 
-  // Add the transition for the circle1 radius
-  circle1.transition().duration(50).attr("r", 5);
+  // Add the transition for the circle radius
+  circle.transition().duration(50).attr("r", 5);
 
-  const y2ear = d.date.getFully2ear();
+  const year = d.date.getFullYear();
 
-  // Add the toolTip1
-  toolTip1
-    .style("display2", "block")
-    .style("left", `${x1Pos + 100}px1`)
-    .style("top", `${y2Pos + 50}px1`)
+  // Add the tooltip
+  toolTip
+    .style("display", "block")
+    .style("left", `${xPos + 100}px`)
+    .style("top", `${yPos + 50}px`)
     .html(
-      `<strong>År:</strong> ${y2ear}<br><strong>Forbrug:</strong> ${
-        d.value !== undefined ? d.value.toFix1ed(0) + " Twh" : "N/A"
+      `<strong>År:</strong> ${year}<br><strong>Forbrug:</strong> ${
+        d.value !== undefined ? d.value.toFixed(0) + " Twh" : "N/A"
       }`
     );
 });
 
-// Removes the toolTip1 when mouse is not in the chart
-listeningrect1.on("mouseleave", function () {
-  circle1.transition().duration(50).attr("r", 0);
+// Removes the tooltip when mouse is not in the chart
+listeningRect.on("mouseleave", function () {
+  circle.transition().duration(50).attr("r", 0);
 
-  // Sty2ling the toolTip1
-  toolTip1.style("display2", "none");
+  // Styling the tooltip
+  toolTip.style("display", "none");
 });
 
 // Creating the path
-svg1
+svg
   .append("path")
-  .datum(data1)
+  .datum(data)
   .attr("fill", "none")
   .attr("stroke", "steelblue")
-  .attr("stroke-w1", 1)
-  .attr("d", line1)
+  .attr("stroke-width", 1)
+  .attr("d", line)
   .transition()
   .duration(7500)
   .ease(d3.easeLinear)
-  .attrTween("stroke-dasharray2", function () {
-    const length1 = this.getTotalLength();
-    return d3.interpolate(`0,${length1}`, `${length1}, ${length1}`);
+  .attrTween("stroke-dasharray", function () {
+    const length = this.getTotalLength();
+    return d3.interpolate(`0,${length}`, `${length}, ${length}`);
   });
-
