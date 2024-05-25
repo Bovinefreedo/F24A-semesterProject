@@ -6,6 +6,51 @@
     margin: 0;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Animation */
+.container {
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+.box {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+    margin: 0;
+}
+
+section {
+    scroll-snap-align: start;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+}
+
+.kasse {
+    margin: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+}
+/* Animation */
+
 /* COLOR / KUN DISSE FARVER MÅ BRUGES
 
 rgba(251,252,252,255)
@@ -96,34 +141,10 @@ rgb(26,29,50)
     font-weight: 1000;
 }
 
-.navbar a {
-    position: relative;
-    font-size: 18px;
-    color: rgb(34, 34, 34);
-    font-weight: 450;
-    text-decoration: none;
-    margin-left: 0px;
-}
-
-
-.navbar a::before {
-    content: '';
-    position: absolute ;
-    top: 100%;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background: rgb(34, 34, 34);
-    transition: 0.4s;
-}
-
-.navbar a:hover::before {
-    width: 100%;
-}
-
 .box {
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
+    scroll-behavior: smooth;
     height: 100vh;
     margin: 0;
 }
@@ -138,55 +159,16 @@ section {
     margin-right: 100px;
 }
 
-.start {
-    margin-top: 400px;
-    display: flex;
-    box-sizing: content-box;
-    position: absolute;
-}
-
-/*
-.one {
-    background-color: rgb(184, 184, 255);
-}
-
-.two {
-    background-color: rgb(215, 215, 255);
-}
-
-.three {
-    background-color: rgb(254, 254, 255);
-}
-.four {
-    background-color: rgb(254, 254, 255);
-}
-*/
-
-table {
-    border-collapse: collapse;
-    border: 1px solid black;
-    align-items: left;
-    width: 100%;
-    height: 60%;
-    margin-top: 0px; /* Set the top margin to -50px */
-    margin-left: 0;
-}
-
-th, td {
-    border: 1px solid black;
-    padding: 10px;
-}
-
-
 /* Add this CSS to define the background image with a gradient overlay */
 #gradient {
     position: relative;
-    width: 100%;
-    max-width: 100vw; /* Set maximum width to viewport width */
+    width: 150%;
     height: 100%;
     overflow: hidden; /* Hide overflow to prevent borders from appearing on other sides */
     background: url('LandingBackground.jpg') no-repeat center center; /* Replace with your image path */
     background-size: cover;
+    margin-left: -100px;
+    margin-right: -100px;
 }
 
 #gradient::after {
@@ -200,8 +182,8 @@ th, td {
 }
 
 
-/* Ensure the section and its contents are styled correctly */
 
+/* Landing Page + Beskrivelse*/
 .LandingBox {
     display: flex;
     justify-content: center;
@@ -213,29 +195,33 @@ th, td {
 }
 
 #LandingPageText {
-    font-size: 100px;
+    font-size: 80px;
     max-width: 100%;
     font-family: "Poppins";
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.9); /* Adjust color opacity for better visibility */
-    z-index: 1; /* Ensure the text is above the background */
-    -webkit-font-smoothing: antialiased; /* Enhance text rendering */
-    -moz-osx-font-smoothing: grayscale; /* Enhance text rendering */
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.9);
+    z-index: 1; 
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
+    padding-top: 250px;
 }
 
 #LandingPageTextSmall {
     font-size: 15px;
     max-width: 100%;
-    padding-right: 50px;
-    padding-left: 50px;
+    padding-right: 100px;
+    padding-left: 100px;
     font-family: "Poppins";
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.9); /* Adjust color opacity for better visibility */
-    z-index: 1; /* Ensure the text is above the background */
-    -webkit-font-smoothing: antialiased; /* Enhance text rendering */
-    -moz-osx-font-smoothing: grayscale; /* Enhance text rendering */
+    color: rgba(255, 255, 255, 0.9); 
+    z-index: 1; 
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale; 
+    padding-top: 25px;
 }
+/* Landing Page + Beskrivelse*/ 
 
+/* Indhold af Opgave */
 .background {
     display: flex;
     justify-content: space-between;
@@ -248,15 +234,6 @@ th, td {
     background: rgb(26,29,50) ;
 }
 
-/*
-rgba(251,252,252,255)
-rgba(118,62,221,255)
-rgba(164,200,255,255)
-rgb(75,84,101)
-rgb(26,29,50)
-*/
-
-
 .kasse {
     width: 100%;
     height: 95%;
@@ -268,6 +245,7 @@ rgb(26,29,50)
     color: rgb(0, 0, 0);
 }
 
+/* Definerer hvor meget graf eller beskrivelse skal fylde. */
 .kasse:last-child {
     margin-left: 2%;
 }
@@ -280,15 +258,9 @@ rgb(26,29,50)
 th:first-child, td:first-child {
     width: 40%;
 }
+/* Indhold af Opgave */
 
-
-
-/* quizzzz */
-
-/* Add your existing CSS styles here */
-
-/* Add your existing CSS styles here */
-
+/* quizzzz */ /* quizzzz *//* quizzzz *//* quizzzz */
 .option {
     border: 1px solid #ffffff;
     border-radius: 5px;
@@ -297,6 +269,7 @@ th:first-child, td:first-child {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+/* quizzzz */ /* quizzzz *//* quizzzz *//* quizzzz */
 
 .option:hover {
     background-color: #ffffff;
@@ -310,25 +283,6 @@ th:first-child, td:first-child {
     background-color: #caf2f1; /* Fallback color */
     animation: spinBorder 5s linear infinite;
 }
-
-@keyframes spinBorder {
-    0% {
-        border: 2px solid #e3e8ff;
-    }
-    25% {
-        border: 2px solid #bac7ff;
-    }
-    50% {
-        border: 2px solid #a1b2ff;
-    }
-    75% {
-        border: 2px solid #7a93ff;
-    }
-    100% {
-        border: 2px solid#5474ff;
-    }
-}
-
 
 
 .quiz-container.false {
