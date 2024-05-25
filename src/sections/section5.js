@@ -40,7 +40,7 @@ export function createSection5(){
         
         for(let i=0; i<3; i++){
           for(let j=0; j<2; j++){
-            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, j*200, i*200, 200);
+            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, j*200+80, i*200+25, 200);
             gaugesList.push(gauge)
           }
         }
@@ -97,9 +97,9 @@ function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionL
     let svg = this.el.append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
-        .attr('top',""+positionTop+"px")
-        .attr('left',""+positionLeft+"px")
-        .attr('position', "absolute");
+        .style('top',""+positionTop+"px")
+        .style('left',""+positionLeft+"px")
+        .style('position', "absolute");
 
     this.chart = svg.append('g')
         .attr('transform', `translate(${(width + margin.left) / 2}, ${(height + margin.top) / 2})`);
@@ -191,7 +191,7 @@ function gaugeContainerStyle(div){
     div.style.top ="30px";
     div.style.left ="30px";
     div.style.width = "700px";
-    div.style.height = "400px";
+    div.style.height = "500px";
     div.style.gap = '20px';
     div.style.padding = '20px';
     div.style.backgroundColor = 'green';
