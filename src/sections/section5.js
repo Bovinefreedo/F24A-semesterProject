@@ -169,6 +169,22 @@ function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionL
   this.needle.drawOn(this.chart, 0);        
 }
 
+//id require #, it is made to take a div. Initial value is a number
+function rollingCounter(id, intialValue){
+  this.start = intialValue;
+  this.id = id;
+  this.changeNumber = (newValue) => {
+    d3.select('#counter').transition()
+    .tween("text", () => {
+    const interpolator = d3.interpolateNumber(start, end);
+    return function(t) {
+      d3.select(this).text(Math.round(interpolator(t))) 
+    }
+  })
+  .duration(1000);
+  }
+}
+
 function gaugeContainerStyle(div){
     div.style.diplay = "stretch";
     div.style.position= "relative";
