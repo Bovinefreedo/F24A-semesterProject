@@ -360,9 +360,9 @@ rect {
     fill-opacity: 0;
     stroke-opacity: 0;
     z-index: 1;
-  }
+}
 
-  .toolTip {
+.toolTip {
   position: absolute;
   padding: 10px;
   background-color: steelblue;
@@ -396,26 +396,25 @@ body {
     margin: 10px auto;
   }
   
-  .chart-color1 {
+.chart-color1 {
     fill: #DEA82C;
-  }
+}
   
-  .chart-color2 {
+.chart-color2 {
     fill: #E9621A;
-  }
+}
   
-  .chart-color3 {
+.chart-color3 {
     fill: #e92213;
-  }
+}
   
-  .needle,
-  .needle-center {
+.needle, .needle-center {
     fill: #464A4F;
   }
   
-  .prose {
+.prose {
     text-align: center;
     font-family: sans-serif;
     color: #ababab;
-  }
+}
   
