@@ -18,8 +18,8 @@ async function loadChart() {
         const populations = populationData.map(item => item.population);
 
         // Chart dimensions
-        const margin = { top: 20, right: 30, bottom: 100, left: 100 };
-        const width = 1000 - margin.left - margin.right;
+        const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+        const width = 800 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
 
         // Scales
@@ -115,31 +115,42 @@ async function loadChart() {
             }, i * (10000 / populationData.length));
         }
 
-// Draw the line path with loading animation
-svg.append("path")
-    .datum(populationData)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue")
-    .attr("stroke-width", 2)
-    .attr("d", line)
-    .call(animatePath);
+        // Draw the line path with loading animation
+        svg.append("path")
+            .datum(populationData)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 2)
+            .attr("d", line)
+            .call(animatePath);
 
-
-    function animatePath(path) {
-        const length = path.node().getTotalLength();
-        path.attr("stroke-dasharray", length + " " + length)
-            .attr("stroke-dashoffset", length)
-            .transition()
-            .duration(10000)
-            .ease(d3.easeLinear)
-            .attr("stroke-dashoffset", 0);
-    }
-    
+        function animatePath(path) {
+            const length = path.node().getTotalLength();
+            path.attr("stroke-dasharray", length + " " + length)
+                .attr("stroke-dashoffset", length)
+                .transition()
+                .duration(10000)
+                .ease(d3.easeLinear)
+                .attr("stroke-dashoffset", 0);
+        }
 
     } catch (error) {
         console.error('Error loading the chart:', error);
     }
 }
 
-// Load the chart
-loadChart();
+// Intersection Observer to trigger the chart loading
+const sectionTwo = document.querySelector('.two');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            loadChart();
+            observer.unobserve(sectionTwo); // Unobserve once the chart is loaded
+        }
+    });
+}, {
+    threshold: 0.5
+});
+
+// Start observing the section with class 'two'
+observer.observe(sectionTwo);

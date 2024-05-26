@@ -197,57 +197,6 @@ section {
 th:first-child, td:first-child {
     width: 40%;
 }
-/* Indhold af Opgave */
-
-/* quizzzz */ /* quizzzz *//* quizzzz *//* quizzzz */
-.option {
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-/* quizzzz */ /* quizzzz *//* quizzzz *//* quizzzz */
-
-.option:hover {
-    background-color: #ffffff;
-}
-
-.quiz-container {
-    border-radius: 10px;
-    padding: 20px;
-    width: 100%;
-    margin: 0 auto;
-    background-color: #caf2f1; /* Fallback color */
-    animation: spinBorder 5s linear infinite;
-}
-
-
-.quiz-container.false {
-    animation: shake 0.5s ease-in-out;
-}
-
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-}
-
-.quiz-container.green {
-    background-color: rgb(181, 214, 181);
-}
-
-.quiz-body {
-    margin-bottom: 20px;
-}
-
-.answer-description {
-    margin-top: 10px;
-}
-
 
 /* GIO GIO GIO*/
 
@@ -259,3 +208,70 @@ th:first-child, td:first-child {
     stroke-width: 2px;
 }
 
+/* Initial state of the sections */
+.one, .two, .three, .four, .five, .six, .seven, .eight, .nine {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Animated state of the sections */
+.swipe-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.app {
+    background: #fff;
+    width: 100%;
+    max-width: 100%;
+    margin: 100px auto 0;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.app h1 {
+    font-weight: 25px;
+    color: black;
+    font-weight: 600;
+    border-bottom: 1px solid;
+    padding-bottom: 30px;
+}
+
+.quiz {
+    padding: 20px 0;
+}
+
+.quiz h2 {
+    font-size: 18px;
+    color: black;
+    font-weight: 600;
+}
+
+.btn {
+    background-color: #fff;
+    color: #000000;
+    font-weight: 600;
+    width: 100%;
+    border: 1px solid #222;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: left;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #504e4e;
+    color: rgb(0, 0, 0);
+}
+
+.btn.correct {
+    background-color: green;
+    color: white;
+}
+
+.btn.wrong {
+    background-color: red;
+    color: white;
+}
