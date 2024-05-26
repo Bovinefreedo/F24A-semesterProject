@@ -67,15 +67,15 @@ function loadElectricityChart() {
         .attr("class", "tooltip");
 
     // Bars for percentage without electricity
-    svg.selectAll(".bar")
+    svg.selectAll(".bar-without")
         .data(data)
         .enter()
         .append("rect")
         .attr("class", "bar-without")
         .attr("x", d => xScale(d.year))
-        .attr("y", d => yScale(d.percentWithoutElectricity))
+        .attr("y", height) // Start from the bottom of the chart
         .attr("width", xScale.bandwidth())
-        .attr("height", d => height - yScale(d.percentWithoutElectricity))
+        .attr("height", 0) // Start with height 0
         .attr("fill", "red")
         .on("mouseover", function(event, d) {
             tooltip.style("opacity", 1)
@@ -85,18 +85,23 @@ function loadElectricityChart() {
         })
         .on("mouseout", function() {
             tooltip.style("opacity", 0);
-        });
+        })
+        .transition()
+        .duration(1000) // 1 second animation
+        .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
+        .attr("y", d => yScale(d.percentWithoutElectricity))
+        .attr("height", d => height - yScale(d.percentWithoutElectricity));
 
     // Bars for percentage with electricity
-    svg.selectAll(".bar2")
+    svg.selectAll(".bar-with")
         .data(data)
         .enter()
         .append("rect")
         .attr("class", "bar-with")
         .attr("x", d => xScale(d.year))
-        .attr("y", d => yScale(d.percentWithElectricity + d.percentWithoutElectricity))
+        .attr("y", height) // Start from the bottom of the chart
         .attr("width", xScale.bandwidth())
-        .attr("height", d => height - yScale(d.percentWithElectricity))
+        .attr("height", 0) // Start with height 0
         .attr("fill", "steelblue")
         .on("mouseover", function(event, d) {
             tooltip.style("opacity", 1)
@@ -106,9 +111,31 @@ function loadElectricityChart() {
         })
         .on("mouseout", function() {
             tooltip.style("opacity", 0);
-        });
+        })
+        .transition()
+        .duration(1000) // 1 second animation
+        .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
+        .attr("y", d => yScale(d.percentWithoutElectricity + d.percentWithElectricity))
+        .attr("height", d => height - yScale(d.percentWithElectricity));
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    loadElectricityChart();
+    // Set up the Intersection Observer
+    const observerOptions = {
+        root: null, // Use the viewport as the root
+        rootMargin: '0px',
+        threshold: 0.5 // 50% of the element must be visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                loadElectricityChart();
+                observer.unobserve(entry.target); // Stop observing once the chart is loaded
+            }
+        });
+    }, observerOptions);
+
+    const target = document.querySelector('#adgang');
+    observer.observe(target);
 });
