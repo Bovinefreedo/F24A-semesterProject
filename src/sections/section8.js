@@ -1,9 +1,3 @@
-export function createSection8() {
-  const section8 = document.getElementById("section8Content");
-  const canvas8 = document.createElement("div");
-  section8.appendChild(canvas8);
-  canvas8.id = "canvas8";
-  canvas8.className = "background";
   const apiUrl = "http://localhost:4000/getEnergyUseWorld";
   fetch(apiUrl)
     .then((response) => {
