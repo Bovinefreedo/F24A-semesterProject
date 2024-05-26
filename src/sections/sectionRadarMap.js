@@ -1,6 +1,6 @@
-const apiUrl = 'http://localhost:4000/getEnergyMixCountry';
+const apiUrlRadar = 'http://localhost:4000/getEnergyMixCountry';
 
-fetch(apiUrl)
+fetch(apiUrlRadar)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
