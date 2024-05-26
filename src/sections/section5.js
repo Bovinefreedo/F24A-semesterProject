@@ -3,19 +3,35 @@ export function createSection5(){
   const canvas5 = document.createElement("div");
   section5.appendChild(canvas5);
   canvas5.id="canvas5";
-  section5BackgroundStyle(canvas5);
+  section5BackgroundStyle(canvas5);  
+ 
   let gaugeContainer = document.createElement("div");
   gaugeContainer.id = "gaugeContainer";
   canvas5.appendChild(gaugeContainer);
   gaugeContainerStyle(gaugeContainer);
   let sliderContainer = document.createElement("div")
   sliderContainer.id = "sliderContainer";
-  sliderContainer.width = "250px"
+  sliderContainer.width = "400px"
   gaugeContainer.appendChild(sliderContainer);
   let slider = document.createElement("input");
   inputSettings(slider);
   sliderContainer.appendChild(slider);
   let gaugesList = [];
+  let yearDiv = document.createElement('div');
+  yearDiv.innerHTML = "2022"
+  gaugeContainer.appendChild(yearDiv); 
+  let infoContainer = document.createElement('div');
+  infoContainerStyle(infoContainer);
+  canvas5.appendChild(infoContainer);
+  let infoHeadline = document.createElement('h1');
+  infoHeadline.innerHTML="Udviklingen i verdens energi forbrug";
+  infoContainer.appendChild(infoHeadline);
+  let infoContent = document.createElement('p');
+  infoContainer.appendChild(infoContent);
+  infoContentFilling(infoContent);
+  
+
+
 
   const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
   fetch(apiUrl)
@@ -37,17 +53,32 @@ export function createSection5(){
           }
         }  
         console.log(data);
+       
+        //To make percentarge for the yearly change of speedometer, we need to know the max and min values.
+        let change = data.map(x => x.change);
+        change = change.map(item=> item===undefined ? 0 : item)
+        let maxChange = Math.max(...change);
+        let minChange = Math.min(...change);
         
+        // The accele
+        let rateOfChange = data.map(x => x.rateOfChange);
+        rateOfChange = rateOfChange.map(item=> item===undefined ? 0 : item)
+        let maxRateOfChange = Math.max(...change);
+        let minRateOfChange = Math.min(...change);
+
+
+        console.log(minChange);
+
         for(let i=0; i<3; i++){
           for(let j=0; j<2; j++){
-            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, j*200+80, i*200+25, 200);
+            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, j*200+120, i*225+175, 200);
             gaugesList.push(gauge)
           }
         }
         gaugesList[0].needle.animateOn(gaugesList[0].chart, .70);
         gaugesList[1].needle.animateOn(gaugesList[1].chart, .20);
         slider.oninput = function() {
-          output.innerHTML = this.value;
+          yearDiv.innerHTML = this.value;
         }
       })
       .catch(error => {
@@ -186,33 +217,33 @@ function rollingCounter(id, intialValue){
 }
 
 function gaugeContainerStyle(div){
-    div.style.diplay = "stretch";
-    div.style.position= "relative";
+    div.style.position= "absolute";
     div.style.top ="30px";
     div.style.left ="30px";
-    div.style.width = "700px";
+    div.style.width = "900px";
     div.style.height = "500px";
     div.style.gap = '20px';
     div.style.padding = '20px';
-    div.style.backgroundColor = 'green';
+    div.style.backgroundColor = 'lightblue';
     div.style.borderRadius = '10px';
     div.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 }
 
 function section5BackgroundStyle(div){
-  div.style.display = "unset";
-  div.style.width = '100%';
-  div.style.height = '80%';
-  div.style.padding = '35px';
-  div.style.boxSizing = 'border-box';
-  div.style.backgroundColor = '#f0f0f0';
-  div.style.background = 'rgb(26,29,50)';
+    div.style.position= "relative";
+    div.style.width = '100%';
+    div.style.height = '80%';
+    div.style.padding = '35px';
+    div.style.boxSizing = 'border-box';
+    div.style.backgroundColor = '#f0f0f0';
+    div.style.background = 'rgb(26,29,50)';
+    div.style.display = "flex";
 }
 
 function inputSettings(input){
   let rangeInput = input;
   rangeInput.type = 'range';
-  rangeInput.min = '1964';
+  rangeInput.min = '1966';
   rangeInput.max = '2022';
   rangeInput.value = '2022';
   rangeInput.classList.add('slider');
@@ -223,4 +254,22 @@ function inputSettings(input){
   rangeInput.addEventListener('mouseout', function() {
     rangeInput.style.opacity = '0.7';
   });
+}
+
+function infoContainerStyle(div){
+    div.style.display = "flex";
+    div.style.position= "absolute";
+    div.style.top ="4%";
+    div.style.left ="63%";
+    div.style.width = "35%";
+    div.style.height = "92%";
+    div.style.gap = '2%';
+    div.style.padding = '20px';
+    div.style.backgroundColor = 'lightblue';
+    div.style.borderRadius = '10px';
+    div.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+}
+
+function infoContentFilling(div){
+    div.innerHTML = "HER ER DEN GODE HISTORIE"
 }
