@@ -8,10 +8,25 @@
     <title>Energy for tomorow, by team Stygge</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="skabelon.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-    <script src="./lib/d3/d3.min.js"></script>
+    
+    
     <style>
-        
+        body {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      fill: #242424;
+      text-align: center;
+      text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+      cursor: default;
+    }
+    .legend {
+      font-family: 'Raleway', sans-serif;
+      fill: #333333;
+    }
+    .tooltip {
+      fill: #333333;
+    }
     </style>
 </head>
 
@@ -158,8 +173,28 @@
     </section>
 -->
 <section id="sectionCanvas" class="radarChart"></section>
-<div class="chart"></div>
-<div class="tooltip"></div>
+<div class="radarChart"></div>
+  <script src="sectionRadarMap.js"></script>
+  <script>
+    // Set up the chart parameters
+    var margin = {top: 100, right: 100, bottom: 100, left: 100},
+        width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+        height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+
+    var radarChartOptions = {
+      w: width,
+      h: height,
+      margin: margin,
+      maxValue: 50000,
+      levels: 5,
+      roundStrokes: true,
+      color: d3.scaleOrdinal().range(["#EDC951","#CC333F","#00A0B0"])
+
+    };
+
+    // Call the function from script.js to fetch data and render the chart
+     // Replace with your API URL
+  </script>
 
 
 
