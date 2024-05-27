@@ -9,6 +9,7 @@ export function createSection5(){
   gaugeContainer.id = "gaugeContainer";
   canvas5.appendChild(gaugeContainer);
   gaugeContainerStyle(gaugeContainer);
+  gaugeContainerElements(gaugeContainer)
   let sliderContainer = document.createElement("div")
   sliderContainer.id = "sliderContainer";
   sliderContainer.width = "400px"
@@ -23,12 +24,7 @@ export function createSection5(){
   let infoContainer = document.createElement('div');
   infoContainerStyle(infoContainer);
   canvas5.appendChild(infoContainer);
-  let infoHeadline = document.createElement('h1');
-  infoHeadline.innerHTML="Udviklingen i verdens energi forbrug";
-  infoContainer.appendChild(infoHeadline);
-  let infoContent = document.createElement('p');
-  infoContainer.appendChild(infoContent);
-  infoContentFilling(infoContent);
+  infoContent(infoContainer);
   
 
 
@@ -71,7 +67,7 @@ export function createSection5(){
 
         for(let i=0; i<3; i++){
           for(let j=0; j<2; j++){
-            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, j*200+120, i*225+175, 200);
+            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, j*200+180, i*225+175, 200);
             gaugesList.push(gauge)
           }
         }
@@ -218,12 +214,12 @@ function rollingCounter(id, intialValue){
 
 function gaugeContainerStyle(div){
     div.style.position= "absolute";
-    div.style.top ="30px";
-    div.style.left ="30px";
-    div.style.width = "900px";
-    div.style.height = "500px";
-    div.style.gap = '20px';
-    div.style.padding = '20px';
+    div.style.top ="4%";
+    div.style.left ="3%";
+    div.style.width = "56%";
+    div.style.height = "92%";
+    div.style.gap = '4%';
+    div.style.padding = '4%';
     div.style.backgroundColor = 'lightblue';
     div.style.borderRadius = '10px';
     div.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
@@ -260,8 +256,8 @@ function infoContainerStyle(div){
     div.style.display = "flex";
     div.style.position= "absolute";
     div.style.top ="4%";
-    div.style.left ="63%";
-    div.style.width = "35%";
+    div.style.left ="61%";
+    div.style.width = "37%";
     div.style.height = "92%";
     div.style.gap = '2%';
     div.style.padding = '20px';
@@ -270,6 +266,45 @@ function infoContainerStyle(div){
     div.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 }
 
-function infoContentFilling(div){
-    div.innerHTML = "HER ER DEN GODE HISTORIE"
+function infoContent(div){
+    let infoContainer = div;
+    let infoHeadline = document.createElement('h1');
+    infoHeadline.innerHTML="Udviklingen i verdens energi forbrug";
+    infoContainer.appendChild(infoHeadline);
+    let infoContent = document.createElement('p');
+    infoContainer.appendChild(infoContent);
+    infoContent.innerHTML = "HER ER DEN GODE HISTORIE"
+}
+function gaugeContainerElements(div){
+    let gaugeContainer = div;
+    let row1Label = document.createElement('div');
+    labelStyle(row1Label);
+    gaugeContainer.appendChild(row1Label);
+    row1Label.style.top = "37%"
+    row1Label.style.left = "5%"
+    row1Label.innerHTML = "Totalt energi forbrug"
+    let row2Label = document.createElement('div');
+    labelStyle(row2Label);
+    gaugeContainer.appendChild(row2Label);
+    row2Label.style.top = "70%"
+    row2Label.style.left = "5%"
+    row2Label.innerHTML = "Øgning i forbrug siden sidste år"
+    let column1Label = document.createElement('div');
+    labelStyle(column1Label);
+    gaugeContainer.appendChild(column1Label);
+    
+    let column2Label = document.createElement('div');
+    labelStyle(column2Label);
+    gaugeContainer.appendChild(column2Label);
+    let column3Label = document.createElement('div');
+    gaugeContainer.appendChild(column3Label);
+    labelStyle(column3Label);
+}
+
+
+function labelStyle(div){
+    div.style.position = "absolute";
+    div.style.width = "12%";
+    div.style.height = "5%";
+    div.style.backgroundColor = "red";
 }
