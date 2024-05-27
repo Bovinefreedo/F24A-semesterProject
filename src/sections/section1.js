@@ -1,22 +1,21 @@
 // set margin, width and height
-(function () {
-  const width = 1250;
-  const height = 500;
-  const margin = { top: 50, right: 50, bottom: 50, left: 100 };
+const width = 1250;
+const height = 500;
+const margin = { top: 50, right: 50, bottom: 50, left: 100 };
 
   // set x and y scales
   const x = d3.scaleTime().range([0, width]);
 
   const y = d3.scaleLinear().range([height, 0]);
 
-  // create the svg element and append it to the chart container
-  const svg = d3
-    .select("#denmarkEnergy")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+// create the svg element and append it to the chart container
+const svg = d3
+  .select("#three")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
   // Create the tooltip
   const toolTip = d3.select("body").append("div").attr("class", "toolTip");
@@ -153,11 +152,11 @@
     .attr("opacity", 0.7)
     .style("pointer-events", "none");
 
-  // Create the svg element and append it to the chart container. This gives the ability to move the mouse anywhere on the chart and get the appropriate point
-  const listeningRect = svg
-    .append("rect")
-    .attr("width", width)
-    .attr("height", height);
+// Create the svg element and append it to the chart container. This gives the ability to move the mouse anywhere on the chart and get the appropriate point
+const listeningRect = svg
+  .append("rect")
+  .attr("width", width)
+  .attr("height", height);
 
   // Give the event when the mouse moves. The bisector takes the position of the mouse and finds the nearest datapoint.
   listeningRect.on("mousemove", function (event) {

@@ -1,7 +1,23 @@
-// set margin, width and height
-const width = 1250;
-const height = 500;
-const margin = { top: 50, right: 50, bottom: 50, left: 100 };
+export function createSection8() {
+  const section8 = document.getElementById("section8Content");
+  const canvas8 = document.createElement("div");
+  section8.appendChild(canvas8);
+  canvas8.id = "canvas8";
+  canvas8.className = "background";
+  const apiUrl = "http://localhost:4000/getEnergyUseWorld";
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      // set margin, width and height
+      const width = 1250;
+      const height = 500;
+      const margin = { top: 50, right: 50, bottom: 50, left: 100 };
 
 // set x and y scales
 const x = d3.scaleTime().range([0, width]);
@@ -199,18 +215,24 @@ listeningRect.on("mouseleave", function () {
   toolTip.style("display", "none");
 });
 
-// Creating the path
-svg
-  .append("path")
-  .datum(data)
-  .attr("fill", "none")
-  .attr("stroke", "steelblue")
-  .attr("stroke-width", 1)
-  .attr("d", line)
-  .transition()
-  .duration(7500)
-  .ease(d3.easeLinear)
-  .attrTween("stroke-dasharray", function () {
-    const length = this.getTotalLength();
-    return d3.interpolate(`0,${length}`, `${length}, ${length}`);
-  });
+      // Creating the path
+      svg
+        .append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1)
+        .attr("d", line)
+        .transition()
+        .duration(7500)
+        .ease(d3.easeLinear)
+        .attrTween("stroke-dasharray", function () {
+          const length = this.getTotalLength();
+          return d3.interpolate(`0,${length}`, `${length}, ${length}`);
+        });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
