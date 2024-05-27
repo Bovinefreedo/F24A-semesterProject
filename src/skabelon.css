@@ -306,3 +306,17 @@ th:first-child, td:first-child {
     font-size: 12px;
     pointer-events: none; /* Ensure that mouse events don't interact with the tooltip */
 }
+
+.line {
+    fill: none;
+    stroke-width: 2px;
+}
+.Low {
+    stroke: steelblue;
+}
+.Medium {
+    stroke: green;
+}
+.High {
+    stroke: red;
+}
