@@ -1,26 +1,23 @@
-// set margin, width and height
 (function () {
-  const margin = { top: 20, right: 10, bottom: 80, left: 100 };
-  const width = 700 - margin.left - margin.right;
+  const margin = { top: 50, right: 10, bottom: 80, left: 100 };
+  const width = 1000 - margin.left - margin.right;
   const height = 300 - margin.top - margin.bottom;
 
   // set x and y scales
   const x = d3.scaleTime().range([0, width]);
-
   const y = d3.scaleLinear().range([height, 0]);
 
-  // create the svg element and append it to the chart container
-  const svg = d3
-    .select("#denmarkEnergy")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .style("background-color", "transparent") // Set background to transparent
-    .append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
   // Create the tooltip
-  const toolTip = d3.select("body").append("div").attr("class", "toolTip");
+  const toolTip = d3
+    .select("body")
+    .append("div")
+    .attr("class", "toolTip")
+    .style("position", "absolute")
+    .style("background-color", "rgba(0, 0, 0, 0.8)")
+    .style("color", "white")
+    .style("padding", "5px")
+    .style("border-radius", "5px")
+    .style("display", "none");
 
   // Data
   const data = [
@@ -84,137 +81,175 @@
     { date: new Date("2022"), value: 189.396615154 },
   ];
 
-  // Set the x and y domains
-  x.domain(d3.extent(data, (d) => d.date));
-  y.domain([160, d3.max(data, (d) => d.value)]);
+  // Chart rendering function
+  function renderChart() {
+    // Create the svg element and append it to the chart container
+    const svg = d3
+      .select("#denmarkEnergy")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .style("background-color", "transparent") // Set background to transparent
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Add the x axis
-  svg
-    .append("g")
-    .attr("transform", `translate(0,${height})`)
-    .style("font-size", "12px")
-    .call(d3.axisBottom(x).ticks(d3.timeYear.every(10)));
+    // Set the x and y domains
+    x.domain(d3.extent(data, (d) => d.date));
+    y.domain([160, d3.max(data, (d) => d.value)]);
 
-  // Add the y axis
-  svg
-    .append("g")
-    .style("font-size", "12px")
-    .call(d3.axisLeft(y).tickFormat((d) => d + " Twh"));
+    // Add the x axis
+    svg
+      .append("g")
+      .attr("transform", `translate(0,${height})`)
+      .style("font-size", "12px")
+      .style("color", "white")
+      .call(d3.axisBottom(x).ticks(d3.timeYear.every(10)));
 
-  // created a horizontol grid
-  svg
-    .selectAll("yGrid")
-    .data(y.ticks(d3.max(data, (d) => d.value) / 25).slice(1))
-    .join("line")
-    .attr("x1", 0)
-    .attr("x2", width)
-    .attr("y1", (d) => y(d))
-    .attr("y2", (d) => y(d))
-    .attr("stroke", "lightgrey")
-    .attr("stroke-width", 0.5);
+    // Add the y axis
+    svg
+      .append("g")
+      .style("font-size", "12px")
+      .style("color", "white")
+      .call(d3.axisLeft(y).tickFormat((d) => d + " Twh"));
 
-  // created a vertical grid
-  svg
-    .selectAll("xGrid")
-    .data(x.ticks())
-    .join("line")
-    .attr("class", "xGrid")
-    .attr("x1", (d) => x(d))
-    .attr("x2", (d) => x(d))
-    .attr("y1", 0)
-    .attr("y2", height)
-    .attr("stroke", "lightgrey")
-    .attr("stroke-width", 0.5);
+    // created a horizontol grid
+    svg
+      .selectAll("yGrid")
+      .data(y.ticks(d3.max(data, (d) => d.value) / 25).slice(1))
+      .join("line")
+      .attr("x1", 0)
+      .attr("x2", width)
+      .attr("y1", (d) => y(d))
+      .attr("y2", (d) => y(d))
+      .attr("stroke", "lightgrey")
+      .attr("stroke-width", 0.5);
 
-  // Add y axis label
-  svg
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - height / 2)
-    .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .style("font-size", "14px")
-    .style("fill", "#777")
-    .style("font-family", "sans-serif")
-    .text("Terawatt i timen");
+    // created a vertical grid
+    svg
+      .selectAll("xGrid")
+      .data(x.ticks())
+      .join("line")
+      .attr("class", "xGrid")
+      .attr("x1", (d) => x(d))
+      .attr("x2", (d) => x(d))
+      .attr("y1", 0)
+      .attr("y2", height)
+      .attr("stroke", "lightgrey")
+      .attr("stroke-width", 0.5);
 
-  // Add the line
-  const line = d3
-    .line()
-    .x((d) => x(d.date))
-    .y((d) => y(d.value));
+    // Add y axis label
+    svg
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x", 0 - height / 2)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .style("font-size", "14px")
+      .style("fill", "white")
+      .style("font-family", "sans-serif")
+      .text("Terawatt i timen");
 
-  // Add the circle element
-  const circle = svg
-    .append("circle")
-    .attr("r", 0)
-    .attr("fill", "steelblue")
-    .style("stroke", "white")
-    .attr("opacity", 0.7)
-    .style("pointer-events", "none");
+    // Add the line
+    const line = d3
+      .line()
+      .x((d) => x(d.date))
+      .y((d) => y(d.value));
 
-  // Create the svg element and append it to the chart container. This gives the ability to move the mouse anywhere on the chart and get the appropriate point
-  const listeningRect = svg
-    .append("rect")
-    .attr("width", width)
-    .attr("height", height)
-    .style("fill", "none") // Ensure the listening rect has no fill
-    .style("pointer-events", "all");
+    // Add the circle element
+    const circle = svg
+      .append("circle")
+      .attr("r", 0)
+      .attr("fill", "steelblue")
+      .style("stroke", "white")
+      .attr("opacity", 0.7)
+      .style("pointer-events", "none");
 
-  // Give the event when the mouse moves. The bisector takes the position of the mouse and finds the nearest datapoint.
-  listeningRect.on("mousemove", function (event) {
-    const [xCoord] = d3.pointer(event, this);
-    const bisectDate = d3.bisector((d) => d.date).left;
-    const x0 = x.invert(xCoord);
-    const i = bisectDate(data, x0, 1);
-    const d0 = data[i - 1];
-    const d1 = data[i];
-    const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-    const xPos = x(d.date);
-    const yPos = y(d.value);
+    // Create the svg element and append it to the chart container. This gives the ability to move the mouse anywhere on the chart and get the appropriate point
+    const listeningRect = svg
+      .append("rect")
+      .attr("width", width)
+      .attr("height", height)
+      .style("fill", "none") // Ensure the listening rect has no fill
+      .style("pointer-events", "all");
 
-    // Update circle position
-    circle.attr("cx", xPos).attr("cy", yPos);
+    // Give the event when the mouse moves. The bisector takes the position of the mouse and finds the nearest datapoint.
+    listeningRect.on("mousemove", function (event) {
+      const [xCoord, yCoord] = d3.pointer(event, this);
+      const bisectDate = d3.bisector((d) => d.date).left;
+      const x0 = x.invert(xCoord);
+      const i = bisectDate(data, x0, 1);
+      const d0 = data[i - 1];
+      const d1 = data[i];
+      const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+      const xPos = x(d.date);
+      const yPos = y(d.value);
 
-    // Add the transition for the circle radius
-    circle.transition().duration(50).attr("r", 5);
+      // Update circle position
+      circle.attr("cx", xPos).attr("cy", yPos);
 
-    const year = d.date.getFullYear();
+      // Add the transition for the circle radius
+      circle.transition().duration(50).attr("r", 5);
 
-    // Add the tooltip
-    toolTip
-      .style("display", "block")
-      .style("left", `${xPos + 100}px`)
-      .style("top", `${yPos + 50}px`)
-      .html(
-        `<strong>År:</strong> ${year}<br><strong>Forbrug:</strong> ${
-          d.value !== undefined ? d.value.toFixed(0) + " Twh" : "N/A"
-        }`
-      );
-  });
+      const year = d.date.getFullYear();
 
-  // Removes the tooltip when mouse is not in the chart
-  listeningRect.on("mouseleave", function () {
-    circle.transition().duration(50).attr("r", 0);
-
-    // Styling the tooltip
-    toolTip.style("display", "none");
-  });
-
-  // Creating the path
-  svg
-    .append("path")
-    .datum(data)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue")
-    .attr("stroke-width", 1)
-    .attr("d", line)
-    .transition()
-    .duration(7500)
-    .ease(d3.easeLinear)
-    .attrTween("stroke-dasharray", function () {
-      const length = this.getTotalLength();
-      return d3.interpolate(`0,${length}`, `${length}, ${length}`);
+      // Add the tooltip
+      toolTip
+        .style("display", "block")
+        .style("left", `${event.pageX + 15}px`) // Position tooltip closer to the mouse
+        .style("top", `${event.pageY - 15}px`) // Position tooltip closer to the mouse
+        .html(
+          `<strong>År:</strong> ${year}<br><strong>Forbrug:</strong> ${
+            d.value !== undefined ? d.value.toFixed(0) + " Twh" : "N/A"
+          }`
+        );
     });
+
+    // Removes the tooltip when mouse is not in the chart
+    listeningRect.on("mouseleave", function () {
+      circle.transition().duration(50).attr("r", 0);
+
+      // Styling the tooltip
+      toolTip.style("display", "none");
+    });
+
+    // Creating the path
+    svg
+      .append("path")
+      .datum(data)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 2.5) // Increased line thickness
+      .attr("d", line)
+      .transition()
+      .duration(7500)
+      .ease(d3.easeLinear)
+      .attrTween("stroke-dasharray", function () {
+        const length = this.getTotalLength();
+        return d3.interpolate(`0,${length}`, `${length}, ${length}`);
+      });
+  }
+
+  // Observer callback function
+  const observerCallback = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        renderChart();
+        observer.disconnect();
+      }
+    });
+  };
+
+  // Observer options
+  const observerOptions = {
+    root: null,
+    threshold: 0.5
+  };
+
+  // Create an observer
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+  // Observe the chart container
+  const target = document.querySelector("#denmarkEnergy");
+  observer.observe(target);
 })();

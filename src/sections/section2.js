@@ -140,12 +140,12 @@ async function loadChart() {
 }
 
 // Intersection Observer to trigger the chart loading
-const sectionTwo = document.querySelector('.two');
+const sectionThree = document.querySelector('.three');
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
             loadChart();
-            observer.unobserve(sectionTwo); // Unobserve once the chart is loaded
+            observer.unobserve(sectionThree); // Unobserve once the chart is loaded
         }
     });
 }, {
@@ -153,4 +153,4 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 // Start observing the section with class 'two'
-observer.observe(sectionTwo);
+observer.observe(sectionThree);
