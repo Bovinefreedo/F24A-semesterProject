@@ -4,7 +4,6 @@ export function createSection5(){
   section5.appendChild(canvas5);
   canvas5.id="canvas5";
   section5BackgroundStyle(canvas5);  
- 
   let gaugeContainer = document.createElement("div");
   gaugeContainer.id = "gaugeContainer";
   canvas5.appendChild(gaugeContainer);
@@ -18,6 +17,7 @@ export function createSection5(){
   inputSettings(slider);
   sliderContainer.appendChild(slider);
   let gaugesList = [];
+  let counterList = [];
   let yearDiv = document.createElement('div');
   yearDiv.innerHTML = "2022"
   gaugeContainer.appendChild(yearDiv); 
@@ -51,26 +51,36 @@ export function createSection5(){
         console.log(data);
        
         //To make percentarge for the yearly change of speedometer, we need to know the max and min values.
+        let usedEnergy = data.map(x => x.usedenergy);
+        usedEnergy = usedEnergy.map(item=> item===undefined ? 0 : item)
+        let usedEnergyMax = Math.max(...usedEnergy);
+        let usedEnergyMin = Math.min(...usedEnergy);
+
         let change = data.map(x => x.change);
         change = change.map(item=> item===undefined ? 0 : item)
         let maxChange = Math.max(...change);
         let minChange = Math.min(...change);
-        
-        // The accele
-        let rateOfChange = data.map(x => x.rateOfChange);
-        rateOfChange = rateOfChange.map(item=> item===undefined ? 0 : item)
-        let maxRateOfChange = Math.max(...change);
-        let minRateOfChange = Math.min(...change);
 
-
+        console.log(usedEnergyMin);
+        console.log(usedEnergyMax);
+        console.log(maxChange);
         console.log(minChange);
 
         for(let i=0; i<3; i++){
           for(let j=0; j<2; j++){
-            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, (j*30+30).toString()+"%", (i*25+21).toString()+"%", 200);
+            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, (j*30+30).toString()+"%", (i*25+25).toString()+"%", 200);
             gaugesList.push(gauge)
           }
         }
+
+        for(let i=0; i<3; i++){
+            for(let j=0; j<2; j++){
+                const counter = new RollingCounter(gaugeContainer, (j*30+50).toString()+"%", (i*25+34.5).toString()+"%", 0)
+                counterList.push(counter);
+            }
+        }
+
+
         gaugesList[0].needle.animateOn(gaugesList[0].chart, .70);
         gaugesList[1].needle.animateOn(gaugesList[1].chart, .20);
         slider.oninput = function() {
@@ -197,18 +207,26 @@ function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionL
 }
 
 //id require #, it is made to take a div. Initial value is a number
-function rollingCounter(id, intialValue){
-  this.start = intialValue;
-  this.id = id;
-  this.changeNumber = (newValue) => {
-    d3.select('#counter').transition()
-    .tween("text", () => {
-    const interpolator = d3.interpolateNumber(start, end);
-    return function(t) {
-      d3.select(this).text(Math.round(interpolator(t))) 
+function RollingCounter(parentDiv, positionTop, positionLeft, intialValue){
+    this.start = intialValue;
+    let counter = document.createElement('div');
+    counter.style.fontSize = "25px"
+    parentDiv.appendChild(counter);
+    counter.style.left = positionLeft;
+    counter.style.top = positionTop;
+    counter.style.position = "absolute";
+    counter.style.transform = "translate(-50%,-50%)";
+    counter.innerHTML = intialValue;
+    this.changeNumber = (newValue) => {
+        d3.select(counter).transition()
+        .tween("text", () => {
+        const interpolator = d3.interpolateNumber(start, newValue);
+        return function(t) {
+            d3.select(this).text(Math.round(interpolator(t))) 
     }
-  })
-  .duration(1000);
+    })
+    .duration(1000);
+    this.start = newValue;
   }
 }
 
@@ -292,28 +310,27 @@ function gaugeContainerElements(div){
     labelStyle(column1Label);
     gaugeContainer.appendChild(column1Label);
     column1Label.style.top = "27%";
-    column1Label.style.left = "27%";
+    column1Label.style.left = "28%";
     column1Label.innerHTML = "Vedvarende Energi"
     let column2Label = document.createElement('div');
     labelStyle(column2Label);
     gaugeContainer.appendChild(column2Label);
     column2Label.style.top = "27%";
-    column2Label.style.left = "52%";
+    column2Label.style.left = "53%";
     column2Label.innerHTML = "Atomkraft"
     let column3Label = document.createElement('div');
     gaugeContainer.appendChild(column3Label);
     labelStyle(column3Label);
     column3Label.style.top = "27%";
-    column3Label.style.left = "77%";
+    column3Label.style.left = "78%";
     column3Label.innerHTML = "Forsil energi"
     let yearLabel = document.createElement('div');
     labelStyle(yearLabel);
     gaugeContainer.appendChild(yearLabel);
     yearLabel.style.top = "12%";
-    yearLabel.style.left = "30%";
+    yearLabel.style.left = "28%";
     yearLabel.innerHTML = "Vælg år"
 }
-
 
 function labelStyle(div){
     div.style.position = "absolute";
