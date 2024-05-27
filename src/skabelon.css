@@ -363,7 +363,7 @@ body {
   opacity: .75;
 }
   
-    rect {
+    .rect {
     pointer-events: all;
     fill-opacity: 0;
     stroke-opacity: 0;
