@@ -282,3 +282,19 @@ th:first-child, td:first-child {
     background-color: rgb(175, 90, 90);
     color: white;
 }
+
+.worldcata {
+    font-weight: 25px;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    border-bottom: 1px solid;
+    padding-bottom: 30px;
+}
+
+.wolrddatacontent {
+    font-weight: 25px;
+    color: black;
+    font-weight: 600;
+    border-bottom: 1px solid;
+    padding-bottom: 30px;
+}
