@@ -18,9 +18,9 @@ async function loadChart() {
         const populations = populationData.map(item => item.population);
 
         // Chart dimensions
-        const margin = { top: 20, right: 10, bottom: 80, left: 100 };
-        const width = 700 - margin.left - margin.right;
-        const height = 300 - margin.top - margin.bottom;
+        const margin = { top: 30, right: 0, bottom: 80, left: 80 };
+        const width = 1070 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
 
         // Scales
         const xScale = d3.scaleLinear()
@@ -45,12 +45,17 @@ async function loadChart() {
             .y(d => yScale(d.population));
 
         // SVG container
-        const svg = d3.select("#Population")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
+        // SVG container
+const svg = d3.select("#Population")
+.append("svg")
+.attr("width", width + margin.left + margin.right)
+.attr("height", height + margin.top + margin.bottom)
+.append("g")
+.attr("transform", `translate(${margin.left},${margin.top})`)
+.style("background-color", "white"); // Set background color to white
+
+// Remove the top and left axis lines
+svg.select(".domain").remove();
 
         // Gridlines
         svg.append("g")
@@ -61,6 +66,7 @@ async function loadChart() {
                 .tickFormat("")
             )
             .selectAll("line")
+            .style("color", "white")
             .attr("stroke-opacity", 0.2); // Adjust the opacity here
 
         svg.append("g")
@@ -70,21 +76,35 @@ async function loadChart() {
                 .tickFormat("")
             )
             .selectAll("line")
+                  .style("color", "white")
             .attr("stroke-opacity", 0.2); // Adjust the opacity here
 
         // Axes
-        svg.append("g")
-            .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+// Axes
+svg.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(d3.axisBottom(xScale)
+        .tickFormat(d3.format("d"))
+        .tickSize(0)
+        .tickPadding(10)
+    )
+    .selectAll("text")
+    .attr("fill", "white"); // Adjust the color of the x-axis labels
 
-        svg.append("g")
-            .call(d3.axisLeft(yScale));
+svg.append("g")
+    .call(d3.axisLeft(yScale)
+        .tickSize(0)
+        .tickPadding(10)
+    )
+    .selectAll("text")
+    .attr("fill", "white"); // Adjust the color of the y-axis labels
+
 
         // Animated text
         const text = svg.append("text")
             .attr("x", width - 125) // Position the text at the end of the x axis
             .attr("y", height - -50) // Position the text just above the x axis
-            .attr("fill", "black")
+            .attr("fill", "white")
             .attr("font-size", "14px")
             .attr("text-anchor", "middle");
 

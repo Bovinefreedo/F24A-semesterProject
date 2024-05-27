@@ -76,7 +76,7 @@ function loadElectricityChart() {
         .attr("y", height) // Start from the bottom of the chart
         .attr("width", xScale.bandwidth())
         .attr("height", 0) // Start with height 0
-        .attr("fill", "red")
+        .attr("fill", "rgb(175, 90, 90)")
         .on("mouseover", function(event, d) {
             tooltip.style("opacity", 1)
                 .html(`Year: ${d.year}<br>Without Electricity: ${d.percentWithoutElectricity.toFixed(2)}%`)

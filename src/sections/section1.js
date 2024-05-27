@@ -1,7 +1,7 @@
 (function () {
-  const margin = { top: 50, right: 10, bottom: 80, left: 100 };
-  const width = 1000 - margin.left - margin.right;
-  const height = 300 - margin.top - margin.bottom;
+  const margin = { top: 50, right: 0, bottom: 80, left: 100 };
+  const width = 1070 - margin.left - margin.right;
+  const height = 400 - margin.top - margin.bottom;
 
   // set x and y scales
   const x = d3.scaleTime().range([0, width]);
@@ -223,7 +223,7 @@
       .attr("stroke-width", 2.5) // Increased line thickness
       .attr("d", line)
       .transition()
-      .duration(7500)
+      .duration(10000)
       .ease(d3.easeLinear)
       .attrTween("stroke-dasharray", function () {
         const length = this.getTotalLength();

@@ -159,10 +159,10 @@ section {
     height: 80%;
     padding: 35px;
     box-sizing: border-box;
-    background-color: #f0f0f0;
     background: rgb(26,29,50);
     margin-left: 50px;
     margin-right: 50px;
+    border-radius: 20px;
 }
 
 .forsidekasse {
@@ -224,10 +224,11 @@ th:first-child, td:first-child {
 .app {
     background: #fff;
     width: 100%;
-    max-width: 100%;
-    margin: 100px auto 0;
+    height: 100%;
     border-radius: 15px;
-    padding: 30px;
+    padding: 30px 80px;
+    padding-top: 15%;
+    
 }
 
 .app h1 {
@@ -235,7 +236,7 @@ th:first-child, td:first-child {
     color: black;
     font-weight: 600;
     border-bottom: 1px solid;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 .quiz {
@@ -262,7 +263,7 @@ th:first-child, td:first-child {
 }
 
 .btn:hover {
-    background: #504e4e;
+    background: #d5d5d5;
     color: rgb(0, 0, 0);
 }
 
@@ -277,17 +278,21 @@ th:first-child, td:first-child {
 }
 
 .energyworld {
-    font-weight: 25px;
     color: rgb(255, 255, 255);
-    font-weight: 600;
     border-bottom: 1px solid;
     padding-bottom: 30px;
+}
+
+.energyworld h5{
+    font-size: larger;
+    font-weight: bold;
+    padding: auto;
 }
 
 .graphno1 {
     width: 100%;
     max-width: 100%;
-    height: 75%;
+    height: 90%;
     padding: 20px;
     box-sizing: border-box;
 }
