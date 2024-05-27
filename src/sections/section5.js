@@ -67,7 +67,7 @@ export function createSection5(){
 
         for(let i=0; i<3; i++){
           for(let j=0; j<2; j++){
-            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, j*200+180, i*225+175, 200);
+            const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, (j*30+30).toString()+"%", (i*25+21).toString()+"%", 200);
             gaugesList.push(gauge)
           }
         }
@@ -124,8 +124,8 @@ function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionL
     let svg = this.el.append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
-        .style('top',""+positionTop+"px")
-        .style('left',""+positionLeft+"px")
+        .style('top',positionTop)
+        .style('left',positionLeft)
         .style('position', "absolute");
 
     this.chart = svg.append('g')
@@ -253,7 +253,6 @@ function inputSettings(input){
 }
 
 function infoContainerStyle(div){
-    div.style.display = "flex";
     div.style.position= "absolute";
     div.style.top ="4%";
     div.style.left ="61%";
@@ -292,13 +291,27 @@ function gaugeContainerElements(div){
     let column1Label = document.createElement('div');
     labelStyle(column1Label);
     gaugeContainer.appendChild(column1Label);
-    
+    column1Label.style.top = "27%";
+    column1Label.style.left = "27%";
+    column1Label.innerHTML = "Vedvarende Energi"
     let column2Label = document.createElement('div');
     labelStyle(column2Label);
     gaugeContainer.appendChild(column2Label);
+    column2Label.style.top = "27%";
+    column2Label.style.left = "52%";
+    column2Label.innerHTML = "Atomkraft"
     let column3Label = document.createElement('div');
     gaugeContainer.appendChild(column3Label);
     labelStyle(column3Label);
+    column3Label.style.top = "27%";
+    column3Label.style.left = "77%";
+    column3Label.innerHTML = "Forsil energi"
+    let yearLabel = document.createElement('div');
+    labelStyle(yearLabel);
+    gaugeContainer.appendChild(yearLabel);
+    yearLabel.style.top = "12%";
+    yearLabel.style.left = "30%";
+    yearLabel.innerHTML = "Vælg år"
 }
 
 
@@ -306,5 +319,4 @@ function labelStyle(div){
     div.style.position = "absolute";
     div.style.width = "12%";
     div.style.height = "5%";
-    div.style.backgroundColor = "red";
 }
