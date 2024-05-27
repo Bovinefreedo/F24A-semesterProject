@@ -291,3 +291,13 @@ th:first-child, td:first-child {
     padding: 20px;
     box-sizing: border-box;
 }
+
+.tooltip {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+    pointer-events: none; /* Ensure that mouse events don't interact with the tooltip */
+}

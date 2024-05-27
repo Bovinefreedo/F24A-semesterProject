@@ -13,11 +13,12 @@
     .append("div")
     .attr("class", "toolTip")
     .style("position", "absolute")
-    .style("background-color", "rgba(0, 0, 0, 0.8)")
-    .style("color", "white")
+    .style("background-color", "white")
+    .style("color", "black")
     .style("padding", "5px")
     .style("border-radius", "5px")
     .style("display", "none");
+    
 
   // Data
   const data = [
