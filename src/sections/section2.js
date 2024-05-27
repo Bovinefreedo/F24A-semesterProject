@@ -140,7 +140,7 @@ svg.append("g")
             .datum(populationData)
             .attr("fill", "none")
             .attr("stroke", "steelblue")
-            .attr("stroke-width", 2)
+            .attr("stroke-width", 4)
             .attr("d", line)
             .call(animatePath);
 

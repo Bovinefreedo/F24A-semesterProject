@@ -13,7 +13,6 @@ async function fetchEnergyUseData() {
     }
 }
 
-// Fetch data and create the chart
 fetchEnergyUseData().then(data => {
     if (!data) {
         return;
@@ -21,7 +20,7 @@ fetchEnergyUseData().then(data => {
 
     const margin = { top: 50, right: 10, bottom: 80, left: 100 };
     const width = 1000 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
+    const height = 400 - margin.top - margin.bottom;
 
     // Append SVG to the container
     const svg = d3.select("#worldEnergy")
