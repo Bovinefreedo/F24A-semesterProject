@@ -418,3 +418,19 @@ rect {
     color: #ababab;
 }
   
+
+#treemap {
+    width: 600px;
+    height: 400px;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .treemap-node {
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    font-size: 14px;
+    padding: 5px;
+    text-align: center;
+  }
