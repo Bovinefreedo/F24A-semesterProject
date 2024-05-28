@@ -380,52 +380,13 @@ th:first-child, td:first-child {
 }
 .High {
     stroke: red;
-}
-
-.chart-gauge {
-    width: 400px;
-    margin: 10px auto;
-  }
-  
-.chart-color1 {
-    fill: #DEA82C;
-}
-  
-.chart-color2 {
-    fill: #E9621A;
-}
-  
-.chart-color3 {
-    fill: #e92213;
-}
-  
-.needle, .needle-center {
-    fill: #464A4F;
-  }
-  
-.prose {
-    text-align: center;
-    font-family: sans-serif;
-    color: #ababab;
-}
-  
+} 
 
 rect {
     pointer-events: all;
     fill-opacity: 0;
     stroke-opacity: 0;
     z-index: 1;
-}
-
-.toolTip {
-  position: absolute;
-  padding: 10px;
-  background-color: steelblue;
-  color: white;
-  border: 1px solid white;
-  border-radius: 10px;
-  display: none;
-  opacity: .75;
 }
 
 
