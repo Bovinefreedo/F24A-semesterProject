@@ -384,10 +384,11 @@ th:first-child, td:first-child {
 
 rect {
     pointer-events: all;
-    /* fill-opacity: 0;  Remove this line */
-    /* stroke-opacity: 0; Remove this line */
+    fill-opacity: 0;
+    stroke-opacity: 0;
     z-index: 1;
 }
+
 
 .tooltip {
     fill: #333333;                                      /* Fyldfarve for tekst i tooltips (mørkegrå) */
