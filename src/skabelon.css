@@ -389,8 +389,6 @@ rect {
     z-index: 1;
 }
 
-
-
 .tooltip {
     fill: #333333;                                      /* Fyldfarve for tekst i tooltips (mørkegrå) */
 }
