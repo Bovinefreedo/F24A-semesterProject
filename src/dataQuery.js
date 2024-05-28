@@ -414,8 +414,17 @@ const getEnergyMixCountry = (request, response) => {
     response.status(200).json(results.rows);
   });
 };
+const getEnergyMixCountryForComperison = (request, response) => {
+  pool.query("SELECT amountInTWH, energyUseCountry.year, energyName, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'UNITED STATES' OR countryName ILIKE 'CHINA' OR countryName ILIKE 'INDIA' OR countryName ILIKE 'ICELAND') ORDER BY countryName ASC", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
 
 module.exports = {
+  getEnergyMixCountryForComperison,
   getEnergyMixCountry,
   getYearEnergyUseRegion,
   getEnergyUseSuperType,

@@ -62,6 +62,7 @@ CREATE TABLE popProjRegion (
     poulation VARCHAR
 );
 
+/*Speedometer*/
 SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType 
   FROM energyUseRegion 
   INNER JOIN energyType 
@@ -69,15 +70,37 @@ SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType
   GROUP BY energySuperType, year
   ORDER BY energySuperType ASC, year ASC
 
-  SELECT amountInTWH, year, energyName, countryName
-    FROM energyUseCountry
-    INNER JOIN energyType
-      ON energyType.energyTypeID = energyUseCountry.energyTypeID
-    INNER JOIN country
-      ON country.countryID = energyUseCountry.countryID
-    WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' )
+/*Radar Map */
+SELECT amountInTWH, year, energyName, countryName
+  FROM energyUseCountry
+  INNER JOIN energyType
+    ON energyType.energyTypeID = energyUseCountry.energyTypeID
+  INNER JOIN country
+    ON country.countryID = energyUseCountry.countryID
+  WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' )
 
-  
+/*Contries used in sectionX for the what if compariison */
+SELECT amountInTWH, energyUseCountry.year, energyName, countryName 
+  FROM energyUseCountry 
+    INNER JOIN energyType 
+      ON energyType.energyTypeID = energyUseCountry.energyTypeID 
+    INNER JOIN country 
+      ON country.countryID = energyUseCountry.countryID 
+    WHERE energyUseCountry.year = 2022 
+      AND (countryName ILIKE 'DENMARK' 
+      OR countryName ILIKE 'UNITED STATES' 
+      OR countryName ILIKE 'CHINA' 
+      OR countryName ILIKE 'INDIA' 
+      OR countryName ILIKE 'ICELAND') 
+    ORDER BY countryName ASC
+
+SELECT amountInTWH, energyUseRegion.year, energyName, regionName
+  FROM energyUseRegion
+  INNER JOIN energyType
+    ON energyType.energyTypeID = energyUseRegion.energyTypeID
+  INNER JOIN Region
+    ON Region.regionID = energyUseRegion.regionID
+  WHERE year = energyUseRegion.year = 2022   
 
 "SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, yearORDER BY year ASC"
 
