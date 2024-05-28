@@ -66,57 +66,58 @@ function loadElectricityChart() {
     const tooltip = d3.select("body").append("div")
         .attr("class", "tooltip");
 
-    // Bars for percentage without electricity
-    svg.selectAll(".bar-without")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("class", "bar-without")
-        .attr("x", d => xScale(d.year))
-        .attr("y", height) // Start from the bottom of the chart
-        .attr("width", xScale.bandwidth())
-        .attr("height", 0) // Start with height 0
-        .attr("fill", "rgb(175, 90, 90)")
-        .on("mouseover", function(event, d) {
-            tooltip.style("opacity", 1)
-                .html(`Year: ${d.year}<br>Without Electricity: ${d.percentWithoutElectricity.toFixed(2)}%`)
-                .style("left", (event.pageX + 5) + "px")
-                .style("top", (event.pageY - 28) + "px");
-        })
-        .on("mouseout", function() {
-            tooltip.style("opacity", 0);
-        })
-        .transition()
-        .duration(1000) // 1 second animation
-        .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
-        .attr("y", d => yScale(d.percentWithoutElectricity))
-        .attr("height", d => height - yScale(d.percentWithoutElectricity));
+// Bars for percentage without electricity
+svg.selectAll(".bar-without")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar-without")
+    .attr("x", d => xScale(d.year))
+    .attr("y", height) // Start from the bottom of the chart
+    .attr("width", xScale.bandwidth())
+    .attr("height", 0) // Start with height 0
+    .attr("fill", "rgb(175, 90, 90)") // Ensure this fill color is applied
+    .on("mouseover", function(event, d) {
+        tooltip.style("opacity", 1)
+            .html(`Year: ${d.year}<br>Without Electricity: ${d.percentWithoutElectricity.toFixed(2)}%`)
+            .style("left", (event.pageX + 5) + "px")
+            .style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+        tooltip.style("opacity", 0);
+    })
+    .transition()
+    .duration(1000) // 1 second animation
+    .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
+    .attr("y", d => yScale(d.percentWithoutElectricity))
+    .attr("height", d => height - yScale(d.percentWithoutElectricity));
 
-    // Bars for percentage with electricity
-    svg.selectAll(".bar-with")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("class", "bar-with")
-        .attr("x", d => xScale(d.year))
-        .attr("y", height) // Start from the bottom of the chart
-        .attr("width", xScale.bandwidth())
-        .attr("height", 0) // Start with height 0
-        .attr("fill", "steelblue")
-        .on("mouseover", function(event, d) {
-            tooltip.style("opacity", 1)
-                .html(`Year: ${d.year}<br>With Electricity: ${d.percentWithElectricity.toFixed(2)}%`)
-                .style("left", (event.pageX + 5) + "px")
-                .style("top", (event.pageY - 28) + "px");
-        })
-        .on("mouseout", function() {
-            tooltip.style("opacity", 0);
-        })
-        .transition()
-        .duration(1000) // 1 second animation
-        .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
-        .attr("y", d => yScale(d.percentWithoutElectricity + d.percentWithElectricity))
-        .attr("height", d => height - yScale(d.percentWithElectricity));
+// Bars for percentage with electricity
+svg.selectAll(".bar-with")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar-with")
+    .attr("x", d => xScale(d.year))
+    .attr("y", height) // Start from the bottom of the chart
+    .attr("width", xScale.bandwidth())
+    .attr("height", 0) // Start with height 0
+    .attr("fill", "steelblue") // Ensure this fill color is applied
+    .on("mouseover", function(event, d) {
+        tooltip.style("opacity", 1)
+            .html(`Year: ${d.year}<br>With Electricity: ${d.percentWithElectricity.toFixed(2)}%`)
+            .style("left", (event.pageX + 5) + "px")
+            .style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+        tooltip.style("opacity", 0);
+    })
+    .transition()
+    .duration(1000) // 1 second animation
+    .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
+    .attr("y", d => yScale(d.percentWithoutElectricity + d.percentWithElectricity))
+    .attr("height", d => height - yScale(d.percentWithElectricity));
+
 }
 
 document.addEventListener('DOMContentLoaded', function() {
