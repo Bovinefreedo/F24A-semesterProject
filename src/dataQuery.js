@@ -406,7 +406,7 @@ const getYearEnergyUseRegion = (request, response) => {
 };
 
 const getEnergyMixCountry = (request, response) => {
-  pool.query("SELECT amountInTWH AS value, year, energyName AS axsis, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' OR countryName ILIKE 'SWEDEN' OR countryName ILIKE 'NORWAY')", (error, results) => {
+  pool.query("SELECT amountInTWH AS value, year, energyName AS axis, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' OR countryName ILIKE 'SWEDEN' OR countryName ILIKE 'NORWAY')", (error, results) => {
     if (error) {
       throw error;
     }
