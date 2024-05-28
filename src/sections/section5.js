@@ -28,9 +28,6 @@ export function createSection5(){
     canvas5.appendChild(infoContainer);
     infoContent(infoContainer);
     let data;
-  
-
-
 
   const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
   fetch(apiUrl)
