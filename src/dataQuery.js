@@ -360,7 +360,7 @@ const populatePopProjectionRegion = (request, response) => {
 }
 
 const getEnergyMixCountryForComperison = (request, response) => {
-  pool.query("SELECT amountInTWH, energyUseCountry.year, energyName, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'UNITED STATES' OR countryName ILIKE 'CHINA' OR countryName ILIKE 'INDIA' OR countryName ILIKE 'ICELAND') ORDER BY countryName ASC", (error, results) => {
+  pool.query("SELECT amountInTWH, energyUseCountry.year, energyName, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2021 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'UNITED STATES' OR countryName ILIKE 'CHINA' OR countryName ILIKE 'INDIA' OR countryName ILIKE 'ICELAND') ORDER BY countryName ASC", (error, results) => {
     if (error) {
       throw error;
     }
@@ -369,7 +369,7 @@ const getEnergyMixCountryForComperison = (request, response) => {
 };
 
 const getPopContryForComperison = (request, response) => {
-  pool.query("SELECT population, countryName FROM country INNER JOIN populationCountry ON country.countryID = populationCountry.countryID WHERE energyUseCountry.year = 2022 AND (countryName ILIKE 'DENMARK' OR countryName ILIKE 'UNITED STATES' OR countryName ILIKE 'CHINA' OR countryName ILIKE 'INDIA' OR countryName ILIKE 'ICELAND') ORDER BY countryName ASC", (error, results) => {
+  pool.query("SELECT population, countryName FROM country INNER JOIN populationCountry ON country.countryID = populationCountry.countryID WHERE populationCountry.year = 2021 AND (countryName ILIKE 'DENMARK' OR countryName ILIKE 'UNITED STATES' OR countryName ILIKE 'CHINA' OR countryName ILIKE 'INDIA' OR countryName ILIKE 'ICELAND') ORDER BY countryName ASC", (error, results) => {
     if (error) {
       throw error;
     }

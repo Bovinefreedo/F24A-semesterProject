@@ -86,13 +86,26 @@ SELECT amountInTWH, energyUseCountry.year, energyName, countryName
       ON energyType.energyTypeID = energyUseCountry.energyTypeID 
     INNER JOIN country 
       ON country.countryID = energyUseCountry.countryID 
+  WHERE energyUseCountry.year = 2022 
+    AND (countryName ILIKE 'DENMARK' 
+    OR countryName ILIKE 'UNITED STATES' 
+    OR countryName ILIKE 'CHINA' 
+    OR countryName ILIKE 'INDIA' 
+    OR countryName ILIKE 'ICELAND') 
+  ORDER BY countryName ASC
+
+/*Used for comperison in sectionX*/
+SELECT population, countryName
+  FROM country
+    INNER JOIN populationCountry
+      ON country.countryID = populationCountry.countryID
     WHERE energyUseCountry.year = 2022 
-      AND (countryName ILIKE 'DENMARK' 
-      OR countryName ILIKE 'UNITED STATES' 
-      OR countryName ILIKE 'CHINA' 
-      OR countryName ILIKE 'INDIA' 
-      OR countryName ILIKE 'ICELAND') 
-    ORDER BY countryName ASC
+    AND (countryName ILIKE 'DENMARK' 
+    OR countryName ILIKE 'UNITED STATES' 
+    OR countryName ILIKE 'CHINA' 
+    OR countryName ILIKE 'INDIA' 
+    OR countryName ILIKE 'ICELAND') 
+  ORDER BY countryName ASC
 
 SELECT amountInTWH, energyUseRegion.year, energyName, regionName
   FROM energyUseRegion
