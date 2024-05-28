@@ -30,7 +30,8 @@ fetch(apiUrlRadar)
             const totalValue = d3.sum(countryData, d => d.value);
             return countryData.map(d => ({
                 axis: d.axis,
-                value: (d.value / totalValue) * 100
+                value: (d.value / totalValue) * 100,
+                countryname: d.countryname
             }));
         });
 
@@ -180,7 +181,7 @@ function RadarChart(id, data, options) {
                 .style("fill-opacity", 0.7);
 
             // Build tooltip content
-            let tooltipContent = `<strong>${d.country}</strong><br>`; 
+            let tooltipContent = `<strong>${d[0].countryname}</strong><br>`; 
             d.forEach(point => {
                 tooltipContent += `${point.axis}: ${point.value.toFixed(2)}%<br>`;
             });
