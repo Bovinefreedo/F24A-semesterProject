@@ -20,6 +20,7 @@ export function createSection5(){
   let counterList = [];
   let yearDiv = document.createElement('div');
   yearDiv.innerHTML = "2022"
+  yearDiv.style.fontSize= "17px"
   gaugeContainer.appendChild(yearDiv); 
   let infoContainer = document.createElement('div');
   infoContainerStyle(infoContainer);
@@ -267,7 +268,7 @@ function gaugeContainerStyle(div){
     div.style.height = "92%";
     div.style.gap = '4%';
     div.style.padding = '4%';
-    div.style.backgroundColor = 'lightblue';
+    div.style.backgroundColor = '#e3edff';
     div.style.borderRadius = '10px';
     div.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 }
@@ -289,7 +290,7 @@ function inputSettings(input){
   rangeInput.min = '1966';
   rangeInput.max = '2022';
   rangeInput.value = '2022';
-  rangeInput.classList.add('slider');
+  rangeInput.className = "slider";
   rangeInput.id = 'myRange';
   rangeInput.addEventListener('mouseover', function() {
     rangeInput.style.opacity = '1';
@@ -307,7 +308,7 @@ function infoContainerStyle(div){
     div.style.height = "92%";
     div.style.gap = '2%';
     div.style.padding = '20px';
-    div.style.backgroundColor = 'lightblue';
+    div.style.backgroundColor = '#e3edff';
     div.style.borderRadius = '10px';
     div.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 }
@@ -335,7 +336,7 @@ function gaugeContainerElements(div){
     gaugeContainer.appendChild(row2Label);
     row2Label.style.top = "70%"
     row2Label.style.left = "5%"
-    row2Label.innerHTML = "Øgning i forbrug siden sidste år"
+    row2Label.innerHTML = "Ændring fra året før"
     row2Label.style.fontSize = "15px"
     let column1Label = document.createElement('div');
     labelStyle(column1Label);
@@ -361,10 +362,11 @@ function gaugeContainerElements(div){
     let yearLabel = document.createElement('div');
     labelStyle(yearLabel);
     gaugeContainer.appendChild(yearLabel);
-    yearLabel.style.top = "12%";
-    yearLabel.style.left = "28%";
+    yearLabel.style.top = "9%";
+    yearLabel.style.left = "50%";
     yearLabel.innerHTML = "Vælg år"
     yearLabel.style.fontSize = "15px"
+    yearLabel.style.transform = "translate(-50%,-50%)"
 }
 
 function labelStyle(div){
@@ -381,5 +383,4 @@ function calculateYearlyChange(data){
     } else {
         return ((data+500)/4500)
     }
-
 }
