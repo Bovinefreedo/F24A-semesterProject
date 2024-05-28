@@ -1,31 +1,33 @@
 export function createSection5(){
-  const section5 = document.getElementById("section5Content");
-  const canvas5 = document.createElement("div");
-  section5.appendChild(canvas5);
-  canvas5.id="canvas5";
-  section5BackgroundStyle(canvas5);  
-  let gaugeContainer = document.createElement("div");
-  gaugeContainer.id = "gaugeContainer";
-  canvas5.appendChild(gaugeContainer);
-  gaugeContainerStyle(gaugeContainer);
-  gaugeContainerElements(gaugeContainer)
-  let sliderContainer = document.createElement("div")
-  sliderContainer.id = "sliderContainer";
-  sliderContainer.width = "400px"
-  gaugeContainer.appendChild(sliderContainer);
-  let slider = document.createElement("input");
-  inputSettings(slider);
-  sliderContainer.appendChild(slider);
-  let gaugesList = [];
-  let counterList = [];
-  let yearDiv = document.createElement('div');
-  yearDiv.innerHTML = "2022"
-  yearDiv.style.fontSize= "17px"
-  gaugeContainer.appendChild(yearDiv); 
-  let infoContainer = document.createElement('div');
-  infoContainerStyle(infoContainer);
-  canvas5.appendChild(infoContainer);
-  infoContent(infoContainer);
+    //Here many of the elements are added  
+    const section5 = document.getElementById("section5Content");
+    const canvas5 = document.createElement("div");
+    section5.appendChild(canvas5);
+    canvas5.id="canvas5";
+    section5BackgroundStyle(canvas5);  
+    let gaugeContainer = document.createElement("div");
+    gaugeContainer.id = "gaugeContainer";
+    canvas5.appendChild(gaugeContainer);
+    gaugeContainerStyle(gaugeContainer);
+    gaugeContainerElements(gaugeContainer)
+    let sliderContainer = document.createElement("div")
+    sliderContainer.id = "sliderContainer";
+    sliderContainer.width = "400px"
+    gaugeContainer.appendChild(sliderContainer);
+    let slider = document.createElement("input");
+    inputSettings(slider);
+    sliderContainer.appendChild(slider);
+    let gaugesList = [];
+    let counterList = [];
+    let yearDiv = document.createElement('div');
+    yearDiv.innerHTML = "2022"
+    yearDiv.style.fontSize= "17px"
+    gaugeContainer.appendChild(yearDiv); 
+    let infoContainer = document.createElement('div');
+    infoContainerStyle(infoContainer);
+    canvas5.appendChild(infoContainer);
+    infoContent(infoContainer);
+    let data;
   
 
 
@@ -38,7 +40,8 @@ export function createSection5(){
           }
           return response.json();
       })
-      .then(data => {
+      .then(table => {
+        data = table;
         for(let i =1; i<data.length; i++){
           if(data[i].energysupertype==data[i-1].energysupertype){
             data[i].change = data[i].usedenergy - data[i-1].usedenergy;
@@ -48,78 +51,29 @@ export function createSection5(){
           if(data[i].energysupertype==data[i-1].energysupertype){
             data[i].rateOfChange = data[i].change - data[i-1].change;
           }
-        }  
-        console.log(data);
-       
-        //To make percentarge for the yearly change of speedometer, we need to know the max and min values.
-        let usedEnergy = data.map(x => x.usedenergy);
-        usedEnergy = usedEnergy.map(item=> item===undefined ? 0 : item)
-        let usedEnergyMax = Math.max(...usedEnergy);
-        let usedEnergyMin = Math.min(...usedEnergy);
-
-        let change = data.map(x => x.change);
-        change = change.map(item=> item===undefined ? 0 : item)
-        let maxChange = Math.max(...change);
-        let minChange = Math.min(...change);
-
-        console.log(usedEnergyMin);
-        console.log(usedEnergyMax);
-        console.log(maxChange);
-        console.log(minChange);
+        } 
 
         for(let i=0; i<3; i++){
           for(let j=0; j<2; j++){
             const gauge = new Gauge(""+j+i, gaugeContainer, 70, 7, (j*30+30).toString()+"%", (i*25+25).toString()+"%", 200);
-            gaugesList.push(gauge)
+            gaugesList.push(gauge);
           }
         }
 
         for(let i=0; i<3; i++){
             for(let j=0; j<2; j++){
-                const counter = new RollingCounter( ""+i+j,gaugeContainer, (j*30+50).toString()+"%", (i*25+34.5).toString()+"%", 0)
+                const counter = new RollingCounter( ""+i+j,gaugeContainer, (j*30+50).toString()+"%", (i*25+34.5).toString()+"%", 0);
                 counterList.push(counter);
             }
         }
-
-        console.log((Number.parseFloat(data[2].usedenergy)));
-        gaugesList[0].needle.animateOn(gaugesList[0].chart, .70);
-        gaugesList[1].needle.animateOn(gaugesList[1].chart, .20);
+        inputActivation(2022);
         slider.oninput = function() {
-            let value = Number(this.value)            
-            yearDiv.innerHTML = value;
-            let yearlyChange; 
-            for(let i=0; i<data.length; i++){
-            if(data[i].year == value){
-                if(data[i].energysupertype === "renewable"){
-                    yearlyChange = calculateYearlyChange(data[i].change);
-                    gaugesList[0].needle.animateOn(gaugesList[0].chart, data[i].usedenergy/140000);
-                    gaugesList[1].needle.animateOn(gaugesList[1].chart, yearlyChange)
-                    counterList[0].changeNumber(data[i].usedenergy);
-                    counterList[1].changeNumber(data[i].change);
-                }
-                if(data[i].energysupertype === "nuclear"){
-                    yearlyChange = calculateYearlyChange(data[i].change);
-                    gaugesList[2].needle.animateOn(gaugesList[2].chart, data[i].usedenergy/140000);
-                    gaugesList[3].needle.animateOn(gaugesList[3].chart, yearlyChange)
-                    counterList[2].changeNumber(data[i].usedenergy);
-                    counterList[3].changeNumber(data[i].change);
-                }
-                if(data[i].energysupertype === "fossil"){
-                    yearlyChange = calculateYearlyChange(data[i].change);
-                    gaugesList[4].needle.animateOn(gaugesList[4].chart, data[i].usedenergy/140000);
-                    gaugesList[5].needle.animateOn(gaugesList[5].chart, yearlyChange)
-                    counterList[4].changeNumber(data[i].usedenergy);
-                    counterList[5].changeNumber(data[i].change);
-                }
-            }
-          }
+            inputActivation(this.value);
         }
       })
       .catch(error => {
           console.error('Error:', error);
       });
-}
-
 //modified from https://codepen.io/jaketrent/pen/DzWyZM
 function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionLeft, width) {
     // options for the gauge
@@ -235,6 +189,7 @@ function Gauge(id, parrentDiv, needleLength, needleWidth, positionTop, positionL
 }
 
 //id require #, it is made to take a div. Initial value is a number
+// heavely inspired by https://codepen.io/tiffk935/pen/zYxPpyB;
 function RollingCounter(ID, parentDiv, positionTop, positionLeft, intialValue){
     this.start = intialValue;
     let counter = document.createElement('div');
@@ -302,10 +257,10 @@ function inputSettings(input){
 
 function infoContainerStyle(div){
     div.style.position= "absolute";
-    div.style.top ="4%";
+    div.style.top ="20%";
     div.style.left ="61%";
     div.style.width = "37%";
-    div.style.height = "92%";
+    div.style.height = "47%";
     div.style.gap = '2%';
     div.style.padding = '20px';
     div.style.backgroundColor = '#e3edff';
@@ -320,7 +275,8 @@ function infoContent(div){
     infoContainer.appendChild(infoHeadline);
     let infoContent = document.createElement('p');
     infoContainer.appendChild(infoContent);
-    infoContent.innerHTML = "HER ER DEN GODE HISTORIE"
+    infoContent.style.fontSize = "13px"
+    infoContent.innerHTML = "Det kan være svært at sige hvor meget energi vi kan producere som verden, hvad verdens samlede kapacitet for energiproduktion er. Kraftværker bliver bygget mens andre tages ud af brug. Vi kan dog sige hvad vores kapacitet som minimum har været, det kan vi ved at se på vores forbrug. Vi kan ikke bruge mere energi end vi kan producere. Vi har lavet nogle speedometre for at se hvor meget vi rent faktisk bruger de enkelte år. I den øverste række har vi det faktiske forbrug. Hvor meget energi brugte vi i et givet årstal. Vores forbrug har ændret sig, så i den nederste række har vi hvor meget det har ændret sig. Vi kan begynde at spekulere på om vi kan se hvor meget vi udbygger vores energiproduktion og hvilken type af energiproduktion vi udbygger, vi skal dog passe lidt på da vores forbrug kan ændre sig af andre årsager. Det bliver i tallene meget tydeligt hvornår Corona satte verdens industri i stå, og hvornår finanskrisen satte en kæp i hjulet energiproduktionen. Se dig lidt omkring og tænk over hvorfor vores energiproduktion ser ud som den ser ud."
 }
 function gaugeContainerElements(div){
     let gaugeContainer = div;
@@ -330,13 +286,13 @@ function gaugeContainerElements(div){
     row1Label.style.top = "37%"
     row1Label.style.left = "5%"
     row1Label.style.fontSize = "15px"
-    row1Label.innerHTML = "Totalt energi forbrug"
+    row1Label.innerHTML = "Totalt energi forbrug i TWH"
     let row2Label = document.createElement('div');
     labelStyle(row2Label);
     gaugeContainer.appendChild(row2Label);
     row2Label.style.top = "70%"
     row2Label.style.left = "5%"
-    row2Label.innerHTML = "Ændring fra året før"
+    row2Label.innerHTML = "Ændring fra året før i TWH"
     row2Label.style.fontSize = "15px"
     let column1Label = document.createElement('div');
     labelStyle(column1Label);
@@ -375,6 +331,39 @@ function labelStyle(div){
     div.style.height = "5%";
 }
 
+function inputActivation(value){  
+    let year = Number(value) 
+    yearDiv.innerHTML = year;
+    let yearlyChange;
+    console.log(data[10].year) 
+    for(let i=0; i<data.length; i++){
+        if(data[i].year == year){
+            console.log("called input acvtiation")  
+            if(data[i].energysupertype === "renewable"){
+                yearlyChange = calculateYearlyChange(data[i].change);
+                gaugesList[0].needle.animateOn(gaugesList[0].chart, data[i].usedenergy/140000);
+                gaugesList[1].needle.animateOn(gaugesList[1].chart, yearlyChange)
+                counterList[0].changeNumber(data[i].usedenergy);
+                counterList[1].changeNumber(data[i].change);
+            }
+            if(data[i].energysupertype === "nuclear"){
+                yearlyChange = calculateYearlyChange(data[i].change);
+                gaugesList[2].needle.animateOn(gaugesList[2].chart, data[i].usedenergy/140000);
+                gaugesList[3].needle.animateOn(gaugesList[3].chart, yearlyChange)
+                counterList[2].changeNumber(data[i].usedenergy);
+                counterList[3].changeNumber(data[i].change);
+            }
+            if(data[i].energysupertype === "fossil"){
+                yearlyChange = calculateYearlyChange(data[i].change);
+                gaugesList[4].needle.animateOn(gaugesList[4].chart, data[i].usedenergy/140000);
+                gaugesList[5].needle.animateOn(gaugesList[5].chart, yearlyChange)
+                counterList[4].changeNumber(data[i].usedenergy);
+                counterList[5].changeNumber(data[i].change);
+            }
+        }
+    }  
+}
+
 function calculateYearlyChange(data){
     if(data>4000){
         return 1;
@@ -383,4 +372,6 @@ function calculateYearlyChange(data){
     } else {
         return ((data+500)/4500)
     }
+}    
 }
+
