@@ -359,7 +359,24 @@ const populatePopProjectionRegion = (request, response) => {
   })
 }
 
-//
+const getEnergyMixCountryForComperison = (request, response) => {
+  pool.query("SELECT amountInTWH, energyUseCountry.year, energyName, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'UNITED STATES' OR countryName ILIKE 'CHINA' OR countryName ILIKE 'INDIA' OR countryName ILIKE 'ICELAND') ORDER BY countryName ASC", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+const getPopContryForComperison = (request, response) => {
+  pool.query("SELECT population, countryName FROM country INNER JOIN populationCountry ON country.countryID = populationCountry.countryID WHERE energyUseCountry.year = 2022 AND (countryName ILIKE 'DENMARK' OR countryName ILIKE 'UNITED STATES' OR countryName ILIKE 'CHINA' OR countryName ILIKE 'INDIA' OR countryName ILIKE 'ICELAND') ORDER BY countryName ASC", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 const getPopProj = (request, response) => {
   pool.query("SELECT * FROM popProjRegion", (error, results) => {
     if (error) {
@@ -414,16 +431,9 @@ const getEnergyMixCountry = (request, response) => {
     response.status(200).json(results.rows);
   });
 };
-const getEnergyMixCountryForComperison = (request, response) => {
-  pool.query("SELECT amountInTWH, energyUseCountry.year, energyName, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'UNITED STATES' OR countryName ILIKE 'CHINA' OR countryName ILIKE 'INDIA' OR countryName ILIKE 'ICELAND') ORDER BY countryName ASC", (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
-};
 
 module.exports = {
+  getPopContryForComperison,
   getEnergyMixCountryForComperison,
   getEnergyMixCountry,
   getYearEnergyUseRegion,
