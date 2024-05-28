@@ -60,6 +60,36 @@ rgb(75,84,101)
 rgb(26,29,50)
 
 */
+.circle {
+    height: 12px;
+    width: 12px;
+    border-radius: 1px;
+    background-color: black;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999999; /* so that it stays on top of all other elements */
+  }
+
+.swipe-in {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.9s ease, transform 0.7s cubic-bezier(0.17, 0.67, 0.83, 0.90); /* Add transitions for opacity and transform */
+}
+
+/* Initially hide the element and scale it down */
+.baggrund {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+
+.baggrund.swipe-in {
+    opacity: 1; /* Show the div */
+    transform: translateX(0); /* Move the div back to its original position */
+}
+
 
 .header {
     position:fixed;
@@ -193,6 +223,36 @@ section {
     width: 40%;
 }
 
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+
+.slider:hover {
+    opacity: 1;
+}
+  
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #1a1d32;
+    cursor: pointer;
+}
+  
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #1a1d32;
+    cursor: pointer;
+}
 
 th:first-child, td:first-child {
     width: 40%;
@@ -247,3 +307,67 @@ th:first-child, td:first-child {
 .answer-description {
     margin-top: 10px;
 }
+
+rect {
+    pointer-events: all;
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    z-index: 1;
+}
+
+.toolTip {
+  position: absolute;
+  padding: 10px;
+  background-color: steelblue;
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  display: none;
+  opacity: .75;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;       /* Skrifttype for body-tekst */      
+    font-size: 11px;                                    /* Skriftstørrelse for body-tekst (11 pixels) */
+    font-weight: 300;                                   /* Skrifttykkelse for body-tekst (light) */
+    fill: #242424;                                      /* Fyldfarve for SVG-elementer i body (mørkegrå) */   
+    text-align: center;                                 /* Centrerer tekst i body */
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff; /* Skygge på body-tekst (hvid) */
+    cursor: default;                                    /* Standardmusemarkør over body */
+}
+
+.legend {
+    font-family: 'Raleway', sans-serif;                 /* Skrifttype for legend (forklaring) */
+    fill: #333333;                                      /* Fyldfarve for tekst i legenden (mørkegrå) */
+}
+
+.tooltip {
+    fill: #333333;                                      /* Fyldfarve for tekst i tooltips (mørkegrå) */
+}
+.chart-gauge {
+    width: 400px;
+    margin: 10px auto;
+  }
+  
+.chart-color1 {
+    fill: #DEA82C;
+}
+  
+.chart-color2 {
+    fill: #E9621A;
+}
+  
+.chart-color3 {
+    fill: #e92213;
+}
+  
+.needle, .needle-center {
+    fill: #464A4F;
+  }
+  
+.prose {
+    text-align: center;
+    font-family: sans-serif;
+    color: #ababab;
+}
+  

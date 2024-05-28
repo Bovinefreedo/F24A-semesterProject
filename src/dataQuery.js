@@ -380,7 +380,7 @@ const getPopulation = (request, response) => {
 };
 
 const getEnergyUseSuperType = (request, response) => {
-  pool.query("SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, year ORDER BY year ASC" , (error, results) => {
+  pool.query("SELECT SUM(amountInTWH) AS usedEnergy, energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, year ORDER BY energySuperType ASC, year ASC" , (error, results) => {
     if (error) {
       throw error;
     }
