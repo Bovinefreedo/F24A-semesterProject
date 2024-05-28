@@ -384,8 +384,6 @@ th:first-child, td:first-child {
 
 rect {
     pointer-events: all;
-    fill-opacity: 0;
-    stroke-opacity: 0;
     z-index: 1;
 }
 
