@@ -1,4 +1,7 @@
-apiUrlRadar = 'http://localhost:4000/getEnergyMixCountry';
+// Define the API URL to fetch energy mix data for countries
+const apiUrlRadar = 'http://localhost:4000/getEnergyMixCountry';
+
+// Create a tooltip display element
 let toolTipDisplay = document.createElement('div');
 toolTipDisplay.id = "toolTips";
 toolTipDisplay.style.position = "absolute";
@@ -6,105 +9,122 @@ toolTipDisplay.style.backgroundColor = "white";
 toolTipDisplay.style.border = "1px solid #d3d3d3";
 toolTipDisplay.style.padding = "5px";
 toolTipDisplay.style.boxShadow = "0px 0px 6px #aaa";
-toolTipDisplay.style.pointerEvents = "none";
+toolTipDisplay.style.pointerEvents = "none"; // Ensures the tooltip does not interfere with mouse events
 toolTipDisplay.style.opacity = 0;
-toolTipDisplay.style.transition = "opacity 0.3s";
-document.body.appendChild(toolTipDisplay);
+toolTipDisplay.style.transition = "opacity 0.3s"; // Adds a transition effect to the tooltip
+document.body.appendChild(toolTipDisplay); // Adds the tooltip to the document body
 
+let rawData;
+
+// Fetch data from the API
 fetch(apiUrlRadar)
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Network response was not ok'); // Throws an error if the network request failed
         }
-        return response.json();
+        return response.json(); // Parses the JSON response
     })
-    .then(rawData => {
-
-        // Definer de lande, du ønsker at inkludere i diagrammet
-        const countries = ['DENMARK', 'GERMANY'];
-
-        // Strukturér data for hvert land
-        let structuredData = countries.map(country => {
-            // Filtrer data for det aktuelle land og omform til den ønskede struktur
-            const countryData = rawData.filter(d => d.countryname === country);
-            const totalValue = d3.sum(countryData, d => d.value);
-            return countryData.map(d => ({
-                axis: d.axis,
-                value: (d.value / totalValue) * 100,
-                countryname: d.countryname
-            }));
-        });
-
-        // Sæt op options til radardiagrammet
-        var radarChartOptions = {
-            w: 600,
-            h: 600,
-            margin: { top: 100, right: 100, bottom: 100, left: 100 },
-            maxValue: 100,
-            levels: 5,
-            roundStrokes: true,
-            color: d3.scaleOrdinal().range(["#EDC951", "#CC333F", "#00A0B0"])
-        };
-
-        // Render radardiagrammet
-        RadarChart(".radarChart", structuredData, radarChartOptions);
+    .then(data => {
+        rawData = data; // Save the fetched data to a global variable
+        updateChart(); // Initial chart rendering
     })
-    .catch(error => console.error('Error fetching data:', error));
+    .catch(error => console.error('Error fetching data:', error)); // Log an error if data fetching fails
 
-function RadarChart(id, data, options) {
-    var cfg = {
-        w: 400,
-        h: 400,
-        margin: { top: 20, right: 20, bottom: 20, left: 20 },
-        levels: 3,
-        maxValue: 0,
-        labelFactor: 1.25,
-        wrapWidth: 60,
-        opacityArea: 0.35,
-        dotRadius: 4,
-        opacityCircles: 0.1,
-        strokeWidth: 2,
-        roundStrokes: false,
-        color: d3.schemeCategory10
+// Function to update the radar chart based on selected countries
+function updateChart() {
+    const form = document.getElementById('countryForm');
+    const formData = new FormData(form);
+    const selectedCountries = formData.getAll('country');
+
+    // Structure the data for the selected countries
+    let structuredData = selectedCountries.map(country => {
+        // Filter data for the current country and restructure it
+        const countryData = rawData.filter(d => d.countryname === country);
+        const totalValue = d3.sum(countryData, d => d.value); // Calculate the total value for the country
+        return countryData.map(d => ({
+            axis: d.axis,
+            value: (d.value / totalValue) * 100, // Calculate the percentage for each energy source
+            countryname: d.countryname
+        }));
+    });
+
+    // Set up options for the radar chart
+    var radarChartOptions = {
+        w: 600, // Width of the chart
+        h: 600, // Height of the chart
+        margin: { top: 100, right: 100, bottom: 100, left: 100 }, // Margins around the chart
+        maxValue: 45, // Maximum value for the scale
+        levels: 3, // Number of levels/circles in the background
+        roundStrokes: true, // Use rounded strokes for the lines
+        color: d3.scaleOrdinal().range(["#EDC951", "#CC333F", "#00A0B0"]) // Color scale
     };
 
+    // Render the radar chart
+    RadarChart(".radarChart", structuredData, radarChartOptions);
+}
+
+// Function to render the radar chart
+function RadarChart(id, data, options) {
+    // Default configuration settings for the chart
+    var cfg = {
+        w: 400, // Width of the chart
+        h: 400, // Height of the chart
+        margin: { top: 20, right: 20, bottom: 20, left: 20 }, // Margins around the chart
+        levels: 3, // Number of concentric circles/levels
+        maxValue: 0, // Maximum value for the scale (will be calculated later)
+        labelFactor: 1.25, // How far the labels are from the outer circle
+        wrapWidth: 60, // Width for text wrapping
+        opacityArea: 0.35, // Opacity of the filled areas
+        dotRadius: 4, // Radius of the dots
+        opacityCircles: 0.1, // Opacity of the circles
+        strokeWidth: 2, // Width of the strokes
+        roundStrokes: false, // Use rounded strokes for the lines
+        color: d3.schemeCategory10 // Color scheme
+    };
+
+    // Override default configuration with user options
     if ('undefined' !== typeof options) {
         for (var i in options) {
             if ('undefined' !== typeof options[i]) { cfg[i] = options[i]; }
         }
     }
 
+    // Calculate the maximum value among the data
     var maxValue = Math.max(cfg.maxValue, d3.max(data, function (i) {
         return d3.max(i.map(function (o) { return o.value; }));
     }));
 
+    // Get all the axes (energy sources) for the chart
     var allAxis = (data[0].map(function (i) { return i.axis; })),
-        total = allAxis.length,
-        radius = Math.min(cfg.w / 2, cfg.h / 2),
-        angleSlice = Math.PI * 2 / total;
+        total = allAxis.length, // Total number of axes
+        radius = Math.min(cfg.w / 2, cfg.h / 2), // Radius of the outermost circle
+        angleSlice = Math.PI * 2 / total; // Angle for each slice
 
+    // Scale for the radius
     var rScale = d3.scaleLinear()
         .range([0, radius])
         .domain([0, maxValue]);
 
+    // Remove any previous chart (if exists) and append a new SVG element
     d3.select(id).select("svg").remove();
-
     var svg = d3.select(id).append("svg")
         .attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
         .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
         .attr("class", "radar" + id);
 
+    // Append a group element for the chart
     var g = svg.append("g")
         .attr("transform", "translate(" + (cfg.w / 2 + cfg.margin.left) + "," + (cfg.h / 2 + cfg.margin.top) + ")");
 
+    // Filter for the glow effect
     var filter = g.append('defs').append('filter').attr('id', 'glow');
     filter.append('feGaussianBlur').attr('stdDeviation', '2.5').attr('result', 'coloredBlur');
     var feMerge = filter.append('feMerge');
     feMerge.append('feMergeNode').attr('in', 'coloredBlur');
     feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
 
+    // Draw the background circles
     var axisGrid = g.append("g").attr("class", "axisWrapper");
-
     axisGrid.selectAll(".levels")
         .data(d3.range(0, (cfg.levels + 1)).reverse())
         .enter()
@@ -116,9 +136,9 @@ function RadarChart(id, data, options) {
         .style("fill-opacity", cfg.opacityCircles)
         .style("filter", "url(#glow)");
 
-
+    // Draw the axis labels
     axisGrid.selectAll(".axisLabel")
-        .data(d3.range(1, (cfg.levels + 1)).reverse())
+        .data(d3.range(0, (cfg.levels + 1)).reverse())
         .enter().append("text")
         .attr("class", "axisLabel")
         .attr("x", 4)
@@ -126,14 +146,16 @@ function RadarChart(id, data, options) {
         .attr("dy", "0.4em")
         .style("font-size", "10px")
         .attr("fill", "#737373")
-        .text(function (d) { return d * maxValue / cfg.levels; });
+        .text(function (d) { return (maxValue * d / cfg.levels).toFixed(2) + "%"; });
 
+    // Draw the axes (lines and labels)
     var axis = axisGrid.selectAll(".axis")
         .data(allAxis)
         .enter()
         .append("g")
         .attr("class", "axis");
 
+    // Append the lines for each axis
     axis.append("line")
         .attr("x1", 0)
         .attr("y1", 0)
@@ -143,6 +165,7 @@ function RadarChart(id, data, options) {
         .style("stroke", "white")
         .style("stroke-width", "2px");
 
+    // Append labels for each axis
     axis.append("text")
         .attr("class", "legend")
         .style("font-size", "11px")
@@ -153,57 +176,47 @@ function RadarChart(id, data, options) {
         .text(function (d) { return d; })
         .call(wrap, cfg.wrapWidth);
 
+    // Line function to draw the radar chart blobs
     var radarLine = d3.lineRadial()
         .curve(d3.curveLinearClosed)
         .radius(function (d) { return rScale(d.value); })
         .angle(function (d, i) { return i * angleSlice; });
 
+    // Apply curve cardinal closed interpolation if roundStrokes is true
     if (cfg.roundStrokes) {
         radarLine.curve(d3.curveCardinalClosed);
     }
 
+    // Create a wrapper for the blobs
     var blobWrapper = g.selectAll(".radarWrapper")
         .data(data)
         .enter().append("g")
         .attr("class", "radarWrapper");
 
-    blobWrapper.append("path")
+    // Append the background blobs
+    blobWrapper
+        .append("path")
         .attr("class", "radarArea")
         .attr("d", function (d) { return radarLine(d); })
         .style("fill", function (d, i) { return cfg.color(i); })
         .style("fill-opacity", cfg.opacityArea)
-        .on('mouseenter', function (event, d) {
+        .on('mouseover', function (d, i) {
+            // Dim all blobs and highlight the current one
             d3.selectAll(".radarArea")
                 .transition().duration(200)
                 .style("fill-opacity", 0.1);
             d3.select(this)
                 .transition().duration(200)
                 .style("fill-opacity", 0.7);
-
-            // Build tooltip content
-            let tooltipContent = `<strong>${d[0].countryname}</strong><br>`; 
-            d.forEach(point => {
-                tooltipContent += `${point.axis}: ${point.value.toFixed(2)}%<br>`;
-            });
-
-            // Display tooltip
-            let x = event.clientX;
-            let y = event.clientY;
-            let toolTipDisplay = document.getElementById("toolTips");
-            toolTipDisplay.style.left = `${x}px`;
-            toolTipDisplay.style.top = `${y}px`;
-            toolTipDisplay.innerHTML = tooltipContent;
-            toolTipDisplay.style.opacity = 1;
         })
-        .on('mouseleave', function () {
+        .on('mouseout', function () {
+            // Restore all blobs to original opacity
             d3.selectAll(".radarArea")
                 .transition().duration(200)
                 .style("fill-opacity", cfg.opacityArea);
-
-            let toolTipDisplay = document.getElementById("toolTips");
-            toolTipDisplay.style.opacity = 0;
         });
 
+    // Create the outlines for the blobs
     blobWrapper.append("path")
         .attr("class", "radarStroke")
         .attr("d", function (d) { return radarLine(d); })
@@ -212,6 +225,7 @@ function RadarChart(id, data, options) {
         .style("fill", "none")
         .style("filter", "url(#glow)");
 
+    // Append circles for each data point
     blobWrapper.selectAll(".radarCircle")
         .data(function (d) { return d; })
         .enter().append("circle")
@@ -222,12 +236,13 @@ function RadarChart(id, data, options) {
         .style("fill", function (d, i, j) { return cfg.color(j); })
         .style("fill-opacity", 0.8);
 
-    // Append invisible circles for tooltip
+    // Create invisible circles for tooltip interactivity
     var blobCircleWrapper = g.selectAll(".radarCircleWrapper")
         .data(data)
         .enter().append("g")
         .attr("class", "radarCircleWrapper");
 
+    // Append invisible circles for tooltip interactivity
     blobCircleWrapper.selectAll(".radarInvisibleCircle")
         .data(function (d) { return d; })
         .enter().append("circle")
@@ -238,25 +253,18 @@ function RadarChart(id, data, options) {
         .style("fill", "none")
         .style("pointer-events", "all")
         .on("mouseover", function (event, d) {
-            var newX = parseFloat(d3.select(this).attr('cx')) - 10;
-            var newY = parseFloat(d3.select(this).attr('cy')) - 10;
-
-            tooltip
-                .attr('x', newX)
-                .attr('y', newY)
-                .text(d.value)
-                .transition().duration(200)
-                .style('opacity', 1);
+            toolTipDisplay.style.opacity = 1;
+            toolTipDisplay.innerHTML = `Country: ${d.countryname}<br>Source: ${d.axis}<br>Value: ${d.value.toFixed(2)}%`;
+        })
+        .on("mousemove", function (event) {
+            toolTipDisplay.style.left = (event.pageX + 5) + "px";
+            toolTipDisplay.style.top = (event.pageY - 28) + "px";
         })
         .on("mouseout", function () {
-            tooltip.transition().duration(200)
-                .style("opacity", 0);
+            toolTipDisplay.style.opacity = 0;
         });
 
-    var tooltip = g.append("text")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-
+    // Function to wrap SVG text (labels) if too long
     function wrap(text, width) {
         text.each(function () {
             var text = d3.select(this),
@@ -264,7 +272,7 @@ function RadarChart(id, data, options) {
                 word,
                 line = [],
                 lineNumber = 0,
-                lineHeight = 1.4,
+                lineHeight = 1.4, // ems
                 y = text.attr("y"),
                 x = text.attr("x"),
                 dy = parseFloat(text.attr("dy")),

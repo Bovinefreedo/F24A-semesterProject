@@ -35,36 +35,25 @@
 
 
 <body>
-    <header class="header">
-        <a href="index.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
-        <nav class="navbar">
-            <a href="forside.html">MORE ABOUT THE GOALS</a>
-        </nav>
-    </header>
+    
 
 
   
 <div class="radarChart"></div>
+<form id="countryForm">
+  <label>
+      <input type="checkbox" name="country" value="DENMARK" checked> Denmark
+  </label>
+  <label>
+      <input type="checkbox" name="country" value="GERMANY" checked> Germany
+  </label>
+  <label>
+      <input type="checkbox" name="country" value="EUROPE" checked> Europe
+  </label>
   
-  <script>
-    // Set up the chart parameters
-    var margin = {top: 100, right: 100, bottom: 100, left: 100},
-        width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
-        height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+  <button type="button" onclick="updateChart()">Update Chart</button>
+</form>
 
-    var radarChartOptions = {
-      w: width,
-      h: height,
-      margin: margin,
-      maxValue: 100,
-      levels: 5,
-      roundStrokes: true,
-      color: d3.scaleOrdinal().range(["#EDC951","#CC333F","#00A0B0"])
-
-    };
-
-    
-  </script>
 
 
 
