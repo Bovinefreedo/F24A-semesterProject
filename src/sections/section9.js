@@ -1,108 +1,141 @@
-// Fetch energy use data from the server
-async function fetchEnergyUseData() {
-    try {
-        const response = await fetch('http://localhost:4000/getEnergyUseWorld');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching the data:', error);
-        return null; // Return null if there's an error
-    }
-}
+function loadElectricityChart() {
+    const data = [
+        { year: 1998, withElectricity: 4326061660, withoutElectricity: 1627944246 },
+        { year: 1999, withElectricity: 4473758747, withoutElectricity: 1560732873 },
+        { year: 2000, withElectricity: 4814184845, withoutElectricity: 1300147672 },
+        { year: 2001, withElectricity: 4844792716, withoutElectricity: 1348878978 },
+        { year: 2002, withElectricity: 4980415784, withoutElectricity: 1292337225 },
+        { year: 2003, withElectricity: 5082062674, withoutElectricity: 1269819711 },
+        { year: 2004, withElectricity: 5155564934, withoutElectricity: 1275986787 },
+        { year: 2005, withElectricity: 5219911681, withoutElectricity: 1291836592 },
+        { year: 2006, withElectricity: 5356668964, withoutElectricity: 1236065595 },
+        { year: 2007, withElectricity: 5486509499, withoutElectricity: 1187694198 },
+        { year: 2008, withElectricity: 5559968636, withoutElectricity: 1197052189 },
+        { year: 2009, withElectricity: 5660777400, withoutElectricity: 1178796833 },
+        { year: 2010, withElectricity: 5765921664, withoutElectricity: 1155955407 },
+        { year: 2011, withElectricity: 5750257896, withoutElectricity: 1252623019 },
+        { year: 2012, withElectricity: 6004382234, withoutElectricity: 1081408204 },
+        { year: 2013, withElectricity: 6095576514, withoutElectricity: 1074098683 },
+        { year: 2014, withElectricity: 6205159204, withoutElectricity: 1049133644 },
+        { year: 2015, withElectricity: 6352965447, withoutElectricity: 986111206.9 },
+        { year: 2016, withElectricity: 6512346366, withoutElectricity: 912138375.4 },
+        { year: 2017, withElectricity: 6653490191, withoutElectricity: 855920037.1 },
+        { year: 2018, withElectricity: 6789116852, withoutElectricity: 803358762.5 },
+        { year: 2019, withElectricity: 6912458804, withoutElectricity: 760886587 }
+    ];
 
-fetchEnergyUseData().then(data => {
-    if (!data) {
-        return;
-    }
+    // Calculate percentages
+    data.forEach(d => {
+        d.total = d.withElectricity + d.withoutElectricity;
+        d.percentWithElectricity = (d.withElectricity / d.total) * 100;
+        d.percentWithoutElectricity = (d.withoutElectricity / d.total) * 100;
+    });
 
-    const margin = { top: 50, right: 10, bottom: 80, left: 100 };
-    const width = 1000 - margin.left - margin.right;
+    // Chart dimensions
+    const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+    const width = 800 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
-    // Append SVG to the container
-    const svg = d3.select("#worldEnergy")
-                  .append("svg")
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform", `translate(${margin.left},${margin.top})`);
+    // Scales
+    const xScale = d3.scaleBand()
+        .domain(data.map(d => d.year))
+        .range([0, width])
+        .padding(0.1);
 
-    // Create scales for x and y axes
-    const x = d3.scaleLinear()
-                .domain(d3.extent(data, d => d.date))
-                .range([0, width]);
+    const yScale = d3.scaleLinear()
+        .domain([0, 100])
+        .range([height, 0]);
 
-    const y = d3.scaleLinear()
-                .domain([0, d3.max(data, d => d.value)])
-                .range([height, 0]);
+    // SVG container
+    const svg = d3.select("#adgang")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Create a line generator
-    const line = d3.line()
-                   .x(d => x(d.date))
-                   .y(d => y(d.value));
-
-    // Append x and y axes
+    // Axes
     svg.append("g")
-       .attr("transform", `translate(0,${height})`)
-       .style("color", "white")
-       .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
 
     svg.append("g")
-       .style("color", "white")
-       .call(d3.axisLeft(y));
+        .call(d3.axisLeft(yScale).tickFormat(d => d + '%'));
 
-    // Append the line path
-    const path = svg.append("path")
-                   .datum(data)
-                   .attr("class", "line")
-                   .attr("d", line)
-                   .attr("stroke", "steelblue")
-                   .attr("fill", "none");
+    // Tooltip
+    const tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip");
 
-    // Get the total length of the line for animation
-    const totalLength = path.node().getTotalLength();
-
-    // Animate the line path
-    path.attr("stroke-dasharray", totalLength + " " + totalLength)
-        .attr("stroke-dashoffset", totalLength)
+    // Bars for percentage without electricity
+    svg.selectAll(".bar-without")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar-without")
+        .attr("x", d => xScale(d.year))
+        .attr("y", height) // Start from the bottom of the chart
+        .attr("width", xScale.bandwidth())
+        .attr("height", 0) // Start with height 0
+        .attr("fill", "rgb(175, 90, 90)")
+        .on("mouseover", function(event, d) {
+            tooltip.style("opacity", 1)
+                .html(`Year: ${d.year}<br>Without Electricity: ${d.percentWithoutElectricity.toFixed(2)}%`)
+                .style("left", (event.pageX + 5) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function() {
+            tooltip.style("opacity", 0);
+        })
         .transition()
-        .duration(2000)
-        .ease(d3.easeLinear)
-        .attr("stroke-dashoffset", 0);
+        .duration(1000) // 1 second animation
+        .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
+        .attr("y", d => yScale(d.percentWithoutElectricity))
+        .attr("height", d => height - yScale(d.percentWithoutElectricity));
 
-    // Append tooltip to the chart container
-    const tooltip = d3.select("#worldEnergy")
-                      .append("div")
-                      .attr("class", "tooltip")
-                      .style("opacity", 0);
+    // Bars for percentage with electricity
+    svg.selectAll(".bar-with")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar-with")
+        .attr("x", d => xScale(d.year))
+        .attr("y", height) // Start from the bottom of the chart
+        .attr("width", xScale.bandwidth())
+        .attr("height", 0) // Start with height 0
+        .attr("fill", "steelblue")
+        .on("mouseover", function(event, d) {
+            tooltip.style("opacity", 1)
+                .html(`Year: ${d.year}<br>With Electricity: ${d.percentWithElectricity.toFixed(2)}%`)
+                .style("left", (event.pageX + 5) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function() {
+            tooltip.style("opacity", 0);
+        })
+        .transition()
+        .duration(1000) // 1 second animation
+        .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
+        .attr("y", d => yScale(d.percentWithoutElectricity + d.percentWithElectricity))
+        .attr("height", d => height - yScale(d.percentWithElectricity));
+}
 
-    // Add an invisible rect to detect mouse events for the tooltip
-    svg.append("rect")
-       .attr("width", width)
-       .attr("height", height)
-       .style("fill", "none")
-       .style("pointer-events", "all")
-       .on("mousemove", function(event) {
-           const mouseX = d3.pointer(event)[0];
-           const x0 = x.invert(mouseX);
-           const bisectDate = d3.bisector(d => d.date).left;
-           const index = bisectDate(data, x0, 1);
-           const d = data[index];
-           tooltip.transition()
-                  .duration(200)
-                  .style("opacity", 0.9);
-           tooltip.html(`Date: ${d.date}<br>Value: ${d3.format(",")(d.value)}`)
-                  .style("left", (event.pageX) + "px")
-                  .style("top", (event.pageY - 28) + "px");
-       })
-       .on("mouseout", function() {
-           tooltip.transition()
-                  .duration(500)
-                  .style("opacity", 0);
-       });
-}).catch(error => {
-    console.error('Error fetching the data:', error);
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up the Intersection Observer
+    const observerOptions = {
+        root: null, // Use the viewport as the root
+        rootMargin: '0px',
+        threshold: 0.5 // 50% of the element must be visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                loadElectricityChart();
+                observer.unobserve(entry.target); // Stop observing once the chart is loaded
+            }
+        });
+    }, observerOptions);
+
+    const target = document.querySelector('#adgang');
+    observer.observe(target);
 });

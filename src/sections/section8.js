@@ -1,167 +1,111 @@
-  const apiUrl = "http://localhost:4000/getEnergyUseWorld";
-  fetch(apiUrl)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      // set margin, width and height
-      const width = 1250;
-      const height = 500;
-      const margin = { top: 50, right: 50, bottom: 50, left: 100 };
+const apiUrl = "http://localhost:4000/getEnergyUseWorld";
+fetch(apiUrl)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
 
-      // set x and y scales
-      const x = d3.scaleTime().range([0, width]);
+    const margin = { top: 50, right: 10, bottom: 80, left: 100 };
+    const width = 1000 - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
 
-      const y = d3.scaleLinear().range([height, 0]);
+    // Append SVG to the container
+    const svg = d3.select("#worldEnergy")
+                  .append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      // create the svg element and append it to the chart container
-      const svg = d3
-        .select("#energyChart")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+    // Create scales for x and y axes
+    const x = d3.scaleLinear()
+                .domain(d3.extent(data, d => d.date))
+                .range([0, width]);
 
-      // Create the tooltip
-      const toolTip = d3.select("body").append("div").attr("class", "toolTip");
+    const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.value)])
+                .range([height, 0]);
 
-      // Set the x and y domains
-      x.domain(d3.extent(data, (d) => d.date));
-      y.domain([40000, d3.max(data, (d) => d.value)]);
+    // Create a line generator
+    const line = d3.line()
+                   .x(d => x(d.date))
+                   .y(d => y(d.value));
+                       // Add y axis label
+    svg
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "14px")
+    .style("fill", "white")
+    .style("font-family", "sans-serif")
+    .text("Terawatt i timen");
 
-      // Add the x axis
-      svg
-        .append("g")
-        .attr("transform", `translate(0,${height})`)
-        .style("font-size", "12px")
-        .call(d3.axisBottom(x).ticks(d3.timeYear.every(10)));
+    // Append x and y axes
+    svg.append("g")
+       .attr("transform", `translate(0,${height})`)
+       .style("color", "white")
+       .call(d3.axisBottom(x).tickFormat(d3.format("d")));
 
-      // Add the y axis
-      svg
-        .append("g")
-        .style("font-size", "12px")
-        .call(d3.axisLeft(y).tickFormat((d) => d + " Twh"));
+    svg.append("g")
+       .style("color", "white")
+       .call(d3.axisLeft(y));
 
-      // created a horizontol grid
-      svg
-        .selectAll("yGrid")
-        .data(y.ticks(d3.max(data, (d) => d.value) / 25000).slice(1))
-        .join("line")
-        .attr("x1", 0)
-        .attr("x2", width)
-        .attr("y1", (d) => y(d))
-        .attr("y2", (d) => y(d))
-        .attr("stroke", "lightgrey")
-        .attr("stroke-width", 0.5);
+    // Append the line path
+    const path = svg.append("path")
+                   .datum(data)
+                   .attr("class", "line")
+                   .attr("d", line)
+                   .attr("stroke", "steelblue")
+                   .attr("fill", "none");
 
-      // created a vertical grid
-      svg
-        .selectAll("xGrid")
-        .data(x.ticks())
-        .join("line")
-        .attr("class", "xGrid")
-        .attr("x1", (d) => x(d))
-        .attr("x2", (d) => x(d))
-        .attr("y1", 0)
-        .attr("y2", height)
-        .attr("stroke", "lightgrey")
-        .attr("stroke-width", 0.5);
+    // Get the total length of the line for animation
+    const totalLength = path.node().getTotalLength();
 
-      // Add y axis label
-      svg
-        .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x", 0 - height / 2)
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .style("font-size", "14px")
-        .style("fill", "#777")
-        .style("font-family", "sans-serif")
-        .text("Terawatt i timen");
-
-      // Add the line
-      const line = d3
-        .line()
-        .x((d) => x(d.date))
-        .y((d) => y(d.value));
-
-      // Add the circle element
-      const circle = svg
-        .append("circle")
-        .attr("r", 0)
-        .attr("fill", "steelblue")
-        .style("stroke", "white")
-        .attr("opacity", 0.7)
-        .style("pointer-events", "none");
-
-      // Create the svg element and append it to the chart container. This gives the ability to move the mouse anywhere on the chart and get the appropriate point
-      const listeningRect = svg
-        .append("rect")
-        .attr("width", width)
-        .attr("height", height);
-
-      // Give the event when the mouse moves. The bisector takes the position of the mouse and finds the nearest datapoint.
-      listeningRect.on("mousemove", function (event) {
-        const [xCoord] = d3.pointer(event, this);
-        const bisectDate = d3.bisector((d) => d.date).left;
-        const x0 = x.invert(xCoord);
-        const i = bisectDate(data, x0, 1);
-        const d0 = data[i - 1];
-        const d1 = data[i];
-        const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-        const xPos = x(d.date);
-        const yPos = y(d.value);
-
-        // Update circle position
-        circle.attr("cx", xPos).attr("cy", yPos);
-
-        // Add the transition for the circle radius
-        circle.transition().duration(50).attr("r", 5);
-
-        const year = d.date;
-
-        // Add the tooltip
-        toolTip
-          .style("display", "block")
-          .style("left", `${xPos + 100}px`)
-          .style("top", `${yPos + 50}px`)
-          .html(
-            `<strong>År:</strong> ${year}<br><strong>Forbrug:</strong> ${
-              d.value !== undefined ? d.value.toFixed(0) + " Twh" : "N/A"
-            }`
-          );
-      });
-
-      // Removes the tooltip when mouse is not in the chart
-      listeningRect.on("mouseleave", function () {
-        circle.transition().duration(50).attr("r", 0);
-
-        // Styling the tooltip
-        toolTip.style("display", "none");
-      });
-
-      // Creating the path
-      svg
-        .append("path")
-        .datum(data)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 1)
-        .attr("d", line)
+    // Animate the line path
+    path.attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
         .transition()
-        .duration(7500)
+        .duration(2000)
         .ease(d3.easeLinear)
-        .attrTween("stroke-dasharray", function () {
-          const length = this.getTotalLength();
-          return d3.interpolate(`0,${length}`, `${length}, ${length}`);
-        });
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+        .attr("stroke-dashoffset", 0);
+
+    // Append tooltip to the chart container
+    const tooltip = d3.select("#worldEnergy")
+                      .append("div")
+                      .attr("class", "tooltip")
+                      .style("opacity", 0);
+
+    // Add an invisible rect to detect mouse events for the tooltip
+    svg.append("rect")
+       .attr("width", width)
+       .attr("height", height)
+       .style("fill", "none")
+       .style("pointer-events", "all")
+       .on("mousemove", function(event) {
+           const mouseX = d3.pointer(event)[0];
+           const x0 = x.invert(mouseX);
+           const bisectDate = d3.bisector(d => d.date).left;
+           const index = bisectDate(data, x0, 1);
+           const d = data[index];
+           tooltip.transition()
+                  .duration(200)
+                  .style("opacity", 0.9);
+           tooltip.html(`Date: ${d.date}<br>Value: ${d3.format(",")(d.value)}`)
+                  .style("left", (event.pageX) + "px")
+                  .style("top", (event.pageY - 28) + "px");
+       })
+       .on("mouseout", function() {
+           tooltip.transition()
+                  .duration(500)
+                  .style("opacity", 0);
+       });
+}).catch(error => {
+    console.error('Error fetching the data:', error);
+});
