@@ -19,10 +19,6 @@ export function createSection5(){
     sliderContainer.appendChild(slider);
     let gaugesList = [];
     let counterList = [];
-    let yearDiv = document.createElement('div');
-    yearDiv.innerHTML = "2022"
-    yearDiv.style.fontSize= "17px"
-    gaugeContainer.appendChild(yearDiv); 
     let infoContainer = document.createElement('div');
     infoContainerStyle(infoContainer);
     canvas5.appendChild(infoContainer);
@@ -295,31 +291,44 @@ function gaugeContainerElements(div){
     labelStyle(column1Label);
     gaugeContainer.appendChild(column1Label);
     column1Label.style.top = "24%";
-    column1Label.style.left = "28%";
+    column1Label.style.left = "28.2%";
     column1Label.innerHTML = "Vedvarende Energi"
     column1Label.style.fontSize = "15px"
+    column1Label.style.textAlign = "center";
     let column2Label = document.createElement('div');
     labelStyle(column2Label);
     gaugeContainer.appendChild(column2Label);
     column2Label.style.top = "24%";
     column2Label.style.left = "53%";
-    column2Label.innerHTML = "Atomkraft"
-    column2Label.style.fontSize = "15px"
+    column2Label.innerHTML = "Atomkraft";
+    column2Label.style.fontSize = "15px"; 
+    column2Label.style.textAlign = "center";
     let column3Label = document.createElement('div');
     gaugeContainer.appendChild(column3Label);
     labelStyle(column3Label);
     column3Label.style.top = "24%";
     column3Label.style.left = "78%";
-    column3Label.innerHTML = "Forsil energi"
-    column3Label.style.fontSize = "15px"
+    column3Label.innerHTML = "Forsil energi";
+    column3Label.style.fontSize = "15px";
+    column3Label.style.textAlign = "center";
     let yearLabel = document.createElement('div');
     labelStyle(yearLabel);
     gaugeContainer.appendChild(yearLabel);
     yearLabel.style.top = "9%";
-    yearLabel.style.left = "50%";
-    yearLabel.innerHTML = "Vælg år"
-    yearLabel.style.fontSize = "15px"
-    yearLabel.style.transform = "translate(-50%,-50%)"
+    yearLabel.style.left = "55%";
+    yearLabel.innerHTML = "Vælg år";
+    yearLabel.style.fontSize = "15px";
+    yearLabel.style.transform = "translate(-50%,-50%)";
+    yearLabel.style.display = "absolute";
+    let yearDiv = document.createElement('div');
+    gaugeContainer.appendChild(yearDiv);
+    yearDiv.id = "yearDiv";
+    yearDiv.style.fontSize = "17px";
+    yearDiv.style.left = "50%";
+    yearDiv.style.top = "17%"
+    yearDiv.style.position = "absolute";
+    yearLabel.style.transform = "translate(-50%,-50%)";
+    
 }
 
 function labelStyle(div){
@@ -330,7 +339,7 @@ function labelStyle(div){
 
 function inputActivation(value){  
     let year = Number(value) 
-    yearDiv.innerHTML = year;
+    document.getElementById("yearDiv").innerHTML = year;
     let yearlyChange;
     console.log(data[10].year) 
     for(let i=0; i<data.length; i++){
