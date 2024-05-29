@@ -53,7 +53,7 @@ function updateChart() {
         w: 600, // Width of the chart
         h: 600, // Height of the chart
         margin: { top: 100, right: 100, bottom: 100, left: 100 }, // Margins around the chart
-        maxValue: 100, // Maximum value for the scale
+        maxValue: 60, // Maximum value for the scale
         levels: 3, // Number of levels/circles in the background
         roundStrokes: true, // Use rounded strokes for the lines
         color: d3.scaleOrdinal().range(["#EDC951", "#CC333F", "#00A0B0"]) // Color scale
