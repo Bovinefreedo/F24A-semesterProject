@@ -56,7 +56,7 @@ function updateChart() {
         maxValue: 60, // Maximum value for the scale
         levels: 3, // Number of levels/circles in the background
         roundStrokes: true, // Use rounded strokes for the lines
-        color: d3.scaleOrdinal().range(["#EDC951", "#CC333F", "#00A0B0"]) // Color scale
+        color: d3.scaleOrdinal().range(["#EDC951", "#CC333F", "#00A0B0", "#FF00FF"]) // Color scale
     };
 
     // Render the radar chart
