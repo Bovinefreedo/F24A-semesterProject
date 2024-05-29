@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const descriptionElement = document.getElementById('description');
 
     const question = {
-        text: "Is the Earth round?",
+        text: "Hvem tror du bruger mest energi, en gennemsnitlig dansker eller en gennemsnitlig person i verden?",
         answers: [
-            { text: "Ja", correct: true, description: "Correct! The Earth is indeed round." },
-            { text: "Nej", correct: false, description: "Incorrect! The Earth is actually round." }
+            { text: "Dansker", correct: true, description: "Korrekt! En dansker i brugte i gennemsnit i 2022 ??" },
+            { text: "Verden", correct: false, description: "Incorrect! The Earth is actually round." }
         ]
     };
 
