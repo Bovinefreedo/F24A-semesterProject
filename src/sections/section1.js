@@ -14,7 +14,7 @@
     .attr("class", "toolTip")
     .style("position", "absolute")
     .style("background-color", "white")
-    .style("color", "black")
+    .style("color", "white")
     .style("padding", "5px")
     .style("border-radius", "5px")
     .style("display", "none");

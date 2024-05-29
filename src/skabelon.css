@@ -358,6 +358,11 @@ th:first-child, td:first-child {
     box-sizing: border-box;
 }
 
+.worldEnergy h5 {
+    color: white;
+}
+
+
 .tooltip {
     position: absolute;
     background-color: white;
