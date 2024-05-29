@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy for Tomorrow, by Team Stygge</title>
-    <link rel="stylesheet" href="skabelon.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Energy for Tomorrow, by Team Stygge</title>
+  <link rel="stylesheet" href="skabelon.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
 <body>
@@ -44,112 +44,117 @@
         </section>
 
 
-        <section class="three">
-            <div class="background">
-                <div class="graphno1">
-                    <div class="energyworld">
-                        <h5>Befolkningstilvæksten for verdenen gennem tiden</h5>
-                    </div>
-                    <div id="Population"></div>
-                </div>
-            </div>
-        </section>
+    <section class="three">
+      <div class="background">
+        <div class="graphno1">
+          <div class="energyworld">
+            <h5>Befolkningstilvæksten for verdenen gennem tiden</h5>
+          </div>
+          <div id="Population"></div>
+        </div>
+      </div>
+    </section>
 
-        <section class="four">
-            <div class="app">
-                <h1>Hvilke af de to svarmuligheder er rigtig?</h1>
-                <div class="quiz">
-                    <h2 id="question">Is the Earth round?</h2>
-                    <div id="answer-buttons"></div>
-                </div>
-                <div id="description" style="display: none;"></div> <!-- New description element -->
-            </div>
-        </section>
+    <section class="four">
+      <div class="app">
+        <h1>Hvilke af de to svarmuligheder er rigtig?</h1>
+        <div class="quiz">
+          <h2 id="question">Is the Earth round?</h2>
+          <div id="answer-buttons"></div>
+        </div>
+        <div id="description" style="display: none;"></div> <!-- New description element -->
+      </div>
+    </section>
 
-        <section class="five" id="section5Content">
-        </section>
+    <section class="five" id="section5Content">
+    </section>
 
-        <!-- FRANK -->
-        <section class="six">
-        <div class="background">
-            <div id="donutchart"></div>
+    <!-- FRANK -->
+    <section class="six">
+      <div class="background">
+        <div id="donutchart"></div>
 
-            <div class="tooltip"></div>
+        <div class="tooltip"></div>
+
+        <div class="legend-box">
+          <h3>Energy Sources</h3>
+          <div class="legend-items"></div>
+        </div>
+    </section>
+
+
+    <!-- CASPER -->
+    <section class="seven">
+      <div class="background">
+
+        <div class="radarChart"></div>
+        <form id="countryForm">
+          <label>
+              <input type="checkbox" name="country" value="DENMARK" checked> Danmark
+          </label>
+          <label>
+              <input type="checkbox" name="country" value="CHINA" checked> Kina
+          </label>
+          <label>
+            <input type="checkbox" name="country" value="UNITED STATES" checked> United States
+        </label>
         
-            <div class="legend-box">
-                <h3>Energy Sources</h3>
-                <div class="legend-items"></div>
-            </div>
-        </section>
+        <label>
+          <input type="checkbox" name="country" value="RUSSIA" checked> Rusland
+        </label>
         
+      
+          <button type="button" onclick="updateChart()">Update Chart</button>
+        </form>
 
-     <!-- CASPER -->
-        <section class="seven">
-            <div class="background">
-
-              <div class="radarChart"></div>
-              <form id="countryForm">
-                <label>
-                    <input type="checkbox" name="country" value="DENMARK" checked> Denmark
-                </label>
-                <label>
-                    <input type="checkbox" name="country" value="GERMANY" checked> Germany
-                </label>
-                <label>
-                    <input type="checkbox" name="country" value="EUROPE" checked> Europe
-                </label>
-                
-                <button type="button" onclick="updateChart()">Update Chart</button>
-              </form>
-            </div>
-            
-        </section>
+    </section>
 
 
-        <!-- GIO -->
-        <section class="eight">
-            <div class="background">
-                <div class="graphno1">
-                    <div class="energyworld">
-                        <h5>Danmarks energiforbrug pr. person</h5>
-                    </div>
-                    <div id="denmarkEnergy"></div>
-                </div>
-            </div>
-        </section>
+    <!-- GIO -->
+    <section class="eight">
+      <div class="background">
+        <div class="graphno1">
+          <div class="energyworld">
+            <h5>Danmarks energiforbrug pr. person</h5>
+          </div>
+          <div id="denmarkEnergy"></div>
+        </div>
+      </div>
+    </section>
 
-        <!-- TONY -->
-        <section class="nine">
-            <div class="background">
-                <div class="kasse kasse1">
-                    <h5>VERDENS ADGANG TIL ELEKTRICITET</h5>
-                    <p>Den præsenterede visualisering illustrerer udviklingen af verdens adgang til elektricitet over
-                        årene. Den anvender et områdegrafikon til at vise antallet af mennesker med og uden adgang til
-                        elektricitet fra 1998 til 2019.</p>
-                </div>
-                <div class="kasse kasse2">
-                    <div id="adgang"></div>
-                </div>
-            </div>
-        </section>
+    <!-- TONY -->
+    <section class="nine">
+      <div class="background">
+        <div class="kasse kasse1">
+          <h5>VERDENS ADGANG TIL ELEKTRICITET</h5>
+          <p>Den præsenterede visualisering illustrerer udviklingen af verdens adgang til elektricitet over
+            årene. Den anvender et områdegrafikon til at vise antallet af mennesker med og uden adgang til
+            elektricitet fra 1998 til 2019.</p>
+        </div>
+        <div class="kasse kasse2">
+          <div id="adgang"></div>
+        </div>
+      </div>
+    </section>
 
 
-        <section class="eleven">
-            <div class="background">
-                <div class="kasse kasse1">AFSLUTNING?</div>
-                <div class="kasse kasse2"></div>
-            </div>
-        </section>
-    </div>
+    <section class="eleven">
+      <div class="background">
+        <div class="kasse kasse1">AFSLUTNING?</div>
+        <div class="kasse kasse2"></div>
+      </div>
+    </section>
+  </div>
 
-    <script src="/src/script.js" type="module" defer></script>
-    <script src="/src/sections/sectionpie.js"></script>
-    <script src="/src/WebsiteAnimationAndQuizz.js"></script>
-    <script src="/src/sections/section1.js"></script>
-    <script src="/src/sections/section2.js"></script>
-    <script src="/src/sections/section8.js"></script>
-    <script src="/src/sections/section9.js"></script>
-    <!-- <script src="/src/sections/sectionRadarMap.js"></script> -->
+  <script src="/src/script.js" type="module" defer></script>
+  <script src="/src/sections/sectionpie.js"></script>
+  <script src="/src/WebsiteAnimationAndQuizz.js"></script>
+  <script src="/src/sections/section1.js"></script>
+  <script src="/src/sections/sectionRadarMap.js"></script>
+  <script src="/src/sections/section2.js"></script>
+  <script src="/src/sections/section8.js"></script>
+  <script src="/src/sections/section9.js"></script>
+  <!-- <script src="/src/sections/sectionRadarMap.js"></script> -->
 
 </body>
 
