@@ -18,8 +18,8 @@ async function loadChart() {
         const populations = populationData.map(item => item.population);
 
         // Chart dimensions
-        const margin = { top: 30, right: 0, bottom: 80, left: 80 };
-        const width = 1070 - margin.left - margin.right;
+        const margin = { top: 30, right: 10, bottom: 80, left: 80 };
+        const width = 800 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
 
         // Scales
@@ -45,17 +45,16 @@ async function loadChart() {
             .y(d => yScale(d.population));
 
         // SVG container
-        // SVG container
-const svg = d3.select("#Population")
-.append("svg")
-.attr("width", width + margin.left + margin.right)
-.attr("height", height + margin.top + margin.bottom)
-.append("g")
-.attr("transform", `translate(${margin.left},${margin.top})`)
-.style("background-color", "white"); // Set background color to white
+        const svg = d3.select("#Population")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`)
+            .style("background-color", "white"); // Set background color to white
 
-// Remove the top and left axis lines
-svg.select(".domain").remove();
+        // Remove the top and left axis lines
+        svg.select(".domain").remove();
 
         // Gridlines
         svg.append("g")
@@ -76,29 +75,27 @@ svg.select(".domain").remove();
                 .tickFormat("")
             )
             .selectAll("line")
-                  .style("color", "white")
+            .style("color", "white")
             .attr("stroke-opacity", 0.2); // Adjust the opacity here
 
         // Axes
-// Axes
-svg.append("g")
-    .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(xScale)
-        .tickFormat(d3.format("d"))
-        .tickSize(0)
-        .tickPadding(10)
-    )
-    .selectAll("text")
-    .attr("fill", "white"); // Adjust the color of the x-axis labels
+        svg.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(xScale)
+                .tickFormat(d3.format("d"))
+                .tickSize(0)
+                .tickPadding(10)
+            )
+            .selectAll("text")
+            .attr("fill", "white"); // Adjust the color of the x-axis labels
 
-svg.append("g")
-    .call(d3.axisLeft(yScale)
-        .tickSize(0)
-        .tickPadding(10)
-    )
-    .selectAll("text")
-    .attr("fill", "white"); // Adjust the color of the y-axis labels
-
+        svg.append("g")
+            .call(d3.axisLeft(yScale)
+                .tickSize(0)
+                .tickPadding(10)
+            )
+            .selectAll("text")
+            .attr("fill", "white"); // Adjust the color of the y-axis labels
 
         // Animated text
         const text = svg.append("text")
@@ -132,7 +129,7 @@ svg.append("g")
             setTimeout(() => {
                 updateText(previousPopulation, populations[i], i * (10000 / populationData.length), 10000 / populationData.length);
                 previousPopulation = populations[i];
-            }, i * (10000 / populationData.length));
+            }, i * (5000 / populationData.length));
         }
 
         // Draw the line path with loading animation
@@ -149,9 +146,12 @@ svg.append("g")
             path.attr("stroke-dasharray", length + " " + length)
                 .attr("stroke-dashoffset", length)
                 .transition()
-                .duration(10000)
+                .duration(5000)
                 .ease(d3.easeLinear)
-                .attr("stroke-dashoffset", 0);
+                .attr("stroke-dashoffset", 0)
+                .on("end", () => {
+                    startCountUpAnimation(30); // Start tælleren, når diagrammet er færdig med at indlæse
+                });
         }
 
     } catch (error) {
@@ -159,18 +159,61 @@ svg.append("g")
     }
 }
 
-// Intersection Observer to trigger the chart loading
+function startCountUpAnimation(durationInSeconds) {
+    const countElement = document.getElementById("animatedCount");
+    let count = 0;
+    const targetCount = 10800000000; // Målet er 10,8 milliarder
+    const totalIncrements = targetCount - count;
+    const incrementsPerSecond = totalIncrements / (durationInSeconds * 500); // Antal tælleforøgelser pr. millisekund
+
+    let startTime = null;
+    let previousTime = null;
+
+    function updateCount(timestamp) {
+        if (!startTime) startTime = timestamp;
+        if (!previousTime) previousTime = timestamp;
+
+        const elapsedTime = timestamp - previousTime;
+
+        count += elapsedTime * incrementsPerSecond; // Inkrementer tælleren med passende beløb
+
+        if (count >= targetCount) {
+            count = targetCount; // Sikre, at tælleren ikke overstiger målet
+        } else {
+            requestAnimationFrame(updateCount); // Planlæg opdatering af tælleren til næste animation frame
+        }
+
+        // Juster farven baseret på tallets størrelse
+        const colorIntensity = Math.min(255, Math.floor(((count - 5000000000) / (targetCount - 5000000000)) * 255)); // Starter farveændringen senere
+        const textColor = `rgb(255, ${255 - colorIntensity * 2}, ${255 - colorIntensity * 2})`; // Neon-rød farvegradient
+
+
+        countElement.textContent = Math.floor(count).toLocaleString(); // Opdater teksten i elementet med den nuværende tæller værdi
+        countElement.style.color = textColor; // Indstil tekstfarven baseret på gradienten
+
+        // Opdater forrige tid for næste iteration
+        previousTime = timestamp;
+    }
+
+    requestAnimationFrame(updateCount); // Start animationen
+}
+
+// Eksempel på brug:
+// startCountUpAnimation(30); // Starter tællingen op og angiver, at det skal tage 30 sekunder
+
+
+// Intersection Observer til at starte diagramindlæsningen
 const sectionThree = document.querySelector('.three');
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
             loadChart();
-            observer.unobserve(sectionThree); // Unobserve once the chart is loaded
+            observer.unobserve(sectionThree); // Stop observationen, når diagrammet er indlæst
         }
     });
 }, {
     threshold: 0.5
 });
 
-// Start observing the section with class 'two'
+// Start observationen
 observer.observe(sectionThree);

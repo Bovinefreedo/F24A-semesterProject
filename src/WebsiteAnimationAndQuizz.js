@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             answerButtonsElement.style.display = 'none';
             descriptionElement.style.display = 'block';
             descriptionElement.classList.add('fade-in');
-        }, 200);
+        }, 750);
         if (correct) {
             selectedButton.classList.add('correct');
         } else {

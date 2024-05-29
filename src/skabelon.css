@@ -477,3 +477,18 @@ rect {
     stroke: #000;
     shape-rendering: crispEdges;
 }
+
+
+.message-container {
+    margin-left: 20px; /* Adjust as needed */
+    margin-top: -150px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* Tilføj animationen til #animatedCount */
+#animatedCount {
+    font-weight: bolder;
+    font-size: 30px; /* Adjust font size as needed */
+}
