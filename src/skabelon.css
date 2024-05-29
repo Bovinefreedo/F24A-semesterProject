@@ -285,11 +285,11 @@ th:first-child, td:first-child {
 .app {
     background: #fff;
     width: 100%;
-    height: 100%;
+    height: 120%;
     border-radius: 15px;
     padding: 30px 80px;
     padding-top: 15%;
-    
+    background-color: #b2c1e944;
 }
 
 .app h1 {
