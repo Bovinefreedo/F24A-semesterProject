@@ -438,7 +438,7 @@ rect {
     position:absolute;
     top: 50%;
     left: 60px; /* Adjust this value to position the box to the opposite side */
-    transform: translateY(-41%);
+    transform: translateY(-40%);
     background-color: rgba(255, 255, 255, 0.7);
     padding: 25px;
     border-radius: 5px;
