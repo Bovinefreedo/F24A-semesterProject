@@ -7,14 +7,14 @@
   const x = d3.scaleTime().range([0, width]);
   const y = d3.scaleLinear().range([height, 0]);
 
-  // Create the toolTip
+  // Create the tooltip
   const toolTip = d3
     .select("body")
     .append("div")
     .attr("class", "toolTip")
     .style("position", "absolute")
-    .style("background-color", "black")
-    .style("color", "white")
+    .style("background-color", "white")
+    .style("color", "black")
     .style("padding", "5px")
     .style("border-radius", "5px")
     .style("display", "none");
@@ -194,11 +194,11 @@
 
       const year = d.date.getFullYear();
 
-      // Add the toolTip
+      // Add the tooltip
       toolTip
         .style("display", "block")
-        .style("left", `${event.pageX + 15}px`) // Position toolTip closer to the mouse
-        .style("top", `${event.pageY - 15}px`) // Position toolTip closer to the mouse
+        .style("left", `${event.pageX + 15}px`) // Position tooltip closer to the mouse
+        .style("top", `${event.pageY - 15}px`) // Position tooltip closer to the mouse
         .html(
           `<strong>År:</strong> ${year}<br><strong>Forbrug:</strong> ${
             d.value !== undefined ? d.value.toFixed(0) + " Twh" : "N/A"
@@ -206,11 +206,11 @@
         );
     });
 
-    // Removes the toolTip when mouse is not in the chart
+    // Removes the tooltip when mouse is not in the chart
     listeningRect.on("mouseleave", function () {
       circle.transition().duration(50).attr("r", 0);
 
-      // Styling the toolTip
+      // Styling the tooltip
       toolTip.style("display", "none");
     });
 

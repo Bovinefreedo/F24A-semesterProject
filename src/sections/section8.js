@@ -8,9 +8,6 @@ fetch(apiUrl)
   })
   .then((data) => {
     console.log(data);
-    data.forEach((d) => {
-      d.value = Math.floor(d.value / 1000);
-    });
 
     const margin = { top: 50, right: 10, bottom: 80, left: 100 };
     const width = 1000 - margin.left - margin.right;
