@@ -53,10 +53,10 @@ function updateChart() {
         w: 600, // Width of the chart
         h: 600, // Height of the chart
         margin: { top: 100, right: 100, bottom: 100, left: 100 }, // Margins around the chart
-        maxValue: 45, // Maximum value for the scale
+        maxValue: 60, // Maximum value for the scale
         levels: 3, // Number of levels/circles in the background
         roundStrokes: true, // Use rounded strokes for the lines
-        color: d3.scaleOrdinal().range(["#EDC951", "#CC333F", "#00A0B0"]) // Color scale
+        color: d3.scaleOrdinal().range(["#EDC951", "#CC333F", "#00A0B0", "#FF00FF"]) // Color scale
     };
 
     // Render the radar chart
@@ -214,7 +214,6 @@ function RadarChart(id, data, options) {
             d3.selectAll(".radarArea")
                 .transition().duration(200)
                 .style("fill-opacity", cfg.opacityArea);
-            killToolTip()
         });
 
     // Create the outlines for the blobs
@@ -291,21 +290,4 @@ function RadarChart(id, data, options) {
             }
         });
     }
-}
-
-function toolTip(){
-    let x = event.clientX;
-    let y = event.clientY;
-    let toolTipDisplay = document.getElementById("toolTips");
-    toolTipDisplay.style.left = "" + x + "px";
-    toolTipDisplay.style.top = "" + y + "px";
-    toolTipDisplay.style.width = "" + 20 + "px";
-    toolTipDisplay.style.height = "" + 20 + "px";
-    toolTipDisplay.style.backgroundColor = "red";
-    toolTipDisplay.style.display = "block";
-}
-
-function killToolTip(){
-    let toolTipDisplay = document.getElementById("toolTips");
-    toolTipDisplay.style.display = "none";
 }
