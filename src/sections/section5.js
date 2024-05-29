@@ -308,7 +308,7 @@ function gaugeContainerElements(div){
     labelStyle(column3Label);
     column3Label.style.top = "24%";
     column3Label.style.left = "78%";
-    column3Label.innerHTML = "Forsil energi";
+    column3Label.innerHTML = "Fossil energi";
     column3Label.style.fontSize = "15px";
     column3Label.style.textAlign = "center";
     let yearLabel = document.createElement('div');
