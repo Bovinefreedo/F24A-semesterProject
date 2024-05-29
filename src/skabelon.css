@@ -154,7 +154,7 @@ section {
 }
 
 #LandingPageText {
-    font-size: 40px;
+    font-size: 60px;
     max-width: 75%;
     font-family: "Poppins";
     font-weight: bold;
@@ -167,7 +167,7 @@ section {
 }
 
 #LandingPageTextSmall {
-    font-size: 11px;
+    font-size: 16px;
     max-width: 80%;
     padding-right: 80px;
     font-family: "Poppins";
@@ -435,10 +435,10 @@ rect {
 }
 
 .legend-box {
-    position: absolute;
+    position:absolute;
     top: 50%;
-    right: 50px; /* Adjust this value to position the box to the opposite side */
-    transform: translateY(-40%);
+    left: 60px; /* Adjust this value to position the box to the opposite side */
+    transform: translateY(-41%);
     background-color: rgba(255, 255, 255, 0.7);
     padding: 25px;
     border-radius: 5px;

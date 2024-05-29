@@ -250,10 +250,10 @@ function inputSettings(input){
 
 function infoContainerStyle(div){
     div.style.position= "absolute";
-    div.style.top ="20%";
+    div.style.top ="4%";
     div.style.left ="61%";
     div.style.width = "37%";
-    div.style.height = "47%";
+    div.style.height = "92%";
     div.style.gap = '2%';
     div.style.padding = '20px';
     div.style.backgroundColor = '#e3edff';
@@ -269,7 +269,8 @@ function infoContent(div){
     let infoContent = document.createElement('p');
     infoContainer.appendChild(infoContent);
     infoContent.style.fontSize = "13px"
-    infoContent.innerHTML = "Det kan være svært at sige hvor meget energi vi kan producere som verden, hvad verdens samlede kapacitet for energiproduktion er. Kraftværker bliver bygget mens andre tages ud af brug. Vi kan dog sige hvad vores kapacitet som minimum har været, det kan vi ved at se på vores forbrug. Vi kan ikke bruge mere energi end vi kan producere. Vi har lavet nogle speedometre for at se hvor meget vi rent faktisk bruger de enkelte år. I den øverste række har vi det faktiske forbrug. Hvor meget energi brugte vi i et givet årstal. Vores forbrug har ændret sig, så i den nederste række har vi hvor meget det har ændret sig. Vi kan begynde at spekulere på om vi kan se hvor meget vi udbygger vores energiproduktion og hvilken type af energiproduktion vi udbygger, vi skal dog passe lidt på da vores forbrug kan ændre sig af andre årsager. Det bliver i tallene meget tydeligt hvornår Corona satte verdens industri i stå, og hvornår finanskrisen satte en kæp i hjulet energiproduktionen. Se dig lidt omkring og tænk over hvorfor vores energiproduktion ser ud som den ser ud."
+    infoContent.innerHTML =
+      "Verdens energiproduktion er kompleks med kraftværker, der bygges og nedlægges løbende. Ved at analysere vores forbrug over tid kan vi få et minimumsbillede af vores produktionskapacitet. Speedometre viser vores faktiske forbrug og ændringerne over årene. Vi kan spekulere i, hvordan vi udvider vores energiproduktion, men det er vigtigt at være opmærksom på, at ændringer i forbrug kan påvirke dette. Tallene afslører tydeligt, hvornår globale kriser som Corona og finanskrisen har påvirket energiproduktionen.";
 }
 function gaugeContainerElements(div){
     let gaugeContainer = div;
@@ -314,7 +315,7 @@ function gaugeContainerElements(div){
     let yearLabel = document.createElement('div');
     labelStyle(yearLabel);
     gaugeContainer.appendChild(yearLabel);
-    yearLabel.style.top = "9%";
+    yearLabel.style.top = "5%";
     yearLabel.style.left = "55%";
     yearLabel.innerHTML = "Vælg år";
     yearLabel.style.fontSize = "15px";

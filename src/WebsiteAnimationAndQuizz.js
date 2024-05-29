@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const question = {
         text: "Hvem tror du bruger mest energi, en gennemsnitlig dansker eller en gennemsnitlig person i verden?",
         answers: [
-            { text: "Dansker", correct: true, description: "Korrekt! En dansker i brugte i gennemsnit i 2022 ??" },
-            { text: "Verden", correct: false, description: "Incorrect! The Earth is actually round." }
+            { text: "Dansker", correct: true, description: "Korrekt! En dansker brugte i gennemsnit 190 Twh i 2022" },
+            { text: "Verden", correct: false, description: "Forkert! En gennemsnitlig person i verden brugte 167 Twh i år 2022, sammenlignet med en dansker som brugte 190 Twh"}
         ]
     };
 
