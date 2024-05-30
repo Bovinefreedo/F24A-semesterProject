@@ -407,13 +407,14 @@ const getYearEnergyUseRegion = (request, response) => {
 };
 
 const getEnergyMixCountry = (request, response) => {
-  pool.query("SELECT amountInTWH AS value, year, energyName AS axsis, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' )", (error, results) => {
+  pool.query("SELECT amountInTWH AS value, year, energyName AS axis, countryName FROM energyUseCountry INNER JOIN energyType ON energyType.energyTypeID = energyUseCountry.energyTypeID INNER JOIN country ON country.countryID = energyUseCountry.countryID WHERE year = 2022 AND ( countryName ILIKE 'DENMARK' OR countryName ILIKE 'GERMANY' OR countryName ILIKE 'SWEDEN' OR countryName ILIKE 'CHINA' OR countryName ILIKE 'UNITED STATES' OR countryName ILIKE 'RUSSIA' OR countryName ILIKE 'WORLD')", (error, results) => {
     if (error) {
       throw error;
     }
     response.status(200).json(results.rows);
   });
 };
+
 
 module.exports = {
   getEnergyMixCountry,

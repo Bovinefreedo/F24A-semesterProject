@@ -2,140 +2,171 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy for Tomorrow, by Team Stygge</title>
-    <link rel="stylesheet" href="skabelon.css">
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Energy for Tomorrow, by Team Stygge</title>
+  <link rel="stylesheet" href="skabelon.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
 <body>
     <header class="header">
-        <a href="index.html" class="logo">THE GLOBAL GOALS PROJECT.</a>
+        <a href="index.html" class="logo">THE GLOBAL GOALS PROJECT</a>
     </header>
 
-    <div class="box">
+    <div class="container">
         <section class="one">
             <div class="background" id="gradient">
                 <div class="LandingBox">
                     <div id="LandingPageText">
-                        Energy for Tomorrow
+                        Fremtidens energi
                         <div id="LandingPageTextSmall">
                             <div class="Beskrivelse">
-                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-                                piece
-                                of classical Latin literature from 45 BC, making it over 2000 years old. Richard
-                                McClintock,
-                                a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more
-                                obscure
-                                Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the
-                                word in classical literature, discovered the undoubtable source.
+                                Bæredygtig energi handler om at finde måder at producere og forbruge energi på, der ikke udnytter vores naturressourcer uopretteligt og ikke skader miljøet. Fra sol- og vindenergi til vandkraft og biomasse, er der mange spændende og miljøvenlige måder at dække vores energibehov på. På vores hjemmeside kan du opdage en masse data omkring energi i Danmark og verdenen, og finde ud af om vi har nok energi i fremtiden.
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
 
         <section class="two">
-            <div class="background">
-                <div class="kasse 1">
-                    <h5>Befolkningstilvækstningen gennem tiden for hele verdenen</h5>
-                    <p>Befolkningstilvæksten gennem tiden har været kompleks og påvirket af medicinske og
-                        teknologiske fremskridt. Efter landbrugets opståen steg befolkningen gradvist, men det var først
-                        under
-                        den industrielle revolution, at væksten blev eksplosiv.</p>
+          <div class="background">
+              <div class="adgang-small-text-boxes">
+                <div class="with-text-box">
+                  <h1>2022</h1>
+                    <h2>Personer med adgang</h2>
+                    <span id="adgangWorld">Ca. 0 Personer</span>
                 </div>
-                <div class="kasse 2">
-                    <div id="Population"></div>
+                <div class="no-text-box">
+                    <h2>Personer som ikke har adgang</h2>
+                    <span id="noadgangWorld">Ca. 0 Personer</span>
                 </div>
             </div>
+              <div id="adgang"></div>
+          </div>
         </section>
+
 
         <section class="three">
-            <div class="background">
-                <div class="quiz-container" id="quiz">
-                    <div class="quiz-header">
-                        <h2 class="header-txt">Hvad tror du</h2>
-                    </div>
-                    <div class="quiz-body">
-                        <h2 id="question">Hvem er julemanden</h2>
-                        <div class="options">
-                            <div class="option" id="a">Berkant med store skæg</div>
-                            <div class="option" id="b">Gio med det store skæg</div>
-                        </div>
-                    </div>
-                    <div class="quiz-footer"></div>
-                    <div class="quiz-detail"></div>
-                </div>
-            </div>
-        </section>
+          <div class="background">
+              <div class="graphno1">
+                  <div class="energyworld">
+                      <h5>Befolkningstilvæksten for verdenen gennem tiden</h5>
+                  </div>
+                  <div id="Population"></div>
+              </div>
+              <div class="message-container">
+                  <div id="futurePopulationMessage">
+                      <p>Forventet befolkningstal for verdenen i 2100...</p>
+                      <p id="animatedCount">NaN</p>
+                  </div>
+              </div>
+          </div>
+      </section>
 
         <section class="four">
-            <div class="background">
-                <div class="kasse 1">Box 1</div>
-                <div class="kasse 2">
-                    <div id="section8Content"></div>
-                </div>
+          <div class="background">
+              <div class="graphno1">
+                  <div class="worldEnergy">
+                      <h5>Verdens energiforbrug</h5>
+                  </div>
+                  <div id="worldEnergy"></div>
+              </div>
+              <div class="text-container">
+                  <div class="large-text-box">
+                      <h2>ESTIMAT FOR ÅR 2100</h2>
+                  </div>
+                  <div class="small-text-boxes">
+                      <div class="text-box">
+                          <h2>ENERGIFORBRUG</h2>
+                          <span id="energyConsumption">+ 0 TWh</span>
+                      </div>
+                      <div class="text-box">
+                          <h2>STIGNING I PROCENT</h2>
+                          <span id="energyConsumptionProcent">0 %</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section class="five">
+        <div class="background">
+          <div class="graphno1">
+            <div class="energyworld">
+              <h5>Danmarks energiforbrug</h5>
             </div>
-        </section>
+            <div id="denmarkEnergy"></div>
+          </div>
+        </div>
+      </section>
 
-        <section class="five" id="section5Content">
-        </section>
+    <section class="six">
+      <div class="app">
+        <h1>Hvilke af de to svarmuligheder er rigtig?</h1>
+        <div class="quiz">
+          <h2 id="question">Is the Earth round?</h2>
+          <div id="answer-buttons"></div>
+        </div>
+        <div id="description" style="display: none;"></div> <!-- New description element -->
+      </div>
+    </section>
 
-        <section class="six">
-            <div class="background">
-                <div class="kasse 1">Box 1</div>
-                <div class="kasse 2">
-                    <div id="treemap-container"></div>
-                </div>
-            </div>
-        </section>
+    <section class="seven">
+      <div class="background">
+        <div id="donutchart"></div>
 
-        <section class="seven">
-            <div class="background">
-                <div class="kasse 1">
-                    <h5>VERDENS ADGANG TIL ELEKTRICITET</h5>
-                    <p>Den præsenterede visualisering illustrerer udviklingen af verdens adgang til elektricitet over
-                        årene. Den anvender et områdegrafikon til at vise antallet af mennesker med og uden adgang til
-                        elektricitet fra 1998 til 2019.
+        <div class="tooltip"></div>
 
-                        Grafen viser en stigning i antallet af mennesker med adgang til elektricitet gennem årene,
-                        hvilket indikerer en positiv udvikling i elektrificeringen globalt set. Samtidig viser den også
-                        det faldende antal mennesker uden adgang til elektricitet, hvilket tyder på fremskridt i retning
-                        af at øge elektricitetsdækningen globalt.</p>
-                </div>
-                <div class="kasse 2">
-                    <div id="adgang"></div>
-                </div>
-            </div>
+        <div class="legend-box">
+          <h3>Energikilder for Danmark i 2022</h3>
+          <div class="legend-items"></div>
+        </div>
+    </section>
 
-        </section>
+    <section class="eight">
+      <div class="backgroundNew">
+        
+        <p>Hvordan sammenligner Danmark mod Kina?
+        Du kan prøve dig frem og lege med de forskellige lande, og få et bedre overblik</p>
+        <div class="radarChart"></div>
+        <form id="countryForm">
+          <label>
+              <input type="checkbox" name="country" value="DENMARK" checked> Danmark
+          </label>
+          <label>
+              <input type="checkbox" name="country" value="CHINA" checked> Kina
+          </label>
+          <label>
+            <input type="checkbox" name="country" value="UNITED STATES" checked> United States
+        </label>
+        
+        <label>
+          <input type="checkbox" name="country" value="RUSSIA" checked> Rusland
+        </label>
+        
+      
+          <button type="button" onclick="updateChart()">Opdatere</button>
+        </form>
 
-        <section class="eight">
-            <div class="background">
-                <div class="kasse 1">
-                </div>
-                <div class="kasse 2">
-                </div>
-            </div>
-        </section>
+    </section>
 
-        <section class="nine">
-            <div class="background">
-                <div class="kasse 1"></div>
-                <div class="kasse 2"></div>
-            </div>
-        </section>
+    <section class="five" id="section5Content">
+    </section>
 
-    </div>
 
-    <script src="script.js" type="module" defer></script>
-    <script src="/src/sections/section2.js"></script>
-    <script src="/src/sections/sectionElectricityAccess.js"></script>
-    <script src="/src/sections/sectionTreeMap.js"></script>
-    <!-- <script src="/src/sections/sectionRadarMap.js"></script> -->
+  <script src="/src/script.js" type="module" defer></script>
+  <script src="/src/sections/sectionpie.js"></script>
+  <script src="/src/WebsiteAnimationAndQuizz.js"></script>
+  <script src="/src/sections/section1.js"></script>
+  <script src="/src/sections/sectionRadarMap.js"></script>
+  <script src="/src/sections/section2.js"></script>
+  <script src="/src/sections/section8.js"></script>
+  <script src="/src/sections/section9.js"></script>
+  <!-- <script src="/src/sections/sectionRadarMap.js"></script> -->
 
 </body>
 

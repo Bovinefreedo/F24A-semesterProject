@@ -19,18 +19,11 @@ export function createSection5(){
     sliderContainer.appendChild(slider);
     let gaugesList = [];
     let counterList = [];
-    let yearDiv = document.createElement('div');
-    yearDiv.innerHTML = "2022"
-    yearDiv.style.fontSize= "17px"
-    gaugeContainer.appendChild(yearDiv); 
     let infoContainer = document.createElement('div');
     infoContainerStyle(infoContainer);
     canvas5.appendChild(infoContainer);
     infoContent(infoContainer);
     let data;
-  
-
-
 
   const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
   fetch(apiUrl)
@@ -257,10 +250,10 @@ function inputSettings(input){
 
 function infoContainerStyle(div){
     div.style.position= "absolute";
-    div.style.top ="20%";
+    div.style.top ="4%";
     div.style.left ="61%";
     div.style.width = "37%";
-    div.style.height = "47%";
+    div.style.height = "92%";
     div.style.gap = '2%';
     div.style.padding = '20px';
     div.style.backgroundColor = '#e3edff';
@@ -276,7 +269,8 @@ function infoContent(div){
     let infoContent = document.createElement('p');
     infoContainer.appendChild(infoContent);
     infoContent.style.fontSize = "13px"
-    infoContent.innerHTML = "Det kan være svært at sige hvor meget energi vi kan producere som verden, hvad verdens samlede kapacitet for energiproduktion er. Kraftværker bliver bygget mens andre tages ud af brug. Vi kan dog sige hvad vores kapacitet som minimum har været, det kan vi ved at se på vores forbrug. Vi kan ikke bruge mere energi end vi kan producere. Vi har lavet nogle speedometre for at se hvor meget vi rent faktisk bruger de enkelte år. I den øverste række har vi det faktiske forbrug. Hvor meget energi brugte vi i et givet årstal. Vores forbrug har ændret sig, så i den nederste række har vi hvor meget det har ændret sig. Vi kan begynde at spekulere på om vi kan se hvor meget vi udbygger vores energiproduktion og hvilken type af energiproduktion vi udbygger, vi skal dog passe lidt på da vores forbrug kan ændre sig af andre årsager. Det bliver i tallene meget tydeligt hvornår Corona satte verdens industri i stå, og hvornår finanskrisen satte en kæp i hjulet energiproduktionen. Se dig lidt omkring og tænk over hvorfor vores energiproduktion ser ud som den ser ud."
+    infoContent.innerHTML =
+      "Verdens energiproduktion er kompleks med kraftværker, der bygges og nedlægges løbende. Ved at analysere vores forbrug over tid kan vi få et minimumsbillede af vores produktionskapacitet. Speedometre viser vores faktiske forbrug og ændringerne over årene. Vi kan spekulere i, hvordan vi udvider vores energiproduktion, men det er vigtigt at være opmærksom på, at ændringer i forbrug kan påvirke dette. Tallene afslører tydeligt, hvornår globale kriser som Corona og finanskrisen har påvirket energiproduktionen.";
 }
 function gaugeContainerElements(div){
     let gaugeContainer = div;
@@ -298,31 +292,44 @@ function gaugeContainerElements(div){
     labelStyle(column1Label);
     gaugeContainer.appendChild(column1Label);
     column1Label.style.top = "24%";
-    column1Label.style.left = "28%";
+    column1Label.style.left = "28.2%";
     column1Label.innerHTML = "Vedvarende Energi"
     column1Label.style.fontSize = "15px"
+    column1Label.style.textAlign = "center";
     let column2Label = document.createElement('div');
     labelStyle(column2Label);
     gaugeContainer.appendChild(column2Label);
     column2Label.style.top = "24%";
     column2Label.style.left = "53%";
-    column2Label.innerHTML = "Atomkraft"
-    column2Label.style.fontSize = "15px"
+    column2Label.innerHTML = "Atomkraft";
+    column2Label.style.fontSize = "15px"; 
+    column2Label.style.textAlign = "center";
     let column3Label = document.createElement('div');
     gaugeContainer.appendChild(column3Label);
     labelStyle(column3Label);
     column3Label.style.top = "24%";
     column3Label.style.left = "78%";
-    column3Label.innerHTML = "Forsil energi"
-    column3Label.style.fontSize = "15px"
+    column3Label.innerHTML = "Fossil energi";
+    column3Label.style.fontSize = "15px";
+    column3Label.style.textAlign = "center";
     let yearLabel = document.createElement('div');
     labelStyle(yearLabel);
     gaugeContainer.appendChild(yearLabel);
-    yearLabel.style.top = "9%";
-    yearLabel.style.left = "50%";
-    yearLabel.innerHTML = "Vælg år"
-    yearLabel.style.fontSize = "15px"
-    yearLabel.style.transform = "translate(-50%,-50%)"
+    yearLabel.style.top = "5%";
+    yearLabel.style.left = "55%";
+    yearLabel.innerHTML = "Vælg år";
+    yearLabel.style.fontSize = "15px";
+    yearLabel.style.transform = "translate(-50%,-50%)";
+    yearLabel.style.display = "absolute";
+    let yearDiv = document.createElement('div');
+    gaugeContainer.appendChild(yearDiv);
+    yearDiv.id = "yearDiv";
+    yearDiv.style.fontSize = "17px";
+    yearDiv.style.left = "50%";
+    yearDiv.style.top = "17%"
+    yearDiv.style.position = "absolute";
+    yearLabel.style.transform = "translate(-50%,-50%)";
+    
 }
 
 function labelStyle(div){
@@ -333,7 +340,7 @@ function labelStyle(div){
 
 function inputActivation(value){  
     let year = Number(value) 
-    yearDiv.innerHTML = year;
+    document.getElementById("yearDiv").innerHTML = year;
     let yearlyChange;
     console.log(data[10].year) 
     for(let i=0; i<data.length; i++){

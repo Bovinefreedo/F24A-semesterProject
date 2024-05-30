@@ -22,13 +22,6 @@ html, body {
     scroll-behavior: smooth;
 }
 
-.box {
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
-    height: 100vh;
-    margin: 0;
-}
-
 section {
     scroll-snap-align: start;
     height: 100vh;
@@ -49,10 +42,8 @@ section {
     background: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
 }
-/* Animation */
 
 /* COLOR / KUN DISSE FARVER MÅ BRUGES
-
 rgba(251,252,252,255)
 rgba(118,62,221,255)
 rgba(164,200,255,255)
@@ -96,18 +87,21 @@ rgb(26,29,50)
     top: 0;
     left: 0;
     width: 100%;
-    padding: 35px 180px;
-    background: rgb(255, 255, 255);
+    padding: 50px 180px;
+    background: transparent;
     justify-content: space-between;
     align-items: center;
+    text-align: center;
     z-index: 100;
 }
 
 .logo {
     font-size: 35px;
+    font-weight: bold;
     color: rgb(34, 34, 34);
     text-decoration: none;
     font-weight: 1000;
+    color: rgba(224, 212, 79, 0.9);
 }
 
 .box {
@@ -132,7 +126,7 @@ section {
 #gradient {
     position: relative;
     width: 150%;
-    height: 100%;
+    height: 140%;
     overflow: hidden; /* Hide overflow to prevent borders from appearing on other sides */
     background: url('LandingBackground.jpg') no-repeat center center; /* Replace with your image path */
     background-size: cover;
@@ -150,45 +144,45 @@ section {
     background: linear-gradient(to right, rgba(0, 0, 0, 0.972) 30%, rgba(0, 0, 0, 0.7) 65%, rgba(0, 0, 0, 0) 100%);
 }
 
-
-
-/* Landing Page + Beskrivelse*/
+/* Landing Page + Beskrivelse */
 .LandingBox {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Align items to the start (left) */
     align-items: center;
     height: 50%;
     width: 100%;
-    text-align: center;
-    margin-top: -200px;
+    text-align: left; /* Align text to the left */
+    margin-top: -250px;
+    padding-left: 150px; /* Add padding to the left */
 }
 
 #LandingPageText {
-    font-size: 80px;
-    max-width: 100%;
+    font-size: 35px;
+    max-width: 80%;
     font-family: "Poppins";
     font-weight: bold;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(224, 212, 79, 0.9);
     z-index: 1; 
     -webkit-font-smoothing: antialiased; 
     -moz-osx-font-smoothing: grayscale;
-    padding-top: 250px;
+    padding-top: 225px;
+    text-align: left; /* Align text to the left */
 }
 
 #LandingPageTextSmall {
-    font-size: 15px;
-    max-width: 100%;
-    padding-right: 100px;
-    padding-left: 100px;
+    font-size: 12px;
+    max-width: 80%;
+    padding-right: 80px;
     font-family: "Poppins";
     font-weight: 500;
     color: rgba(255, 255, 255, 0.9); 
     z-index: 1; 
     -webkit-font-smoothing: antialiased; 
     -moz-osx-font-smoothing: grayscale; 
-    padding-top: 25px;
+    padding-top: 20px;
+    text-align: left; /* Align text to the left */
 }
-/* Landing Page + Beskrivelse*/ 
+/* Landing Page + Beskrivelse */ 
 
 /* Indhold af Opgave */
 .background {
@@ -199,8 +193,21 @@ section {
     height: 80%;
     padding: 35px;
     box-sizing: border-box;
-    background-color: #f0f0f0;
-    background: rgb(26,29,50) ;
+    background: rgb(26,29,50);
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 20px;
+}
+
+.forsidekasse {
+    width: 50%;
+    height: 95%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ccc;
+    border-radius: 10px;
+    background: rgb(227, 237, 255);
+    color: rgb(0, 0, 0);
 }
 
 .kasse {
@@ -210,7 +217,7 @@ section {
     box-sizing: border-box;
     background-color: #ccc;
     border-radius: 10px;
-    background: rgb(227, 237, 255) ;
+    background: rgb(227, 237, 255);
     color: rgb(0, 0, 0);
 }
 
@@ -222,7 +229,6 @@ section {
 .kasse:first-child {
     width: 40%;
 }
-
 .slider {
     -webkit-appearance: none;
     width: 100%;
@@ -257,89 +263,127 @@ section {
 th:first-child, td:first-child {
     width: 40%;
 }
-/* Indhold af Opgave */
 
-/* quizzzz */ /* quizzzz *//* quizzzz *//* quizzzz */
-.option {
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-/* quizzzz */ /* quizzzz *//* quizzzz *//* quizzzz */
+/* GIO GIO GIO */
 
-.option:hover {
-    background-color: #ffffff;
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
 }
 
-.quiz-container {
-    border-radius: 10px;
-    padding: 20px;
+/* Initial state of the sections */
+.one, .two, .three, .four, .five, .six, .seven, .eight, .nine {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Animated state of the sections */
+.swipe-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.app {
+    background: #fff;
     width: 100%;
-    margin: 0 auto;
-    background-color: #caf2f1; /* Fallback color */
-    animation: spinBorder 5s linear infinite;
+    height: 100%;
+    border-radius: 15px;
+    padding: 30px 80px;
+    padding-top: 15%;
+    background-color: #b2c1e944;
 }
 
-
-.quiz-container.false {
-    animation: shake 0.5s ease-in-out;
+.app h1 {
+    font-weight: 25px;
+    color: black;
+    font-weight: 600;
+    border-bottom: 1px solid;
+    padding-bottom: 20px;
 }
 
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
+.quiz {
+    padding: 20px 0;
 }
 
-.quiz-container.green {
-    background-color: rgb(181, 214, 181);
+.quiz h2 {
+    font-size: 18px;
+    color: black;
+    font-weight: 600;
 }
 
-.quiz-body {
-    margin-bottom: 20px;
+.btn {
+    background-color: #fff;
+    color: #000000;
+    font-weight: 600;
+    width: 100%;
+    border: 1px solid #222;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: left;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.answer-description {
-    margin-top: 10px;
+.btn:hover {
+    background: #d5d5d5;
+    color: rgb(0, 0, 0);
 }
+
+.btn.correct {
+    background-color: rgb(95, 189, 95);
+    color: white;
+}
+
+.btn.wrong {
+    background-color: rgb(175, 90, 90);
+    color: white;
+}
+
+.energyworld {
+    color: rgb(255, 255, 255);
+    border-bottom: 1px solid;
+    padding-bottom: 30px;
+}
+
+.energyworld h5{
+    font-size: larger;
+    font-weight: bold;
+    padding: auto;
+}
+
+.graphno1 {
+    width: 100%;
+    max-width: 100%;
+    height: 90%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.worldEnergy h5 {
+    color: white;
+}
+
+.line {
+    fill: none;
+    stroke-width: 2px;
+}
+.Low {
+    stroke: steelblue;
+}
+.Medium {
+    stroke: green;
+}
+.High {
+    stroke: red;
+} 
 
 rect {
     pointer-events: all;
-    fill-opacity: 0;
-    stroke-opacity: 0;
     z-index: 1;
 }
 
-.toolTip {
-  position: absolute;
-  padding: 10px;
-  background-color: steelblue;
-  color: white;
-  border: 1px solid white;
-  border-radius: 10px;
-  display: none;
-  opacity: .75;
-}
-
-body {
-    font-family: 'Times New Roman', Times, serif;       /* Skrifttype for body-tekst */      
-    font-size: 11px;                                    /* Skriftstørrelse for body-tekst (11 pixels) */
-    font-weight: 300;                                   /* Skrifttykkelse for body-tekst (light) */
-    fill: #242424;                                      /* Fyldfarve for SVG-elementer i body (mørkegrå) */   
-    text-align: center;                                 /* Centrerer tekst i body */
-    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff; /* Skygge på body-tekst (hvid) */
-    cursor: default;                                    /* Standardmusemarkør over body */
-}
-
-.legend {
-    font-family: 'Raleway', sans-serif;                 /* Skrifttype for legend (forklaring) */
-    fill: #333333;                                      /* Fyldfarve for tekst i legenden (mørkegrå) */
-}
 
 .tooltip {
     fill: #333333;                                      /* Fyldfarve for tekst i tooltips (mørkegrå) */
@@ -371,3 +415,230 @@ body {
     color: #ababab;
 }
   
+
+.tooltip {
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    pointer-events: none;
+    opacity: 0;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align text to the left */
+    text-align: left; /* Align text to the left if it's multi-line */
+}
+
+
+
+.legend-box {
+    position:absolute;
+    top: 50%;
+    height: 60%;
+    left: 80px; /* Adjust this value to position the box to the opposite side */
+    transform: translateY(-40%);
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 25px;
+    border-radius: 5px;
+    justify-content: center;
+    width: 325x;
+}
+
+.legend-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+.legend-item {
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.legend-color {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.line {
+    fill: none;
+    stroke-width: 2px;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+
+.message-container {
+    margin-left: 20px; /* Adjust as needed */
+    margin-top: -100px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* Tilføj animationen til #animatedCount */
+#animatedCount {
+    font-weight: bolder;
+    font-size: 30px; /* Adjust font size as needed */
+}
+
+/* Graph styling */
+.graphno1 {
+    width: 100%;
+    max-width: 50%; /* Adjust this value to allocate space for the text boxes */
+    height: 90%;
+    padding: 35px;
+    box-sizing: border-box;
+}
+
+/* Text container styling */
+.text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 35%;
+    max-width: 50%;
+    height: 50%;
+    padding-left: 20px;
+}
+
+/* Large text box styling */
+.large-text-box {
+    width: 100%;
+    height: 30%; /* Adjust to ensure the large box takes appropriate space */
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgb(82, 102, 150);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    overflow: auto;
+    background-color: rgb(82, 102, 150);
+    margin-bottom: 10px; /* Adjust this to control spacing */
+    display: flex;
+    align-items: flex-start; /* Align items to the start (top) */
+    justify-content: center;
+}
+
+/* Container for small text boxes */
+.small-text-boxes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60%;
+    gap: 10px; /* Use gap to control space between the two boxes */
+}
+
+/* Text box styling */
+.text-box {
+    width: 48%; /* Adjust to ensure both boxes fit side by side */
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgb(82, 102, 150);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    overflow: auto;
+    background-color: rgb(82, 102, 150);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Align items to the start (top) */
+    justify-content: flex-start;
+}
+
+.large-text-box h2{ 
+    font-size: 15px; /* Adjust the font size as needed */
+    text-align: center;
+    margin: 0;
+    margin-top: 10px; /* Adjust this to control vertical spacing from the top */
+}
+
+/* H2 styling */
+.text-box h2  {
+    font-size: 10px; /* Adjust the font size as needed */
+    text-align: center;
+    margin: 0;
+    margin-top: 10px; /* Adjust this to control vertical spacing from the top */
+}
+
+/* World Energy styling */
+.worldEnergy h5 {
+    color: white;
+}
+
+#energyConsumption {
+    margin-top: 35px; /* Adjust this to control vertical spacing */
+    font-size: 18px; /* Adjust the font size as needed */
+    color: rgb(255, 255, 255); /* Ensure the color matches the text box */
+}
+
+#energyConsumptionProcent {
+    margin-top: 35px; /* Adjust this to control vertical spacing */
+    font-size: 18px; /* Adjust the font size as needed */
+    color: rgb(255, 255, 255); /* Ensure the color matches the text box */
+}
+
+.adgang-small-text-boxes {
+    display: flex;
+    flex-direction: column;
+}
+
+.with-text-box,
+.no-text-box {
+    width: 200px;
+    height: 200px;
+    background-color: rgb(82, 102, 150);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-left: 40%;
+    color: white;
+}
+
+.with-text-box h2,
+.no-text-box h2,
+.with-text-box span,
+.no-text-box span {
+    margin: 0;
+    color: white; /* Ensure text is visible against the purple background */
+    font-size: 11px; /* Adjust the font size as needed */
+    text-align: center;
+    margin: 0;
+    margin-top: 10px; /* Adjust this to control vertical spacing from the top */
+    width: 75%;
+}
+
+.large-text-box h2{ 
+    font-size: 15px; /* Adjust the font size as needed */
+    text-align: center;
+    margin: 0;
+    margin-top: 10px; /* Adjust this to control vertical spacing from the top */
+}
+
+.backgroundNew {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    padding: 35px;
+    box-sizing: border-box;
+    background:  rgba(255, 255, 255, 0.8);
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 20px;
+}
