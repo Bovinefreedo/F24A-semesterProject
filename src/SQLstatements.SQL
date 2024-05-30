@@ -56,7 +56,7 @@ CREATE TABLE energyUseCountry(
 );
 
 CREATE TABLE popProjRegion (
-    regionID REFERENCES region(regionID),
+    regionID INT REFERENCES region(regionID),
     year INT,
     estimate VARCHAR,
     poulation VARCHAR
