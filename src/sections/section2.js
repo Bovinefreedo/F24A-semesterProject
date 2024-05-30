@@ -18,7 +18,7 @@ async function loadChart() {
         const populations = populationData.map(item => item.population);
 
         // Chart dimensions
-        const margin = { top: 50, right: 50, bottom: 80, left: 80 };
+        const margin = { top: 25, right: 50, bottom: 80, left: 80 };
         const width = 650 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
 
