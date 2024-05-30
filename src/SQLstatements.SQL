@@ -86,7 +86,7 @@ SELECT amountInTWH, energyUseCountry.year, energyName, countryName
       ON energyType.energyTypeID = energyUseCountry.energyTypeID 
     INNER JOIN country 
       ON country.countryID = energyUseCountry.countryID 
-  WHERE energyUseCountry.year = 2022 
+  WHERE energyUseCountry.year = 2021 
     AND (countryName ILIKE 'DENMARK' 
     OR countryName ILIKE 'UNITED STATES' 
     OR countryName ILIKE 'CHINA' 
@@ -99,7 +99,7 @@ SELECT population, countryName
   FROM country
     INNER JOIN populationCountry
       ON country.countryID = populationCountry.countryID
-    WHERE energyUseCountry.year = 2022 
+    WHERE energyUseCountry.year = 2021 
     AND (countryName ILIKE 'DENMARK' 
     OR countryName ILIKE 'UNITED STATES' 
     OR countryName ILIKE 'CHINA' 
@@ -113,7 +113,7 @@ SELECT amountInTWH, energyUseRegion.year, energyName, regionName
     ON energyType.energyTypeID = energyUseRegion.energyTypeID
   INNER JOIN Region
     ON Region.regionID = energyUseRegion.regionID
-  WHERE year = energyUseRegion.year = 2022   
+  WHERE energyUseRegion.year = 2021    
 
 "SELECT SUM(amountInTWH), energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, yearORDER BY year ASC"
 

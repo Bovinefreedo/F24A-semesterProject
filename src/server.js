@@ -31,6 +31,7 @@ app.get("/getEnergyUseWorld", db.getEnergyUseWorld);
 app.get("/getPopProj", db.getPopProj);
 app.get("/getPopContryForComperison", db.getPopContryForComperison);
 app.get("/getEnergyMixCountryForComperison", db.getEnergyMixCountryForComperison);
+app.get("/getEnergyMixWorld", db.getEnergyMixWorld);
 app.post("insertPopulationRegion",db.insertPopulationRegion);
 app.post("/populatePopulation",db.populatePopulation);
 app.post("/insertCountry",db.insertCountry);

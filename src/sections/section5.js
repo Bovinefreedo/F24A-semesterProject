@@ -29,9 +29,6 @@ export function createSection5(){
     infoContent(infoContainer);
     let data;
   
-
-
-
   const apiUrl = 'http://localhost:4000/getEnergyUseSuperType';
   fetch(apiUrl)
       .then(response => {
@@ -203,7 +200,6 @@ function RollingCounter(ID, parentDiv, positionTop, positionLeft, intialValue){
     counter.id = "counter"+ID;
     counter.innerHTML = intialValue;
     this.changeNumber = (newValue) => {
-        console.log("this far OK")
         d3.select(this.counter).transition()
         .tween("text", () => {
         const interpolator = d3.interpolateNumber(this.start, newValue);
@@ -335,10 +331,8 @@ function inputActivation(value){
     let year = Number(value) 
     yearDiv.innerHTML = year;
     let yearlyChange;
-    console.log(data[10].year) 
     for(let i=0; i<data.length; i++){
         if(data[i].year == year){
-            console.log("called input acvtiation")  
             if(data[i].energysupertype === "renewable"){
                 yearlyChange = calculateYearlyChange(data[i].change);
                 gaugesList[0].needle.animateOn(gaugesList[0].chart, data[i].usedenergy/140000);

@@ -14,7 +14,6 @@ fetch(yearsFromApi)
     return response.json();
 })
 .then(yearData => {
-  console.log(yearData)
 })
 .catch(error => {
     console.error('Error:', error);

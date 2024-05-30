@@ -396,6 +396,15 @@ const getPopulation = (request, response) => {
   });
 };
 
+const getEnergyMixWorld = (request, response) => {
+  pool.query("SELECT amountInTWH, energyUseRegion.year, energyName, regionName FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID INNER JOIN Region ON Region.regionID = energyUseRegion.regionID WHERE energyUseRegion.year = 2021", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 const getEnergyUseSuperType = (request, response) => {
   pool.query("SELECT SUM(amountInTWH) AS usedEnergy, energyUseRegion.year, energySuperType FROM energyUseRegion INNER JOIN energyType ON energyType.energyTypeID = energyUseRegion.energyTypeID GROUP BY energySuperType, year ORDER BY energySuperType ASC, year ASC" , (error, results) => {
     if (error) {
@@ -433,6 +442,7 @@ const getEnergyMixCountry = (request, response) => {
 };
 
 module.exports = {
+  getEnergyMixWorld,
   getPopContryForComperison,
   getEnergyMixCountryForComperison,
   getEnergyMixCountry,

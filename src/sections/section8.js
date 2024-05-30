@@ -13,7 +13,6 @@ export function createSection8() {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       // set margin, width and height
       const width = 1250;
       const height = 500;
