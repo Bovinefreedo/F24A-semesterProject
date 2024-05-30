@@ -23,7 +23,7 @@ const svg = d3.select("#donutchart")
   .attr("width", width)
   .attr("height", height)
   .append("g")
-  .attr("transform", `translate(${width / 2 + 100}, ${height / 2})`); // Adjust this value to move it more to the right
+  .attr("transform", `translate(${width / 2 + 200}, ${height / 2})`); // Adjust this value to move it more to the right
 
 const arc = d3.arc()
   .innerRadius(innerRadius) // Set the inner radius
