@@ -1,219 +1,199 @@
-async function fetchPopulationData() {
-    const response = await fetch('http://localhost:4000/getPopulation');
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    return data;
-}
-
-async function loadChart() {
+// Funktion til at starte animationer og indlæsninger, når 50% af sektionen er synlig
+function startAnimationsAndLoading() {
     try {
-        const populationData = await fetchPopulationData();
-        
-        // Sort populationData by year
-        populationData.sort((a, b) => a.year - b.year);
+        // Indlæs energiforbrugstælleren
+        loadEnergyConsumptionCounter();
 
-        const years = populationData.map(item => item.year);
-        const populations = populationData.map(item => item.population);
+        // Indlæs procentvis stigningstælleren
+        loadPercentageIncreaseCounter();
 
-        // Chart dimensions
-        const margin = { top: 30, right: 10, bottom: 80, left: 80 };
-        const width = 800 - margin.left - margin.right;
-        const height = 400 - margin.top - margin.bottom;
-
-        // Scales
-        const xScale = d3.scaleLinear()
-            .domain(d3.extent(years))
-            .range([0, width]);
-
-        const maxYValue = 9000000000; // Set the maximum y-axis value
-        const yScale = d3.scaleLinear()
-            .domain([0, maxYValue])
-            .nice()
-            .range([height, 0]);
-
-        // Area generator
-        const area = d3.area()
-            .x(d => xScale(d.year))
-            .y0(yScale(0))
-            .y1(d => yScale(d.population));
-
-        // Line generator
-        const line = d3.line()
-            .x(d => xScale(d.year))
-            .y(d => yScale(d.population));
-
-        // SVG container
-        const svg = d3.select("#Population")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`)
-            .style("background-color", "white"); // Set background color to white
-
-        // Remove the top and left axis lines
-        svg.select(".domain").remove();
-
-        // Gridlines
-        svg.append("g")
-            .attr("class", "grid")
-            .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(xScale)
-                .tickSize(-height)
-                .tickFormat("")
-            )
-            .selectAll("line")
-            .style("color", "white")
-            .attr("stroke-opacity", 0.2); // Adjust the opacity here
-
-        svg.append("g")
-            .attr("class", "grid")
-            .call(d3.axisLeft(yScale)
-                .tickSize(-width)
-                .tickFormat("")
-            )
-            .selectAll("line")
-            .style("color", "white")
-            .attr("stroke-opacity", 0.2); // Adjust the opacity here
-
-        // Axes
-        svg.append("g")
-            .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(xScale)
-                .tickFormat(d3.format("d"))
-                .tickSize(0)
-                .tickPadding(10)
-            )
-            .selectAll("text")
-            .attr("fill", "white"); // Adjust the color of the x-axis labels
-
-        svg.append("g")
-            .call(d3.axisLeft(yScale)
-                .tickSize(0)
-                .tickPadding(10)
-            )
-            .selectAll("text")
-            .attr("fill", "white"); // Adjust the color of the y-axis labels
-
-        // Animated text
-        const text = svg.append("text")
-            .attr("x", width - 125) // Position the text at the end of the x axis
-            .attr("y", height - -50) // Position the text just above the x axis
-            .attr("fill", "white")
-            .attr("font-size", "14px")
-            .attr("text-anchor", "middle");
-
-        let previousPopulation = populations[0];
-        let previousYear = years[0];
-
-        // Function to interpolate the text values
-        const updateText = (startValue, endValue, startTime, duration) => {
-            const interpolatePopulation = d3.interpolateNumber(startValue, endValue);
-            const interpolateYear = d3.interpolateNumber(previousYear, previousYear + 1);
-
-            d3.transition()
-                .duration(duration)
-                .tween("text", function() {
-                    return function(t) {
-                        text.text(`Year: ${Math.round(interpolateYear(t))}, Population: ${Math.round(interpolatePopulation(t)).toLocaleString()}`);
-                    };
-                });
-
-            previousYear += 1;
-        };
-
-        // Animate through each population data point
-        for (let i = 1; i < populationData.length; i++) {
-            setTimeout(() => {
-                updateText(previousPopulation, populations[i], i * (10000 / populationData.length), 10000 / populationData.length);
-                previousPopulation = populations[i];
-            }, i * (5000 / populationData.length));
-        }
-
-        // Draw the line path with loading animation
-        svg.append("path")
-            .datum(populationData)
-            .attr("fill", "none")
-            .attr("stroke", "steelblue")
-            .attr("stroke-width", 4)
-            .attr("d", line)
-            .call(animatePath);
-
-        function animatePath(path) {
-            const length = path.node().getTotalLength();
-            path.attr("stroke-dasharray", length + " " + length)
-                .attr("stroke-dashoffset", length)
-                .transition()
-                .duration(5000)
-                .ease(d3.easeLinear)
-                .attr("stroke-dashoffset", 0)
-                .on("end", () => {
-                    startCountUpAnimation(30); // Start tælleren, når diagrammet er færdig med at indlæse
-                });
-        }
-
+        // Indlæs verdens energiforbrugsgraf
+        loadWorldEnergyGraph();
     } catch (error) {
-        console.error('Error loading the chart:', error);
+        console.error('Error starting animations and loading:', error);
     }
 }
 
-function startCountUpAnimation(durationInSeconds) {
-    const countElement = document.getElementById("animatedCount");
-    let count = 0;
-    const targetCount = 10800000000; // Målet er 10,8 milliarder
-    const totalIncrements = targetCount - count;
-    const incrementsPerSecond = totalIncrements / (durationInSeconds * 500); // Antal tælleforøgelser pr. millisekund
+// Funktion til at indlæse energiforbrugstælleren
+function loadEnergyConsumptionCounter() {
+    const targetNumber = 846343;
+    const duration = 3000; // Duration of the animation in milliseconds
+    const frameDuration = 1000 / 60; // Approximate frame duration for 60fps
+    const totalFrames = Math.round(duration / frameDuration);
+    const easeOutQuad = t => t * (2 - t);
 
-    let startTime = null;
-    let previousTime = null;
+    let frame = 0;
+    const counter = document.getElementById("energyConsumption");
+    const updateCounter = () => {
+        frame++;
+        const progress = easeOutQuad(frame / totalFrames);
+        const currentNumber = Math.round(targetNumber * progress);
 
-    function updateCount(timestamp) {
-        if (!startTime) startTime = timestamp;
-        if (!previousTime) previousTime = timestamp;
+        counter.innerText = `+ ${currentNumber.toLocaleString()} TWh`;
 
-        const elapsedTime = timestamp - previousTime;
-
-        count += elapsedTime * incrementsPerSecond; // Inkrementer tælleren med passende beløb
-
-        if (count >= targetCount) {
-            count = targetCount; // Sikre, at tælleren ikke overstiger målet
-        } else {
-            requestAnimationFrame(updateCount); // Planlæg opdatering af tælleren til næste animation frame
+        if (frame < totalFrames) {
+            requestAnimationFrame(updateCounter);
         }
+    };
 
-        // Juster farven baseret på tallets størrelse
-        const colorIntensity = Math.min(255, Math.floor(((count - 5000000000) / (targetCount - 5000000000)) * 255)); // Starter farveændringen senere
-        const textColor = `rgb(255, ${255 - colorIntensity * 2}, ${255 - colorIntensity * 2})`; // Neon-rød farvegradient
-
-
-        countElement.textContent = Math.floor(count).toLocaleString(); // Opdater teksten i elementet med den nuværende tæller værdi
-        countElement.style.color = textColor; // Indstil tekstfarven baseret på gradienten
-
-        // Opdater forrige tid for næste iteration
-        previousTime = timestamp;
-    }
-
-    requestAnimationFrame(updateCount); // Start animationen
+    requestAnimationFrame(updateCounter);
 }
 
-// Eksempel på brug:
-// startCountUpAnimation(30); // Starter tællingen op og angiver, at det skal tage 30 sekunder
+// Funktion til at indlæse procentvis stigningstælleren
+function loadPercentageIncreaseCounter() {
+    const targetNumber = 404;
+    const duration = 5000; // Duration of the animation in milliseconds
+    const frameDuration = 1000 / 60; // Approximate frame duration for 60fps
+    const totalFrames = Math.round(duration / frameDuration);
+    const easeOutQuad = t => t * (2 - t);
 
+    let frame = 0;
+    const counter = document.getElementById("energyConsumptionProcent");
+    const updateCounter = () => {
+        frame++;
+        const progress = easeOutQuad(frame / totalFrames);
+        const currentNumber = Math.round(targetNumber * progress);
 
-// Intersection Observer til at starte diagramindlæsningen
-const sectionThree = document.querySelector('.three');
+        counter.innerText = `+ ${currentNumber.toLocaleString()} %`;
+
+        if (frame < totalFrames) {
+            requestAnimationFrame(updateCounter);
+        }
+    };
+
+    requestAnimationFrame(updateCounter);
+}
+
+// Funktion til at indlæse verdens energiforbrugsgraf
+function loadWorldEnergyGraph() {
+    const apiUrl = "http://localhost:4000/getEnergyUseWorld";
+    fetch(apiUrl)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+
+            const margin = { top: 50, right: 10, bottom: 80, left: 100 };
+            const width = 650 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            // Append SVG to the container
+            const svg = d3.select("#worldEnergy")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            // Create scales for x and y axes
+            const x = d3.scaleLinear()
+                .domain(d3.extent(data, d => d.date))
+                .range([0, width]);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.value)])
+                .range([height, 0]);
+
+            // Create a line generator
+            const line = d3.line()
+                .x(d => x(d.date))
+                .y(d => y(d.value));
+                // Add y axis label
+            svg
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0 - margin.left)
+                .attr("x", 0 - height / 2)
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .style("font-size", "14px")
+                .style("fill", "white")
+                .style("font-family", "sans-serif")
+                .text("Terawatt i timen");
+
+            // Append x and y axes
+            svg.append("g")
+                .attr("transform", `translate(0,${height})`)
+                .style("color", "white")
+                .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+
+            svg.append("g")
+                .style("color", "white")
+                .call(d3.axisLeft(y));
+
+            // Append the line path
+            const path = svg.append("path")
+                .datum(data)
+                .attr("class", "line")
+                .attr("d", line)
+                .attr("stroke", "steelblue")
+                .attr("fill", "none");
+
+            // Get the total length of the line for animation
+            const totalLength = path.node().getTotalLength();
+
+            // Animate the line path
+            path.attr("stroke-dasharray", totalLength + " " + totalLength)
+                .attr("stroke-dashoffset", totalLength)
+                .transition()
+                .duration(2000)
+                .ease(d3.easeLinear)
+                .attr("stroke-dashoffset", 0);
+
+            // Append tooltip to the chart container
+            const tooltip = d3.select("#worldEnergy")
+                .append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+
+            // Add an invisible rect to detect mouse events for the tooltip
+            svg.append("rect")
+                .attr("width", width)
+                .attr("height", height)
+                .style("fill", "none")
+                .style("pointer-events", "all")
+                .on("mousemove", function(event) {
+                    const mouseX = d3.pointer(event)[0];
+                    const x0 = x.invert(mouseX);
+                    const bisectDate = d3.bisector(d => d.date).left;
+                    const index = bisectDate(data, x0, 1);
+                    const d = data[index];
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", 0.9);
+                    tooltip.html(`Date: ${d.date}<br>Value: ${d3.format(",")(d.value)}`)
+                        .style("left", (event.pageX) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", function() {
+                    tooltip.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
+        }).
+// ...Fortsættelse af koden
+
+catch(error => {
+    console.error('Error fetching the data:', error);
+});
+}
+
+// Vælg sektionen, du vil observere
+const sectionTwo = document.querySelector('.two');
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-            loadChart();
-            observer.unobserve(sectionThree); // Stop observationen, når diagrammet er indlæst
-        }
-    });
+entries.forEach(entry => {
+if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+    startAnimationsAndLoading(); // Start animationer og indlæsninger
+    observer.unobserve(sectionTwo); // Stop observationen, når data og graf er indlæst
+}
+});
 }, {
-    threshold: 0.5
+threshold: 0.5 // Definerer, hvor stor en del af elementet der skal være synlig for at udløse observationen
 });
 
 // Start observationen
-observer.observe(sectionThree);
+observer.observe(sectionTwo);

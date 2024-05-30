@@ -1,3 +1,51 @@
+document.addEventListener("DOMContentLoaded", function() {
+  const targetNumber = 846343;
+  const duration = 3000; // Duration of the animation in milliseconds
+  const frameDuration = 1000 / 60; // Approximate frame duration for 60fps
+  const totalFrames = Math.round(duration / frameDuration);
+  const easeOutQuad = t => t * (2 - t);
+
+  let frame = 0;
+  const counter = document.getElementById("energyConsumption");
+  const updateCounter = () => {
+      frame++;
+      const progress = easeOutQuad(frame / totalFrames);
+      const currentNumber = Math.round(targetNumber * progress);
+
+      counter.innerText = `+ ${currentNumber.toLocaleString()} TWh`;
+
+      if (frame < totalFrames) {
+          requestAnimationFrame(updateCounter);
+      }
+  };
+
+  requestAnimationFrame(updateCounter);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  const targetNumber = 404;
+  const duration = 5000; // Duration of the animation in milliseconds
+  const frameDuration = 1000 / 60; // Approximate frame duration for 60fps
+  const totalFrames = Math.round(duration / frameDuration);
+  const easeOutQuad = t => t * (2 - t);
+
+  let frame = 0;
+  const counter = document.getElementById("energyConsumptionProcent");
+  const updateCounter = () => {
+      frame++;
+      const progress = easeOutQuad(frame / totalFrames);
+      const currentNumber = Math.round(targetNumber * progress);
+
+      counter.innerText = `+ ${currentNumber.toLocaleString()} %`;
+
+      if (frame < totalFrames) {
+          requestAnimationFrame(updateCounter);
+      }
+  };
+
+  requestAnimationFrame(updateCounter);
+});
+
 const apiUrl = "http://localhost:4000/getEnergyUseWorld";
 fetch(apiUrl)
   .then((response) => {
@@ -10,7 +58,7 @@ fetch(apiUrl)
     console.log(data);
 
     const margin = { top: 50, right: 10, bottom: 80, left: 100 };
-    const width = 1000 - margin.left - margin.right;
+    const width = 650 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
     // Append SVG to the container
@@ -107,5 +155,20 @@ fetch(apiUrl)
                   .style("opacity", 0);
        });
 }).catch(error => {
-    console.error('Error fetching the data:', error);
+
+  console.error('Error fetching the data:', error);
 });
+
+const sectionTwo = document.querySelector('.two'); 
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.9) {
+          loadDataAndGraph(); 
+          observer.unobserve(sectionTwo); 
+      }
+  });
+}, {
+  threshold: 0.9 
+});
+
+observer.observe(sectionTwo);
