@@ -141,13 +141,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-animateCounter("adgangWorld", 500, "Personer"); // Specifik værdi for adgangWorld
-animateCounter("noadgangWorld", 1000, "Personer"); // Specifik værdi for noadgangWorld
+animateCounter("adgangWorld", 7110000000, "Personer"); // Specifik værdi for adgangWorld
+animateCounter("noadgangWorld", 790000000., "Personer"); // Specifik værdi for noadgangWorld
 
 
 // Funktion til at animere op til et målnummer
 function animateCounter(elementId, targetNumber, unit) {
-const duration = 3000; // Animationens varighed i millisekunder
+const duration = 8000; // Animationens varighed i millisekunder
 const frameDuration = 1000 / 60; // Omtrentlig varighed for et frame ved 60fps
 const totalFrames = Math.round(duration / frameDuration);
 const easeOutQuad = t => t * (2 - t);
