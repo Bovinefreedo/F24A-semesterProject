@@ -518,7 +518,7 @@ rect {
     padding: 10px;
     box-sizing: border-box;
     background-color: rgb(82, 102, 150);
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     border-radius: 10px;
     overflow: auto;
     background-color: rgb(82, 102, 150);
@@ -544,7 +544,7 @@ rect {
     padding: 10px;
     box-sizing: border-box;
     background-color: rgb(82, 102, 150);
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     border-radius: 10px;
     overflow: auto;
     background-color: rgb(82, 102, 150);
@@ -577,13 +577,13 @@ rect {
 #energyConsumption {
     margin-top: 35px; /* Adjust this to control vertical spacing */
     font-size: 18px; /* Adjust the font size as needed */
-    color: rgb(0, 0, 0); /* Ensure the color matches the text box */
+    color: rgb(255, 255, 255); /* Ensure the color matches the text box */
 }
 
 #energyConsumptionProcent {
     margin-top: 35px; /* Adjust this to control vertical spacing */
     font-size: 18px; /* Adjust the font size as needed */
-    color: rgb(0, 0, 0); /* Ensure the color matches the text box */
+    color: rgb(255, 255, 255); /* Ensure the color matches the text box */
 }
 
 .adgang-small-text-boxes {
