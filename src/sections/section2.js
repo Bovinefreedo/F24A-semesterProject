@@ -18,8 +18,8 @@ async function loadChart() {
         const populations = populationData.map(item => item.population);
 
         // Chart dimensions
-        const margin = { top: 30, right: 10, bottom: 80, left: 80 };
-        const width = 800 - margin.left - margin.right;
+        const margin = { top: 50, right: 50, bottom: 80, left: 80 };
+        const width = 650 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
 
         // Scales
@@ -217,3 +217,4 @@ const observer = new IntersectionObserver((entries) => {
 
 // Start observationen
 observer.observe(sectionThree);
+
