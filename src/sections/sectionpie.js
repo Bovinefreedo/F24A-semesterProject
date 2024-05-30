@@ -10,8 +10,8 @@ const data = [
   { "value": 49.540455, "year": 2022, "axis": "Wind", "countryname": "DENMARK" }
 ];
 
-const width = 1000;
-const height = 500;
+const width = 1300;
+const height = 400;
 const radius = Math.min(width, height) / 2;
 const innerRadius = radius * 0.5; // Set the inner radius for the donut chart
 
@@ -23,7 +23,7 @@ const svg = d3.select("#donutchart")
   .attr("width", width)
   .attr("height", height)
   .append("g")
-  .attr("transform", `translate(${width / 2 + 200}, ${height / 2})`); // Adjust this value to move it more to the right
+  .attr("transform", `translate(${width / 2 + 50}, ${height / 2})`); // Adjust this value to move it more to the right
 
 const arc = d3.arc()
   .innerRadius(innerRadius) // Set the inner radius
