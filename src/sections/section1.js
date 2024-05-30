@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function() {
   const targetNumber = 404;
-  const duration = 5000; // Duration of the animation in milliseconds
+  const duration = 3000; // Duration of the animation in milliseconds
   const frameDuration = 1000 / 60; // Approximate frame duration for 60fps
   const totalFrames = Math.round(duration / frameDuration);
   const easeOutQuad = t => t * (2 - t);
@@ -155,20 +155,6 @@ fetch(apiUrl)
                   .style("opacity", 0);
        });
 }).catch(error => {
-
-  console.error('Error fetching the data:', error);
+    console.error('Error fetching the data:', error);
 });
 
-const sectionTwo = document.querySelector('.two'); 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-      if (entry.isIntersecting && entry.intersectionRatio > 0.9) {
-          loadDataAndGraph(); 
-          observer.unobserve(sectionTwo); 
-      }
-  });
-}, {
-  threshold: 0.9 
-});
-
-observer.observe(sectionTwo);
