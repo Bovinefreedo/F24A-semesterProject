@@ -32,9 +32,9 @@ function loadElectricityChart() {
     });
 
     // Chart dimensions
-    const margin = { top: 20, right: 30, bottom: 40, left: 60 };
-    const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const margin = { top: 20, right: 30, bottom: 20, left: 175 };
+    const width = 950 - margin.left - margin.right;
+    const height = 440 - margin.top - margin.bottom;
 
     // Scales
     const xScale = d3.scaleBand()
@@ -57,66 +57,68 @@ function loadElectricityChart() {
     // Axes
     svg.append("g")
         .attr("transform", `translate(0,${height})`)
+        .style("color", "white") // Set axis color to white
         .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
 
     svg.append("g")
+        .style("color", "white") // Set axis color to white
         .call(d3.axisLeft(yScale).tickFormat(d => d + '%'));
 
     // Tooltip
     const tooltip = d3.select("body").append("div")
         .attr("class", "tooltip");
 
-// Bars for percentage without electricity
-svg.selectAll(".bar-without")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("class", "bar-without")
-    .attr("x", d => xScale(d.year))
-    .attr("y", height) // Start from the bottom of the chart
-    .attr("width", xScale.bandwidth())
-    .attr("height", 0) // Start with height 0
-    .attr("fill", "rgb(175, 90, 90)") // Ensure this fill color is applied
-    .on("mouseover", function(event, d) {
-        tooltip.style("opacity", 1)
-            .html(`Year: ${d.year}<br>Without Electricity: ${d.percentWithoutElectricity.toFixed(2)}%`)
-            .style("left", (event.pageX + 5) + "px")
-            .style("top", (event.pageY - 28) + "px");
-    })
-    .on("mouseout", function() {
-        tooltip.style("opacity", 0);
-    })
-    .transition()
-    .duration(1000) // 1 second animation
-    .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
-    .attr("y", d => yScale(d.percentWithoutElectricity))
-    .attr("height", d => height - yScale(d.percentWithoutElectricity));
+    // Bars for percentage without electricity
+    svg.selectAll(".bar-without")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar-without")
+        .attr("x", d => xScale(d.year))
+        .attr("y", height) // Start from the bottom of the chart
+        .attr("width", xScale.bandwidth())
+        .attr("height", 0) // Start with height 0
+        .attr("fill", "rgb(175, 90, 90)") // Ensure this fill color is applied
+        .on("mouseover", function(event, d) {
+            tooltip.style("opacity", 1)
+                .html(`Year: ${d.year}<br>Without Electricity: ${d.percentWithoutElectricity.toFixed(2)}%`)
+                .style("left", (event.pageX + 5) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function() {
+            tooltip.style("opacity", 0);
+        })
+        .transition()
+        .duration(1000) // 1 second animation
+        .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
+        .attr("y", d => yScale(d.percentWithoutElectricity))
+        .attr("height", d => height - yScale(d.percentWithoutElectricity));
 
-// Bars for percentage with electricity
-svg.selectAll(".bar-with")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("class", "bar-with")
-    .attr("x", d => xScale(d.year))
-    .attr("y", height) // Start from the bottom of the chart
-    .attr("width", xScale.bandwidth())
-    .attr("height", 0) // Start with height 0
-    .attr("fill", "steelblue") // Ensure this fill color is applied
-    .on("mouseover", function(event, d) {
-        tooltip.style("opacity", 1)
-            .html(`Year: ${d.year}<br>With Electricity: ${d.percentWithElectricity.toFixed(2)}%`)
-            .style("left", (event.pageX + 5) + "px")
-            .style("top", (event.pageY - 28) + "px");
-    })
-    .on("mouseout", function() {
-        tooltip.style("opacity", 0);
-    })
-    .transition()
-    .duration(1000) // 1 second animation
-    .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
-    .attr("y", d => yScale(d.percentWithoutElectricity + d.percentWithElectricity))
-    .attr("height", d => height - yScale(d.percentWithElectricity));
+    // Bars for percentage with electricity
+    svg.selectAll(".bar-with")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar-with")
+        .attr("x", d => xScale(d.year))
+        .attr("y", height) // Start from the bottom of the chart
+        .attr("width", xScale.bandwidth())
+        .attr("height", 0) // Start with height 0
+        .attr("fill", "steelblue") // Ensure this fill color is applied
+        .on("mouseover", function(event, d) {
+            tooltip.style("opacity", 1)
+                .html(`Year: ${d.year}<br>With Electricity: ${d.percentWithElectricity.toFixed(2)}%`)
+                .style("left", (event.pageX + 5) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function() {
+            tooltip.style("opacity", 0);
+        })
+        .transition()
+        .duration(1000) // 1 second animation
+        .delay((d, i) => i * 500) // Delay each bar by 0.5 seconds
+        .attr("y", d => yScale(d.percentWithoutElectricity + d.percentWithElectricity))
+        .attr("height", d => height - yScale(d.percentWithElectricity));
 
 }
 
@@ -137,6 +139,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    const target = document.querySelector('#adgang');
-    observer.observe(target);
 });
+
+animateCounter("adgangWorld", 500, "Personer"); // Specifik værdi for adgangWorld
+animateCounter("noadgangWorld", 1000, "Personer"); // Specifik værdi for noadgangWorld
+
+
+// Funktion til at animere op til et målnummer
+function animateCounter(elementId, targetNumber, unit) {
+const duration = 3000; // Animationens varighed i millisekunder
+const frameDuration = 1000 / 60; // Omtrentlig varighed for et frame ved 60fps
+const totalFrames = Math.round(duration / frameDuration);
+const easeOutQuad = t => t * (2 - t);
+
+let frame = 0;
+const counter = document.getElementById(elementId);
+const updateCounter = () => {
+    frame++;
+    const progress = easeOutQuad(frame / totalFrames);
+    const currentNumber = Math.round(targetNumber * progress);
+
+    counter.innerText = ` ${currentNumber.toLocaleString()} ${unit}`;
+
+    if (frame < totalFrames) {
+        requestAnimationFrame(updateCounter);
+    }
+};
+
+requestAnimationFrame(updateCounter);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up the Intersection Observer
+    const observerOptions = {
+        root: null, // Use the viewport as the root
+        rootMargin: '0px',
+        threshold: 0.5 // 50% of the element must be visible
+    };
+
+    const sectionTwo = document.querySelector('.two'); // Ændret fra '.three' til '.two'
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                loadElectricityChart(); // Ændret til loadElectricityChart()
+                observer.unobserve(sectionTwo); // Ændret til sectionTwo
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    // Start observationen
+    observer.observe(sectionTwo);
+});
+

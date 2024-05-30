@@ -585,3 +585,42 @@ rect {
     font-size: 18px; /* Adjust the font size as needed */
     color: rgb(0, 0, 0); /* Ensure the color matches the text box */
 }
+
+.adgang-small-text-boxes {
+    display: flex;
+    flex-direction: column;
+}
+
+.with-text-box,
+.no-text-box {
+    width: 200px;
+    height: 200px;
+    background-color: purple;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-left: 40%;
+    color: white;
+}
+
+.with-text-box h2,
+.no-text-box h2,
+.with-text-box span,
+.no-text-box span {
+    margin: 0;
+    color: white; /* Ensure text is visible against the purple background */
+    font-size: 10px; /* Adjust the font size as needed */
+    text-align: center;
+    margin: 0;
+    margin-top: 10px; /* Adjust this to control vertical spacing from the top */
+}
+
+.large-text-box h2{ 
+    font-size: 15px; /* Adjust the font size as needed */
+    text-align: center;
+    margin: 0;
+    margin-top: 10px; /* Adjust this to control vertical spacing from the top */
+}
