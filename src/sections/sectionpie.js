@@ -15,7 +15,7 @@ const height = 400;
 const radius = Math.min(width, height) / 2;
 const innerRadius = radius * 0.5; // Set the inner radius for the donut chart
 
-const customColors = ['#ff5733', '#ffa933', '#ffdb33', '#a3ff33', '#33ff73', '#33ffdd', '#337bff', '#7633ff', '#e933ff'];
+const customColors = ['#9c755f', '#b38f74', '#8f8974', '#6f9474', '#73947e', '#75948a', '#747f94', '#766794', '#947495'];
 const color = d3.scaleOrdinal(customColors);
 
 const svg = d3.select("#donutchart")

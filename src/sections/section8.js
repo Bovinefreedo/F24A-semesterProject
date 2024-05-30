@@ -223,7 +223,7 @@
       .attr("stroke-width", 2.5) // Increased line thickness
       .attr("d", line)
       .transition()
-      .duration(10000)
+      .duration(5000)
       .ease(d3.easeLinear)
       .attrTween("stroke-dasharray", function () {
         const length = this.getTotalLength();

@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const descriptionElement = document.getElementById('description');
 
     const question = {
-        text: "Vil vi i verden kunne have nok energi, hvis vi alle brugte så meget energi som en dansker?",
+        text: "Hvor tror du vi i Danmark får mest energi fra?",
         answers: [
-            { text: "Ja, vi ville have nok energi i verden", correct: true, description: "Korrekt! " },
-            { text: "Nej, vi ville ikke have nok energi i verden", correct: false, description: "Forkert! En gennemsnitlig person i verden brugte 167 Twh i år 2022, sammenlignet med en dansker som brugte 189 Twh"}
+            { text: "Vores energi kommer mest fra på bæredygtig energi", correct: false, description: "Forkert! Største delen kommer fra fossile brændstoffer" },
+            { text: "Vores energi kommer mest af fossile brændstoffer", correct: true, description: "Korrekt! Vi får det meste af vores energi fra fossile brændstoffer"}
         ]
     };
 
@@ -60,4 +60,24 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedButton.classList.add('wrong');
         }
     }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.header');
+    const firstSection = document.querySelector('.one');
+
+    window.addEventListener('scroll', function() {
+        // Get the scroll position
+        const scrollPosition = window.scrollY;
+
+        // Get the height of the first section
+        const firstSectionHeight = firstSection.offsetHeight;
+
+        // Toggle the visibility of the header based on the scroll position and section visibility
+        if (scrollPosition < firstSectionHeight) {
+            header.style.display = 'block';
+        } else {
+            header.style.display = 'none';
+        }
+    });
 });
