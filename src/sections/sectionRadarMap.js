@@ -50,8 +50,8 @@ function updateChart() {
 
     // Set up options for the radar chart
     var radarChartOptions = {
-        w: 600, // Width of the chart
-        h: 600, // Height of the chart
+        w: 400, // Width of the chart
+        h: 500, // Height of the chart
         margin: { top: 100, right: 100, bottom: 100, left: 100 }, // Margins around the chart
         maxValue: 60, // Maximum value for the scale
         levels: 3, // Number of levels/circles in the background
